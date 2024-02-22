@@ -101,6 +101,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ForgetPasswordPage',
           path: '/forgetPasswordPage',
           builder: (context, params) => ForgetPasswordPageWidget(),
+        ),
+        FFRoute(
+          name: 'ProductPage',
+          path: '/productPage',
+          builder: (context, params) => ProductPageWidget(
+            isEdit: params.getParam('isEdit', ParamType.bool),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
