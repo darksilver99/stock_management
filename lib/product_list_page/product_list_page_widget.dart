@@ -434,7 +434,10 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                         await listViewProductListRecord
                                             .reference
                                             .delete();
-                                        setState(() {});
+                                        if (Navigator.of(context).canPop()) {
+                                          context.pop();
+                                        }
+                                        context.pushNamed('ProductListPage');
                                       }
                                     },
                                     child: Column(
