@@ -67,7 +67,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                 widget.productDocument!.category;
           });
           setState(() {
-            _model.textController2?.text = widget.productDocument!.category;
+            _model.textController2?.text = widget.productDocument!.name;
           });
           setState(() {
             _model.textController3?.text =
