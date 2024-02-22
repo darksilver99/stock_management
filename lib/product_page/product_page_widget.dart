@@ -71,6 +71,7 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
           enableDrag: false,
+          useSafeArea: true,
           context: context,
           builder: (context) {
             return GestureDetector(
@@ -306,6 +307,7 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
                                     enableDrag: false,
+                                    useSafeArea: true,
                                     context: context,
                                     builder: (context) {
                                       return GestureDetector(
@@ -426,9 +428,24 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                               productId: _model.textController1.text,
                               productCategory: _model.dropDownValue,
                             ));
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('ตกลง'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                         context.safePop();
                       },
-                      text: 'Button',
+                      text: 'บันทึกข้อมูล',
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 40.0,
