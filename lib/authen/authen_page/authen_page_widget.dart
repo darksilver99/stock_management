@@ -600,8 +600,9 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 16.0),
                                                 child: FFButtonWidget(
-                                                  onPressed: () {
-                                                    print('Button pressed ...');
+                                                  onPressed: () async {
+                                                    context.pushNamed(
+                                                        'ForgetPasswordPage');
                                                   },
                                                   text: 'ลืมรหัสผ่าน',
                                                   options: FFButtonOptions(
