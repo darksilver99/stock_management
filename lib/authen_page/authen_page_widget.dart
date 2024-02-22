@@ -320,10 +320,6 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                       .emailAddressController,
                                                   focusNode: _model
                                                       .emailAddressFocusNode,
-                                                  autofocus: true,
-                                                  autofillHints: [
-                                                    AutofillHints.email
-                                                  ],
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     labelText: 'อีเมล',
@@ -419,9 +415,6 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                       _model.passwordController,
                                                   focusNode:
                                                       _model.passwordFocusNode,
-                                                  autofillHints: [
-                                                    AutofillHints.password
-                                                  ],
                                                   obscureText: !_model
                                                       .passwordVisibility,
                                                   decoration: InputDecoration(
@@ -679,10 +672,6 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                       .emailAddressCreateController,
                                                   focusNode: _model
                                                       .emailAddressCreateFocusNode,
-                                                  autofocus: true,
-                                                  autofillHints: [
-                                                    AutofillHints.email
-                                                  ],
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     labelText: 'อีเมล',
@@ -778,9 +767,6 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                       .passwordCreateController,
                                                   focusNode: _model
                                                       .passwordCreateFocusNode,
-                                                  autofillHints: [
-                                                    AutofillHints.password
-                                                  ],
                                                   obscureText: !_model
                                                       .passwordCreateVisibility,
                                                   decoration: InputDecoration(
@@ -895,9 +881,6 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                       .passwordConfirmController,
                                                   focusNode: _model
                                                       .passwordConfirmFocusNode,
-                                                  autofillHints: [
-                                                    AutofillHints.password
-                                                  ],
                                                   obscureText: !_model
                                                       .passwordConfirmVisibility,
                                                   decoration: InputDecoration(
