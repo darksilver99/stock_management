@@ -56,6 +56,11 @@ class ProductListRecord extends FirestoreRecord {
   String get productCategory => _productCategory ?? '';
   bool hasProductCategory() => _productCategory != null;
 
+  // "search_data" field.
+  String? _searchData;
+  String get searchData => _searchData ?? '';
+  bool hasSearchData() => _searchData != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -65,6 +70,7 @@ class ProductListRecord extends FirestoreRecord {
     _productName = snapshotData['product_name'] as String?;
     _productId = snapshotData['product_id'] as String?;
     _productCategory = snapshotData['product_category'] as String?;
+    _searchData = snapshotData['search_data'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -110,6 +116,7 @@ Map<String, dynamic> createProductListRecordData({
   String? productName,
   String? productId,
   String? productCategory,
+  String? searchData,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +128,7 @@ Map<String, dynamic> createProductListRecordData({
       'product_name': productName,
       'product_id': productId,
       'product_category': productCategory,
+      'search_data': searchData,
     }.withoutNulls,
   );
 
@@ -139,7 +147,8 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
         e1?.status == e2?.status &&
         e1?.productName == e2?.productName &&
         e1?.productId == e2?.productId &&
-        e1?.productCategory == e2?.productCategory;
+        e1?.productCategory == e2?.productCategory &&
+        e1?.searchData == e2?.searchData;
   }
 
   @override
@@ -151,7 +160,8 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
         e?.status,
         e?.productName,
         e?.productId,
-        e?.productCategory
+        e?.productCategory,
+        e?.searchData
       ]);
 
   @override

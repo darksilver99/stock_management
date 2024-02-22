@@ -439,6 +439,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             updateDate: getCurrentTimestamp,
                             productName: _model.textController2.text,
                             productCategory: _model.dropDownValue,
+                            searchData:
+                                '${_model.textController1.text} ${_model.textController2.text}',
                           ));
                           await showDialog(
                             context: context,
@@ -501,6 +503,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                   productName: _model.textController2.text,
                                   productId: _model.textController1.text,
                                   productCategory: _model.dropDownValue,
+                                  searchData:
+                                      '${_model.textController1.text} ${_model.textController2.text}',
                                 ));
                             await showDialog(
                               context: context,
