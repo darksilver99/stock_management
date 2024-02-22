@@ -436,7 +436,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                         readOnly: widget.productDocument != null,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'จำนวน',
+                          labelText: widget.productDocument != null
+                              ? 'คงเหลือ'
+                              : 'จำนวน',
                           labelStyle: FlutterFlowTheme.of(context).labelMedium,
                           hintStyle: FlutterFlowTheme.of(context).labelMedium,
                           enabledBorder: OutlineInputBorder(
