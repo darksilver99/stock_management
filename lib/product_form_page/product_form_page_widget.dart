@@ -69,6 +69,10 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
           setState(() {
             _model.textController2?.text = widget.productDocument!.category;
           });
+          setState(() {
+            _model.textController3?.text =
+                widget.productDocument!.stock.toString();
+          });
           if (widget.productDocument?.photo != null &&
               widget.productDocument?.photo != '') {
             setState(() {
