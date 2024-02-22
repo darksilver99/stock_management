@@ -167,7 +167,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                           color: Colors.transparent,
                           elevation: 3.0,
                           child: Container(
-                            width: 100.0,
+                            width: double.infinity,
                             height: 100.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
