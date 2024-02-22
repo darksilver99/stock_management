@@ -343,11 +343,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                           )
                           .where(
                             'search_data',
-                            isGreaterThanOrEqualTo: _model.textController.text,
-                          )
-                          .where(
-                            'search_data',
-                            isLessThanOrEqualTo: _model.textController.text,
+                            arrayContains: _model.textController.text,
                           )
                           .orderBy('search_data'),
                     ),

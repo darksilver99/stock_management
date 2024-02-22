@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -434,14 +435,19 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                           return;
                         }
                         if (widget.productDocument != null) {
-                          await widget.productDocument!.reference
-                              .update(createProductListRecordData(
-                            updateDate: getCurrentTimestamp,
-                            productName: _model.textController2.text,
-                            productCategory: _model.dropDownValue,
-                            searchData:
-                                '${_model.textController1.text} ${_model.textController2.text}',
-                          ));
+                          await widget.productDocument!.reference.update({
+                            ...createProductListRecordData(
+                              updateDate: getCurrentTimestamp,
+                              productName: _model.textController2.text,
+                              productCategory: _model.dropDownValue,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'search_data': functions.splitThaiWordIntoSyllables(
+                                    '${_model.textController1.text} ${_model.textController2.text}'),
+                              },
+                            ),
+                          });
                           await showDialog(
                             context: context,
                             builder: (alertDialogContext) {
@@ -494,18 +500,23 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               },
                             );
                           } else {
-                            await ProductListRecord.collection
-                                .doc()
-                                .set(createProductListRecordData(
-                                  createDate: getCurrentTimestamp,
-                                  createBy: currentUserReference,
-                                  status: 1,
-                                  productName: _model.textController2.text,
-                                  productId: _model.textController1.text,
-                                  productCategory: _model.dropDownValue,
-                                  searchData:
-                                      '${_model.textController1.text} ${_model.textController2.text}',
-                                ));
+                            await ProductListRecord.collection.doc().set({
+                              ...createProductListRecordData(
+                                createDate: getCurrentTimestamp,
+                                createBy: currentUserReference,
+                                status: 1,
+                                productName: _model.textController2.text,
+                                productId: _model.textController1.text,
+                                productCategory: _model.dropDownValue,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'search_data':
+                                      functions.splitThaiWordIntoSyllables(
+                                          '${_model.textController1.text} ${_model.textController2.text}'),
+                                },
+                              ),
+                            });
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
