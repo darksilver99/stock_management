@@ -183,297 +183,178 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                   ],
                 ),
               ),
-              if (_model.textController.text == null ||
-                  _model.textController.text == '')
-                Expanded(
-                  child: PagedListView<DocumentSnapshot<Object?>?,
-                      ProductListRecord>.separated(
-                    pagingController: _model.setListViewController1(
-                      ProductListRecord.collection
-                          .where(
-                            'create_by',
-                            isEqualTo: currentUserReference,
-                          )
-                          .where(
-                            'status',
-                            isEqualTo: 1,
-                          )
-                          .orderBy('create_date', descending: true),
-                    ),
-                    padding: EdgeInsets.fromLTRB(
-                      0,
-                      8.0,
-                      0,
-                      16.0,
-                    ),
-                    reverse: false,
-                    scrollDirection: Axis.vertical,
-                    separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                    builderDelegate:
-                        PagedChildBuilderDelegate<ProductListRecord>(
-                      // Customize what your widget looks like when it's loading the first page.
-                      firstPageProgressIndicatorBuilder: (_) => Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
+              Expanded(
+                child: PagedListView<DocumentSnapshot<Object?>?,
+                    ProductListRecord>.separated(
+                  pagingController: _model.setListViewController(
+                    ProductListRecord.collection
+                        .where(
+                          'create_by',
+                          isEqualTo: currentUserReference,
+                        )
+                        .where(
+                          'status',
+                          isEqualTo: 1,
+                        )
+                        .orderBy('create_date', descending: true),
+                  ),
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    8.0,
+                    0,
+                    16.0,
+                  ),
+                  reverse: false,
+                  scrollDirection: Axis.vertical,
+                  separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                  builderDelegate: PagedChildBuilderDelegate<ProductListRecord>(
+                    // Customize what your widget looks like when it's loading the first page.
+                    firstPageProgressIndicatorBuilder: (_) => Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
                           ),
                         ),
                       ),
-                      // Customize what your widget looks like when it's loading another page.
-                      newPageProgressIndicatorBuilder: (_) => Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
+                    ),
+                    // Customize what your widget looks like when it's loading another page.
+                    newPageProgressIndicatorBuilder: (_) => Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
                           ),
                         ),
                       ),
+                    ),
 
-                      itemBuilder: (context, _, listViewIndex) {
-                        final listViewProductListRecord = _model
-                            .listViewPagingController1!
-                            .itemList![listViewIndex];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 3.0,
-                            child: Container(
-                              width: double.infinity,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            listViewProductListRecord
-                                                .productName,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                              'ProductFormPage',
-                                              queryParameters: {
-                                                'productDocument':
-                                                    serializeParam(
-                                                  listViewProductListRecord,
-                                                  ParamType.Document,
-                                                ),
-                                              }.withoutNulls,
-                                              extra: <String, dynamic>{
-                                                'productDocument':
-                                                    listViewProductListRecord,
-                                              },
-                                            );
-                                          },
-                                          child: Column(
+                    itemBuilder: (context, _, listViewIndex) {
+                      final listViewProductListRecord = _model
+                          .listViewPagingController!.itemList![listViewIndex];
+                      return Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 3.0,
+                          child: Container(
+                            width: double.infinity,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Icon(
-                                                Icons.edit_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                              Text(
-                                                'แก้ไข',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 10.0,
-                                                        ),
+                                              Expanded(
+                                                child: Text(
+                                                  'รหัสสินค้า ${listViewProductListRecord.productId}',
+                                                  maxLines: 1,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 22.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              if (_model.textController.text != null &&
-                  _model.textController.text != '')
-                Expanded(
-                  child: PagedListView<DocumentSnapshot<Object?>?,
-                      ProductListRecord>.separated(
-                    pagingController: _model.setListViewController2(
-                      ProductListRecord.collection
-                          .where(
-                            'create_by',
-                            isEqualTo: currentUserReference,
-                          )
-                          .where(
-                            'status',
-                            isEqualTo: 1,
-                          )
-                          .where(
-                            'search_data',
-                            arrayContains: _model.textController.text,
-                          )
-                          .orderBy('search_data'),
-                    ),
-                    padding: EdgeInsets.fromLTRB(
-                      0,
-                      8.0,
-                      0,
-                      16.0,
-                    ),
-                    shrinkWrap: true,
-                    reverse: false,
-                    scrollDirection: Axis.vertical,
-                    separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                    builderDelegate:
-                        PagedChildBuilderDelegate<ProductListRecord>(
-                      // Customize what your widget looks like when it's loading the first page.
-                      firstPageProgressIndicatorBuilder: (_) => Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      ),
-                      // Customize what your widget looks like when it's loading another page.
-                      newPageProgressIndicatorBuilder: (_) => Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      itemBuilder: (context, _, listViewIndex) {
-                        final listViewProductListRecord = _model
-                            .listViewPagingController2!
-                            .itemList![listViewIndex];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 3.0,
-                            child: Container(
-                              width: double.infinity,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            listViewProductListRecord
-                                                .productName,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                              'ProductFormPage',
-                                              queryParameters: {
-                                                'productDocument':
-                                                    serializeParam(
-                                                  listViewProductListRecord,
-                                                  ParamType.Document,
-                                                ),
-                                              }.withoutNulls,
-                                              extra: <String, dynamic>{
-                                                'productDocument':
-                                                    listViewProductListRecord,
-                                              },
-                                            );
-                                          },
-                                          child: Column(
+                                          Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Icon(
-                                                Icons.edit_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                              Text(
-                                                'แก้ไข',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 10.0,
-                                                        ),
+                                              Expanded(
+                                                child: Text(
+                                                  listViewProductListRecord
+                                                      .name,
+                                                  maxLines: 1,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 18.0,
+                                                      ),
+                                                ),
                                               ),
                                             ],
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'ProductFormPage',
+                                        queryParameters: {
+                                          'productDocument': serializeParam(
+                                            listViewProductListRecord,
+                                            ParamType.Document,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          'productDocument':
+                                              listViewProductListRecord,
+                                        },
+                                      );
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.edit_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
+                                        ),
+                                        Text(
+                                          'แก้ไข',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                fontSize: 10.0,
+                                              ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ),
+              ),
             ],
           ),
         ),
