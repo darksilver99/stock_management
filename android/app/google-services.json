@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "888557168638",
+    "project_id": "stock-management-24cnak",
+    "storage_bucket": "stock-management-24cnak.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888557168638:android:ee3a16d113c72c316302af",
+        "android_client_info": {
+          "package_name": "com.silver.stockmanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjteecFB6lcfQ-CqNTsf0KzGVy8DCIVhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
