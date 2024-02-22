@@ -417,33 +417,69 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                           );
                           return;
                         }
-
-                        await ProductListRecord.collection
-                            .doc()
-                            .set(createProductListRecordData(
-                              createDate: getCurrentTimestamp,
-                              createBy: currentUserReference,
-                              status: 1,
-                              productName: _model.textController2.text,
-                              productId: _model.textController1.text,
-                              productCategory: _model.dropDownValue,
-                            ));
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return AlertDialog(
-                              title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('ตกลง'),
-                                ),
-                              ],
+                        if (!widget.isEdit) {
+                          _model.isDuplicate = await queryProductListRecordOnce(
+                            queryBuilder: (productListRecord) =>
+                                productListRecord
+                                    .where(
+                                      'create_by',
+                                      isEqualTo: currentUserReference,
+                                    )
+                                    .where(
+                                      'product_id',
+                                      isEqualTo: _model.textController1.text,
+                                    ),
+                            singleRecord: true,
+                          ).then((s) => s.firstOrNull);
+                          if (_model.isDuplicate != null) {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('รหัสสินค้าซ้ำ'),
+                                  content: Text(
+                                      'ชื่อสินค้า : ${_model.isDuplicate?.productName}หมวด : ${_model.isDuplicate?.productCategory}'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
                             );
-                          },
-                        );
-                        context.safePop();
+                          } else {
+                            await ProductListRecord.collection
+                                .doc()
+                                .set(createProductListRecordData(
+                                  createDate: getCurrentTimestamp,
+                                  createBy: currentUserReference,
+                                  status: 1,
+                                  productName: _model.textController2.text,
+                                  productId: _model.textController1.text,
+                                  productCategory: _model.dropDownValue,
+                                ));
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('ตกลง'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            context.safePop();
+                          }
+                        }
+
+                        setState(() {});
                       },
                       text: 'บันทึกข้อมูล',
                       options: FFButtonOptions(
