@@ -541,7 +541,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                             await FirebaseStorage.instance
                                                 .refFromURL(_model.image!)
                                                 .delete();
-                                            setState(() {});
+                                            setState(() {
+                                              _model.image = null;
+                                            });
                                           },
                                           child: Icon(
                                             Icons.cancel_rounded,
