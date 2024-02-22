@@ -54,7 +54,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
         padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
         child: Container(
           width: double.infinity,
-          height: MediaQuery.sizeOf(context).height * 0.8,
+          height: MediaQuery.sizeOf(context).height * 0.7,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.only(
@@ -223,136 +223,139 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                     ),
                   ),
                 ),
-                StreamBuilder<List<CategoryListRecord>>(
-                  stream: queryCategoryListRecord(
-                    queryBuilder: (categoryListRecord) =>
-                        categoryListRecord.where(
-                      'create_by',
-                      isEqualTo: currentUserReference,
+                Expanded(
+                  child: StreamBuilder<List<CategoryListRecord>>(
+                    stream: queryCategoryListRecord(
+                      queryBuilder: (categoryListRecord) =>
+                          categoryListRecord.where(
+                        'create_by',
+                        isEqualTo: currentUserReference,
+                      ),
+                      singleRecord: true,
                     ),
-                    singleRecord: true,
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }
-                    List<CategoryListRecord> listViewCategoryListRecordList =
-                        snapshot.data!;
-                    // Return an empty Container when the item does not exist.
-                    if (snapshot.data!.isEmpty) {
-                      return Container();
-                    }
-                    final listViewCategoryListRecord =
-                        listViewCategoryListRecordList.isNotEmpty
-                            ? listViewCategoryListRecordList.first
-                            : null;
-                    return Builder(
-                      builder: (context) {
-                        final cateList =
-                            listViewCategoryListRecord?.nameList?.toList() ??
-                                [];
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: cateList.length,
-                          itemBuilder: (context, cateListIndex) {
-                            final cateListItem = cateList[cateListIndex];
-                            return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 8.0, 0.0),
-                                      child: Text(
-                                        cateListItem,
-                                        maxLines: 1,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              fontSize: 20.0,
-                                            ),
+                        );
+                      }
+                      List<CategoryListRecord> listViewCategoryListRecordList =
+                          snapshot.data!;
+                      // Return an empty Container when the item does not exist.
+                      if (snapshot.data!.isEmpty) {
+                        return Container();
+                      }
+                      final listViewCategoryListRecord =
+                          listViewCategoryListRecordList.isNotEmpty
+                              ? listViewCategoryListRecordList.first
+                              : null;
+                      return Builder(
+                        builder: (context) {
+                          final cateList =
+                              listViewCategoryListRecord?.nameList?.toList() ??
+                                  [];
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.vertical,
+                            itemCount: cateList.length,
+                            itemBuilder: (context, cateListIndex) {
+                              final cateListItem = cateList[cateListIndex];
+                              return Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: Text(
+                                          cateListItem,
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                fontSize: 20.0,
+                                              ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      var confirmDialogResponse =
-                                          await showDialog<bool>(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'ต้องการลบ \"${cateListItem}\" ?'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                false),
-                                                        child: Text('ยกเลิก'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                true),
-                                                        child: Text('ยืนยัน'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              ) ??
-                                              false;
-                                      if (confirmDialogResponse) {
-                                        await listViewCategoryListRecord!
-                                            .reference
-                                            .update({
-                                          ...mapToFirestore(
-                                            {
-                                              'name_list':
-                                                  FieldValue.arrayRemove(
-                                                      [cateListItem]),
-                                            },
-                                          ),
-                                        });
-                                      }
-                                      setState(() {});
-                                    },
-                                    child: Icon(
-                                      Icons.delete_forever,
-                                      color: FlutterFlowTheme.of(context).error,
-                                      size: 32.0,
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        var confirmDialogResponse =
+                                            await showDialog<bool>(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                          'ต้องการลบ \"${cateListItem}\" ?'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  false),
+                                                          child: Text('ยกเลิก'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  true),
+                                                          child: Text('ยืนยัน'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ) ??
+                                                false;
+                                        if (confirmDialogResponse) {
+                                          await listViewCategoryListRecord!
+                                              .reference
+                                              .update({
+                                            ...mapToFirestore(
+                                              {
+                                                'name_list':
+                                                    FieldValue.arrayRemove(
+                                                        [cateListItem]),
+                                              },
+                                            ),
+                                          });
+                                        }
+                                        setState(() {});
+                                      },
+                                      child: Icon(
+                                        Icons.delete_forever,
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        size: 32.0,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
               ]
                   .addToStart(SizedBox(height: 16.0))
