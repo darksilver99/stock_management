@@ -69,6 +69,12 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
           setState(() {
             _model.textController2?.text = widget.productDocument!.category;
           });
+          if (widget.productDocument?.photo != null &&
+              widget.productDocument?.photo != '') {
+            setState(() {
+              _model.image = widget.productDocument?.photo;
+            });
+          }
         }
       } else {
         await showDialog(
