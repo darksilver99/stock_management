@@ -1,20 +1,24 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/category_view_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'product_form_page_model.dart';
 export 'product_form_page_model.dart';
@@ -60,10 +64,10 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
           });
           setState(() {
             _model.dropDownValueController?.value =
-                widget.productDocument!.productCategory;
+                widget.productDocument!.category;
           });
           setState(() {
-            _model.textController2?.text = widget.productDocument!.productName;
+            _model.textController2?.text = widget.productDocument!.category;
           });
         }
       } else {
@@ -109,6 +113,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
+    _model.textController3 ??= TextEditingController();
+    _model.textFieldFocusNode3 ??= FocusNode();
   }
 
   @override
@@ -410,6 +417,271 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             .asValidator(context),
                       ),
                     ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                      child: TextFormField(
+                        controller: _model.textController3,
+                        focusNode: _model.textFieldFocusNode3,
+                        readOnly: widget.productDocument != null,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'จำนวน',
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          filled: true,
+                          fillColor: widget.productDocument != null
+                              ? FlutterFlowTheme.of(context).alternate
+                              : FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        keyboardType: TextInputType.number,
+                        validator: _model.textController3Validator
+                            .asValidator(context),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp('[a-zA-Z0-9]'))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (_model.image != null && _model.image != '')
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 8.0, 0.0),
+                              child: Container(
+                                width: 80.0,
+                                height: 80.0,
+                                child: Stack(
+                                  children: [
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: FlutterFlowExpandedImageView(
+                                              image: Image.network(
+                                                _model.image!,
+                                                fit: BoxFit.contain,
+                                              ),
+                                              allowRotation: false,
+                                              tag: _model.image!,
+                                              useHeroAnimation: true,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Hero(
+                                        tag: _model.image!,
+                                        transitionOnUserGestures: true,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            _model.image!,
+                                            width: 80.0,
+                                            height: 80.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(1.0, -1.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 4.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await FirebaseStorage.instance
+                                                .refFromURL(_model.image!)
+                                                .delete();
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.cancel_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          if (_model.image == null || _model.image == '')
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 8.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  final selectedMedia =
+                                      await selectMediaWithSourceBottomSheet(
+                                    context: context,
+                                    maxWidth: 600.00,
+                                    imageQuality: 80,
+                                    allowPhoto: true,
+                                  );
+                                  if (selectedMedia != null &&
+                                      selectedMedia.every((m) =>
+                                          validateFileFormat(
+                                              m.storagePath, context))) {
+                                    setState(
+                                        () => _model.isDataUploading = true);
+                                    var selectedUploadedFiles =
+                                        <FFUploadedFile>[];
+
+                                    var downloadUrls = <String>[];
+                                    try {
+                                      selectedUploadedFiles = selectedMedia
+                                          .map((m) => FFUploadedFile(
+                                                name: m.storagePath
+                                                    .split('/')
+                                                    .last,
+                                                bytes: m.bytes,
+                                                height: m.dimensions?.height,
+                                                width: m.dimensions?.width,
+                                                blurHash: m.blurHash,
+                                              ))
+                                          .toList();
+
+                                      downloadUrls = (await Future.wait(
+                                        selectedMedia.map(
+                                          (m) async => await uploadData(
+                                              m.storagePath, m.bytes),
+                                        ),
+                                      ))
+                                          .where((u) => u != null)
+                                          .map((u) => u!)
+                                          .toList();
+                                    } finally {
+                                      _model.isDataUploading = false;
+                                    }
+                                    if (selectedUploadedFiles.length ==
+                                            selectedMedia.length &&
+                                        downloadUrls.length ==
+                                            selectedMedia.length) {
+                                      setState(() {
+                                        _model.uploadedLocalFile =
+                                            selectedUploadedFiles.first;
+                                        _model.uploadedFileUrl =
+                                            downloadUrls.first;
+                                      });
+                                    } else {
+                                      setState(() {});
+                                      return;
+                                    }
+                                  }
+
+                                  if (_model.uploadedFileUrl != null &&
+                                      _model.uploadedFileUrl != '') {
+                                    setState(() {
+                                      _model.image = _model.uploadedFileUrl;
+                                    });
+                                    setState(() {
+                                      _model.isDataUploading = false;
+                                      _model.uploadedLocalFile = FFUploadedFile(
+                                          bytes: Uint8List.fromList([]));
+                                      _model.uploadedFileUrl = '';
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(0.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  child: Icon(
+                                    Icons.image_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 36.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Text(
+                                    'อัพโหลดภาพสินค้า รองรับ .jpg, .png จำกัดจำนวน 1 รูป',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     FFButtonWidget(
                       onPressed: () async {
                         if (_model.formKey.currentState == null ||
@@ -435,19 +707,13 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                           return;
                         }
                         if (widget.productDocument != null) {
-                          await widget.productDocument!.reference.update({
-                            ...createProductListRecordData(
-                              updateDate: getCurrentTimestamp,
-                              productName: _model.textController2.text,
-                              productCategory: _model.dropDownValue,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'search_data': functions.splitThaiWordIntoSyllables(
-                                    '${_model.textController1.text} ${_model.textController2.text}'),
-                              },
-                            ),
-                          });
+                          await widget.productDocument!.reference
+                              .update(createProductListRecordData(
+                            updateDate: getCurrentTimestamp,
+                            name: _model.textController2.text,
+                            category: _model.dropDownValue,
+                            photo: _model.image,
+                          ));
                           await showDialog(
                             context: context,
                             builder: (alertDialogContext) {
@@ -488,7 +754,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                 return AlertDialog(
                                   title: Text('รหัสสินค้าซ้ำ'),
                                   content: Text(
-                                      'ชื่อสินค้า : ${_model.isDuplicate?.productName}หมวด : ${_model.isDuplicate?.productCategory}'),
+                                      'ชื่อสินค้า : ${_model.isDuplicate?.name}หมวด : ${_model.isDuplicate?.category}'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
@@ -500,23 +766,19 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               },
                             );
                           } else {
-                            await ProductListRecord.collection.doc().set({
-                              ...createProductListRecordData(
-                                createDate: getCurrentTimestamp,
-                                createBy: currentUserReference,
-                                status: 1,
-                                productName: _model.textController2.text,
-                                productId: _model.textController1.text,
-                                productCategory: _model.dropDownValue,
-                              ),
-                              ...mapToFirestore(
-                                {
-                                  'search_data':
-                                      functions.splitThaiWordIntoSyllables(
-                                          '${_model.textController1.text} ${_model.textController2.text}'),
-                                },
-                              ),
-                            });
+                            await ProductListRecord.collection
+                                .doc()
+                                .set(createProductListRecordData(
+                                  createDate: getCurrentTimestamp,
+                                  createBy: currentUserReference,
+                                  status: 1,
+                                  productId: _model.textController1.text,
+                                  name: _model.textController2.text,
+                                  category: _model.dropDownValue,
+                                  stock:
+                                      int.tryParse(_model.textController3.text),
+                                  photo: _model.image,
+                                ));
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {

@@ -41,25 +41,30 @@ class ProductListRecord extends FirestoreRecord {
   int get status => _status ?? 0;
   bool hasStatus() => _status != null;
 
-  // "product_name" field.
-  String? _productName;
-  String get productName => _productName ?? '';
-  bool hasProductName() => _productName != null;
-
   // "product_id" field.
   String? _productId;
   String get productId => _productId ?? '';
   bool hasProductId() => _productId != null;
 
-  // "product_category" field.
-  String? _productCategory;
-  String get productCategory => _productCategory ?? '';
-  bool hasProductCategory() => _productCategory != null;
+  // "category" field.
+  String? _category;
+  String get category => _category ?? '';
+  bool hasCategory() => _category != null;
 
-  // "search_data" field.
-  List<String>? _searchData;
-  List<String> get searchData => _searchData ?? const [];
-  bool hasSearchData() => _searchData != null;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
+
+  // "stock" field.
+  int? _stock;
+  int get stock => _stock ?? 0;
+  bool hasStock() => _stock != null;
+
+  // "photo" field.
+  String? _photo;
+  String get photo => _photo ?? '';
+  bool hasPhoto() => _photo != null;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
@@ -67,10 +72,11 @@ class ProductListRecord extends FirestoreRecord {
     _updateDate = snapshotData['update_date'] as DateTime?;
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _status = castToType<int>(snapshotData['status']);
-    _productName = snapshotData['product_name'] as String?;
     _productId = snapshotData['product_id'] as String?;
-    _productCategory = snapshotData['product_category'] as String?;
-    _searchData = getDataList(snapshotData['search_data']);
+    _category = snapshotData['category'] as String?;
+    _name = snapshotData['name'] as String?;
+    _stock = castToType<int>(snapshotData['stock']);
+    _photo = snapshotData['photo'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -113,9 +119,11 @@ Map<String, dynamic> createProductListRecordData({
   DateTime? updateDate,
   DateTime? deleteDate,
   int? status,
-  String? productName,
   String? productId,
-  String? productCategory,
+  String? category,
+  String? name,
+  int? stock,
+  String? photo,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -124,9 +132,11 @@ Map<String, dynamic> createProductListRecordData({
       'update_date': updateDate,
       'delete_date': deleteDate,
       'status': status,
-      'product_name': productName,
       'product_id': productId,
-      'product_category': productCategory,
+      'category': category,
+      'name': name,
+      'stock': stock,
+      'photo': photo,
     }.withoutNulls,
   );
 
@@ -138,16 +148,16 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
 
   @override
   bool equals(ProductListRecord? e1, ProductListRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
         e1?.updateDate == e2?.updateDate &&
         e1?.deleteDate == e2?.deleteDate &&
         e1?.status == e2?.status &&
-        e1?.productName == e2?.productName &&
         e1?.productId == e2?.productId &&
-        e1?.productCategory == e2?.productCategory &&
-        listEquality.equals(e1?.searchData, e2?.searchData);
+        e1?.category == e2?.category &&
+        e1?.name == e2?.name &&
+        e1?.stock == e2?.stock &&
+        e1?.photo == e2?.photo;
   }
 
   @override
@@ -157,10 +167,11 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
         e?.updateDate,
         e?.deleteDate,
         e?.status,
-        e?.productName,
         e?.productId,
-        e?.productCategory,
-        e?.searchData
+        e?.category,
+        e?.name,
+        e?.stock,
+        e?.photo
       ]);
 
   @override
