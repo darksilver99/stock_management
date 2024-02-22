@@ -273,7 +273,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
-                                                        fontSize: 22.0,
+                                                        fontSize: 20.0,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -300,6 +300,99 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                               ),
                                             ],
                                           ),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Text(
+                                                      'คงเหลือ ${formatNumber(
+                                                        listViewProductListRecord
+                                                            .stock,
+                                                        formatType:
+                                                            FormatType.decimal,
+                                                        decimalType: DecimalType
+                                                            .automatic,
+                                                      )}',
+                                                      maxLines: 1,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Text(
+                                                    'วันที่อัพเดทล่าสุด ${dateTimeFormat('d/M/y', listViewProductListRecord.updateDate)} ${dateTimeFormat('Hm', listViewProductListRecord.updateDate)}',
+                                                    maxLines: 1,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 12.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 8.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          'ProductFormPage',
+                                          queryParameters: {
+                                            'productDocument': serializeParam(
+                                              listViewProductListRecord,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'productDocument':
+                                                listViewProductListRecord,
+                                          },
+                                        );
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.edit_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          Text(
+                                            'แก้ไข',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 10.0,
+                                                ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -310,31 +403,52 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed(
-                                        'ProductFormPage',
-                                        queryParameters: {
-                                          'productDocument': serializeParam(
-                                            listViewProductListRecord,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'productDocument':
-                                              listViewProductListRecord,
-                                        },
-                                      );
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        'ยืนยันการลบ \"${listViewProductListRecord.name}\" ?'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: Text('ยกเลิก'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: Text('ยืนยัน'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
+                                        await listViewProductListRecord
+                                            .reference
+                                            .delete();
+                                        setState(() {});
+                                      }
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Icon(
-                                          Icons.edit_rounded,
+                                          Icons.delete_rounded,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           size: 24.0,
                                         ),
                                         Text(
-                                          'แก้ไข',
+                                          'ลบ',
+                                          textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
