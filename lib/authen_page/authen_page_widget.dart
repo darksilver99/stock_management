@@ -238,8 +238,8 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                   color: _model.create == false
                                                       ? FlutterFlowTheme.of(
                                                               context)
-                                                          .primary
-                                                      : Color(0xFF57636C),
+                                                          .primaryText
+                                                      : Color(0xFFA8A8A8),
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
@@ -270,8 +270,8 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                   color: _model.create == true
                                                       ? FlutterFlowTheme.of(
                                                               context)
-                                                          .primary
-                                                      : Color(0xFF57636C),
+                                                          .primaryText
+                                                      : Color(0xFFA8A8A8),
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
