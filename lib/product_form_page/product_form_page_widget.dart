@@ -725,8 +725,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               .update(createProductListRecordData(
                             updateDate: getCurrentTimestamp,
                             name: _model.textController2.text,
-                            category: _model.dropDownValue,
                             photo: _model.image,
+                            category: _model.dropDownValue,
                           ));
                           await showDialog(
                             context: context,
