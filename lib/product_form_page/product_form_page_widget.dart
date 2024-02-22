@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -432,7 +433,33 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                           );
                           return;
                         }
-                        if (!(widget.productDocument != null)) {
+                        if (widget.productDocument != null) {
+                          await widget.productDocument!.reference
+                              .update(createProductListRecordData(
+                            updateDate: getCurrentTimestamp,
+                            productName: _model.textController2.text,
+                            productCategory: _model.dropDownValue,
+                          ));
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('ตกลง'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          await actions.pushReplacementNamed(
+                            context,
+                            'HomePage',
+                          );
+                        } else {
                           _model.isDuplicate = await queryProductListRecordOnce(
                             queryBuilder: (productListRecord) =>
                                 productListRecord
@@ -490,7 +517,10 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                 );
                               },
                             );
-                            context.safePop();
+                            await actions.pushReplacementNamed(
+                              context,
+                              'HomePage',
+                            );
                           }
                         }
 
