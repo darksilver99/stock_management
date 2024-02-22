@@ -792,6 +792,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                   stock:
                                       int.tryParse(_model.textController3.text),
                                   photo: _model.image,
+                                  updateDate: getCurrentTimestamp,
                                 ));
                             await showDialog(
                               context: context,
