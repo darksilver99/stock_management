@@ -67,7 +67,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                 widget.productDocument!.category;
           });
           setState(() {
-            _model.textController2?.text = widget.productDocument!.category;
+            _model.textController2?.text = widget.productDocument!.name;
           });
           setState(() {
             _model.textController3?.text =
@@ -725,8 +725,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               .update(createProductListRecordData(
                             updateDate: getCurrentTimestamp,
                             name: _model.textController2.text,
-                            category: _model.dropDownValue,
                             photo: _model.image,
+                            category: _model.dropDownValue,
                           ));
                           await showDialog(
                             context: context,
