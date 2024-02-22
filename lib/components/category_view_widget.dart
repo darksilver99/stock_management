@@ -199,7 +199,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                           },
                           text: 'เพิ่ม',
                           options: FFButtonOptions(
-                            height: 48.0,
+                            height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(

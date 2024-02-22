@@ -397,6 +397,24 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                             !_model.formKey.currentState!.validate()) {
                           return;
                         }
+                        if (_model.dropDownValue == null) {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('เลือกหมวดหมู่'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('ตกลง'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          return;
+                        }
 
                         await ProductListRecord.collection
                             .doc()
