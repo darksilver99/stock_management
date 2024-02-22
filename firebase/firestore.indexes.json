@@ -29,10 +29,6 @@
         {
           "fieldPath": "status",
           "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "search_data",
-          "order": "ASCENDING"
         }
       ]
     }
