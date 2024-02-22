@@ -242,46 +242,53 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                                 );
                               }
                               List<CategoryListRecord>
-                                  dropDownCategoryListRecordList =
-                                  snapshot.data!;
+                                  columnCategoryListRecordList = snapshot.data!;
                               // Return an empty Container when the item does not exist.
                               if (snapshot.data!.isEmpty) {
                                 return Container();
                               }
-                              final dropDownCategoryListRecord =
-                                  dropDownCategoryListRecordList.isNotEmpty
-                                      ? dropDownCategoryListRecordList.first
+                              final columnCategoryListRecord =
+                                  columnCategoryListRecordList.isNotEmpty
+                                      ? columnCategoryListRecordList.first
                                       : null;
-                              return FlutterFlowDropDown<String>(
-                                controller: _model.dropDownValueController ??=
-                                    FormFieldController<String>(null),
-                                options: dropDownCategoryListRecord!.nameList,
-                                onChanged: (val) =>
-                                    setState(() => _model.dropDownValue = val),
-                                width: double.infinity,
-                                height: 50.0,
-                                textStyle:
-                                    FlutterFlowTheme.of(context).bodyMedium,
-                                hintText: 'เลือกหมวดหมู่',
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                elevation: 2.0,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                borderWidth: 2.0,
-                                borderRadius: 8.0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 4.0, 16.0, 4.0),
-                                hidesUnderline: true,
-                                isOverButton: true,
-                                isSearchable: false,
-                                isMultiSelect: false,
+                              return Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  if (columnCategoryListRecord != null)
+                                    FlutterFlowDropDown<String>(
+                                      controller:
+                                          _model.dropDownValueController ??=
+                                              FormFieldController<String>(null),
+                                      options:
+                                          columnCategoryListRecord!.nameList,
+                                      onChanged: (val) => setState(
+                                          () => _model.dropDownValue = val),
+                                      width: double.infinity,
+                                      height: 50.0,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                      hintText: 'เลือกหมวดหมู่',
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      elevation: 2.0,
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      borderWidth: 2.0,
+                                      borderRadius: 8.0,
+                                      margin: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 4.0, 16.0, 4.0),
+                                      hidesUnderline: true,
+                                      isOverButton: true,
+                                      isSearchable: false,
+                                      isMultiSelect: false,
+                                    ),
+                                ],
                               );
                             },
                           ),
@@ -336,49 +343,94 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                         ],
                       ),
                     ),
-                    TextFormField(
-                      controller: _model.textController2,
-                      focusNode: _model.textFieldFocusNode2,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'ชื่อสินค้า',
-                        labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                        hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).alternate,
-                            width: 2.0,
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                      child: TextFormField(
+                        controller: _model.textController2,
+                        focusNode: _model.textFieldFocusNode2,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'ชื่อสินค้า',
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).alternate,
-                            width: 2.0,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).error,
-                            width: 2.0,
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).error,
-                            width: 2.0,
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          filled: true,
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                         ),
-                        filled: true,
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        validator: _model.textController2Validator
+                            .asValidator(context),
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium,
-                      validator:
-                          _model.textController2Validator.asValidator(context),
+                    ),
+                    FFButtonWidget(
+                      onPressed: () async {
+                        if (_model.formKey.currentState == null ||
+                            !_model.formKey.currentState!.validate()) {
+                          return;
+                        }
+
+                        await ProductListRecord.collection
+                            .doc()
+                            .set(createProductListRecordData(
+                              createDate: getCurrentTimestamp,
+                              createBy: currentUserReference,
+                              status: 1,
+                              productName: _model.textController2.text,
+                              productId: _model.textController1.text,
+                              productCategory: _model.dropDownValue,
+                            ));
+                        context.safePop();
+                      },
+                      text: 'Button',
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 40.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter',
+                                  color: Colors.white,
+                                ),
+                        elevation: 3.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ]
                       .addToStart(SizedBox(height: 16.0))
