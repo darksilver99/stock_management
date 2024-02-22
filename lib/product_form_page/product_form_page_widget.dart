@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -14,30 +15,30 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'product_page_model.dart';
-export 'product_page_model.dart';
+import 'product_form_page_model.dart';
+export 'product_form_page_model.dart';
 
-class ProductPageWidget extends StatefulWidget {
-  const ProductPageWidget({
+class ProductFormPageWidget extends StatefulWidget {
+  const ProductFormPageWidget({
     super.key,
-    bool? isEdit,
-  }) : this.isEdit = isEdit ?? false;
+    this.productDocument,
+  });
 
-  final bool isEdit;
+  final ProductListRecord? productDocument;
 
   @override
-  State<ProductPageWidget> createState() => _ProductPageWidgetState();
+  State<ProductFormPageWidget> createState() => _ProductFormPageWidgetState();
 }
 
-class _ProductPageWidgetState extends State<ProductPageWidget> {
-  late ProductPageModel _model;
+class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
+  late ProductFormPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProductPageModel());
+    _model = createModel(context, () => ProductFormPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -52,6 +53,18 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
         setState(() {
           _model.cateList = _model.rsCate!.nameList.toList().cast<String>();
         });
+        if (widget.productDocument != null) {
+          setState(() {
+            _model.textController1?.text = widget.productDocument!.productId;
+          });
+          setState(() {
+            _model.dropDownValueController?.value =
+                widget.productDocument!.productCategory;
+          });
+          setState(() {
+            _model.textController2?.text = widget.productDocument!.productName;
+          });
+        }
       } else {
         await showDialog(
           context: context,
@@ -142,7 +155,7 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
             },
           ),
           title: Text(
-            widget.isEdit ? 'แก้ไขสินค้า' : 'เพิ่มสินค้าใหม่',
+            widget.productDocument != null ? 'แก้ไขสินค้า' : 'เพิ่มสินค้าใหม่',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Readex Pro',
                   color: Colors.white,
@@ -170,6 +183,7 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                       child: TextFormField(
                         controller: _model.textController1,
                         focusNode: _model.textFieldFocusNode1,
+                        readOnly: widget.productDocument != null,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'รหัสสินค้า',
@@ -204,8 +218,10 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          fillColor: widget.productDocument != null
+                              ? FlutterFlowTheme.of(context).alternate
+                              : FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
                         validator: _model.textController1Validator
@@ -417,7 +433,33 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                           );
                           return;
                         }
-                        if (!widget.isEdit) {
+                        if (widget.productDocument != null) {
+                          await widget.productDocument!.reference
+                              .update(createProductListRecordData(
+                            updateDate: getCurrentTimestamp,
+                            productName: _model.textController2.text,
+                            productCategory: _model.dropDownValue,
+                          ));
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('ตกลง'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          await actions.pushReplacementNamed(
+                            context,
+                            'HomePage',
+                          );
+                        } else {
                           _model.isDuplicate = await queryProductListRecordOnce(
                             queryBuilder: (productListRecord) =>
                                 productListRecord
@@ -475,7 +517,10 @@ class _ProductPageWidgetState extends State<ProductPageWidget> {
                                 );
                               },
                             );
-                            context.safePop();
+                            await actions.pushReplacementNamed(
+                              context,
+                              'HomePage',
+                            );
                           }
                         }
 

@@ -79,15 +79,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed(
-                                  'ProductPage',
-                                  queryParameters: {
-                                    'isEdit': serializeParam(
-                                      false,
-                                      ParamType.bool,
-                                    ),
-                                  }.withoutNulls,
-                                );
+                                context.pushNamed('ProductListPage');
                               },
                               child: Material(
                                 color: Colors.transparent,

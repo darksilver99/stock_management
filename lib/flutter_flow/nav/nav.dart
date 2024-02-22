@@ -103,11 +103,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ForgetPasswordPageWidget(),
         ),
         FFRoute(
-          name: 'ProductPage',
-          path: '/productPage',
-          builder: (context, params) => ProductPageWidget(
-            isEdit: params.getParam('isEdit', ParamType.bool),
+          name: 'ProductFormPage',
+          path: '/productFormPage',
+          asyncParams: {
+            'productDocument':
+                getDoc(['product_list'], ProductListRecord.fromSnapshot),
+          },
+          builder: (context, params) => ProductFormPageWidget(
+            productDocument:
+                params.getParam('productDocument', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'ProductListPage',
+          path: '/productListPage',
+          builder: (context, params) => ProductListPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
