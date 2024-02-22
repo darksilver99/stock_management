@@ -100,16 +100,16 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [],
-                ),
-                Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [],
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                   child: PagedListView<DocumentSnapshot<Object?>?,
                       ProductListRecord>.separated(
                     pagingController: _model.setListViewController(
@@ -243,8 +243,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
