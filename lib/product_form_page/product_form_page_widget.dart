@@ -69,6 +69,16 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
           setState(() {
             _model.textController2?.text = widget.productDocument!.category;
           });
+          setState(() {
+            _model.textController3?.text =
+                widget.productDocument!.stock.toString();
+          });
+          if (widget.productDocument?.photo != null &&
+              widget.productDocument?.photo != '') {
+            setState(() {
+              _model.image = widget.productDocument?.photo;
+            });
+          }
         }
       } else {
         await showDialog(
@@ -426,7 +436,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                         readOnly: widget.productDocument != null,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'จำนวน',
+                          labelText: widget.productDocument != null
+                              ? 'คงเหลือ'
+                              : 'จำนวน',
                           labelStyle: FlutterFlowTheme.of(context).labelMedium,
                           hintStyle: FlutterFlowTheme.of(context).labelMedium,
                           enabledBorder: OutlineInputBorder(
