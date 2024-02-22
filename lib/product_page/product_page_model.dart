@@ -61,6 +61,9 @@ class ProductPageModel extends FlutterFlowModel<ProductPageWidget> {
     return null;
   }
 
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  ProductListRecord? isDuplicate;
+
   /// Initialization and disposal methods.
 
   @override
