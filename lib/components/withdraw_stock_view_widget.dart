@@ -239,6 +239,9 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                                         int.parse(_model.textController.text)),
                                     productRef:
                                         widget.productDocument?.reference,
+                                    productName: widget.productDocument?.name,
+                                    productId:
+                                        widget.productDocument?.productId,
                                   ));
                               Navigator.pop(context);
                             }

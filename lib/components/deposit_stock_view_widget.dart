@@ -214,6 +214,8 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                       widget.productDocument!.priceSell,
                                       int.parse(_model.textController.text)),
                                   productRef: widget.productDocument?.reference,
+                                  productName: widget.productDocument?.name,
+                                  productId: widget.productDocument?.productId,
                                 ));
                             Navigator.pop(context);
                           },

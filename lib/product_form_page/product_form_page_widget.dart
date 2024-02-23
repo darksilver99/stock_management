@@ -928,7 +928,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             );
                             await actions.pushReplacementNamed(
                               context,
-                              'ProductListPage',
+                              'HomePage',
                             );
                           } else {
                             _model.isDuplicate =
@@ -1066,7 +1066,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               );
                               await actions.pushReplacementNamed(
                                 context,
-                                'ProductListPage',
+                                'HomePage',
                               );
                             }
                           }
@@ -1128,7 +1128,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               await widget.productDocument!.reference.delete();
                               await actions.pushReplacementNamed(
                                 context,
-                                'ProductListPage',
+                                'HomePage',
                               );
                             }
                           },
