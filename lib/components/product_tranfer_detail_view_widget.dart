@@ -79,7 +79,8 @@ class _ProductTranferDetailViewWidgetState
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Inter',
-                                    fontSize: 22.0,
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
                             ),
                           ),
@@ -109,7 +110,7 @@ class _ProductTranferDetailViewWidgetState
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -126,6 +127,50 @@ class _ProductTranferDetailViewWidgetState
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                  child: StreamBuilder<ProductListRecord>(
+                    stream: ProductListRecord.getDocument(
+                        widget.productTranferDocument!.productRef!),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      final rowProductListRecord = snapshot.data!;
+                      return Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '(คงเหลือ ${rowProductListRecord.stock.toString()})',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
                 Padding(
@@ -157,6 +202,7 @@ class _ProductTranferDetailViewWidgetState
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -187,6 +233,7 @@ class _ProductTranferDetailViewWidgetState
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
