@@ -217,17 +217,27 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Expanded(
-                                                    child: Text(
-                                                      listViewTranferListRecord
-                                                          .productName,
-                                                      maxLines: 1,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            fontSize: 16.0,
-                                                          ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  64.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        listViewTranferListRecord
+                                                            .productName,
+                                                        maxLines: 1,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontSize: 16.0,
+                                                            ),
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -274,25 +284,6 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Flexible(
-                                                      child: Text(
-                                                        'วันที่อัพเดทล่าสุด ${dateTimeFormat('d/M/y', listViewTranferListRecord.createDate)} ${dateTimeFormat('Hm', listViewTranferListRecord.createDate)}',
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                ),
-                                                      ),
-                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -300,36 +291,67 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 8.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              listViewTranferListRecord.type,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color: listViewTranferListRecord.type ==
-                                                                'รับ'
-                                                            ? FlutterFlowTheme
-                                                                    .of(context)
-                                                                .success
-                                                            : FlutterFlowTheme
-                                                                    .of(context)
-                                                                .warning,
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
-                                          ],
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(1.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 8.0, 0.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Text(
+                                                  listViewTranferListRecord
+                                                      .type,
+                                                  style:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: listViewTranferListRecord.type ==
+                                                                    'รับ'
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .success
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .warning,
+                                                            fontSize: 20.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                ),
+                                              ),
+                                              Text(
+                                                'วันที่อัพเดทล่าสุด ${dateTimeFormat('d/M/y', listViewTranferListRecord.createDate)} ${dateTimeFormat('Hm', listViewTranferListRecord.createDate)}',
+                                                maxLines: 1,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 12.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
+                                      ),
+                                      Icon(
+                                        Icons.navigate_next_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
                                       ),
                                     ],
                                   ),
