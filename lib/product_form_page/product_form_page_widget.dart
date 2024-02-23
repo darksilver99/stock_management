@@ -488,12 +488,14 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                         validator: _model
                             .textFieldProductStartPriceControllerValidator
                             .asValidator(context),
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                          FilteringTextInputFormatter.allow(
+                              RegExp('[a-zA-Z0-9]'))
                         ],
                       ),
                     ),
@@ -541,7 +543,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                         validator: _model
                             .textFieldProductSellPriceControllerValidator
                             .asValidator(context),
