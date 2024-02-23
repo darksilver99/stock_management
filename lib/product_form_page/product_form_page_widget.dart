@@ -137,15 +137,6 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -696,104 +687,41 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                         ],
                       ),
                     ),
-                    FFButtonWidget(
-                      onPressed: () async {
-                        if (_model.formKey.currentState == null ||
-                            !_model.formKey.currentState!.validate()) {
-                          return;
-                        }
-                        if (_model.dropDownValue == null) {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('เลือกหมวดหมู่'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('ตกลง'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                          return;
-                        }
-                        if (widget.productDocument != null) {
-                          await widget.productDocument!.reference
-                              .update(createProductListRecordData(
-                            updateDate: getCurrentTimestamp,
-                            name: _model.textController2.text,
-                            photo: _model.image,
-                            category: _model.dropDownValue,
-                          ));
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('ตกลง'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                          await actions.pushReplacementNamed(
-                            context,
-                            'HomePage',
-                          );
-                        } else {
-                          _model.isDuplicate = await queryProductListRecordOnce(
-                            queryBuilder: (productListRecord) =>
-                                productListRecord
-                                    .where(
-                                      'create_by',
-                                      isEqualTo: currentUserReference,
-                                    )
-                                    .where(
-                                      'product_id',
-                                      isEqualTo: _model.textController1.text,
-                                    ),
-                            singleRecord: true,
-                          ).then((s) => s.firstOrNull);
-                          if (_model.isDuplicate != null) {
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          if (_model.formKey.currentState == null ||
+                              !_model.formKey.currentState!.validate()) {
+                            return;
+                          }
+                          if (_model.dropDownValue == null) {
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: Text('รหัสสินค้าซ้ำ'),
-                                  content: Text(
-                                      'ชื่อสินค้า : ${_model.isDuplicate?.name}หมวด : ${_model.isDuplicate?.category}'),
+                                  title: Text('เลือกหมวดหมู่'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
                                           Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
+                                      child: Text('ตกลง'),
                                     ),
                                   ],
                                 );
                               },
                             );
-                          } else {
-                            await ProductListRecord.collection
-                                .doc()
-                                .set(createProductListRecordData(
-                                  createDate: getCurrentTimestamp,
-                                  createBy: currentUserReference,
-                                  status: 1,
-                                  productId: _model.textController1.text,
-                                  name: _model.textController2.text,
-                                  category: _model.dropDownValue,
-                                  stock:
-                                      int.tryParse(_model.textController3.text),
-                                  photo: _model.image,
-                                  updateDate: getCurrentTimestamp,
-                                ));
+                            return;
+                          }
+                          if (widget.productDocument != null) {
+                            await widget.productDocument!.reference
+                                .update(createProductListRecordData(
+                              updateDate: getCurrentTimestamp,
+                              name: _model.textController2.text,
+                              photo: _model.image,
+                              category: _model.dropDownValue,
+                            ));
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
@@ -813,33 +741,161 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               context,
                               'HomePage',
                             );
+                          } else {
+                            _model.isDuplicate =
+                                await queryProductListRecordOnce(
+                              queryBuilder: (productListRecord) =>
+                                  productListRecord
+                                      .where(
+                                        'create_by',
+                                        isEqualTo: currentUserReference,
+                                      )
+                                      .where(
+                                        'product_id',
+                                        isEqualTo: _model.textController1.text,
+                                      ),
+                              singleRecord: true,
+                            ).then((s) => s.firstOrNull);
+                            if (_model.isDuplicate != null) {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('รหัสสินค้าซ้ำ'),
+                                    content: Text(
+                                        'ชื่อสินค้า : ${_model.isDuplicate?.name}หมวด : ${_model.isDuplicate?.category}'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              await ProductListRecord.collection
+                                  .doc()
+                                  .set(createProductListRecordData(
+                                    createDate: getCurrentTimestamp,
+                                    createBy: currentUserReference,
+                                    status: 1,
+                                    productId: _model.textController1.text,
+                                    name: _model.textController2.text,
+                                    category: _model.dropDownValue,
+                                    stock: int.tryParse(
+                                        _model.textController3.text),
+                                    photo: _model.image,
+                                    updateDate: getCurrentTimestamp,
+                                  ));
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('ตกลง'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              await actions.pushReplacementNamed(
+                                context,
+                                'HomePage',
+                              );
+                            }
                           }
-                        }
 
-                        setState(() {});
-                      },
-                      text: 'บันทึกข้อมูล',
-                      options: FFButtonOptions(
-                        width: double.infinity,
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
+                          setState(() {});
+                        },
+                        text: 'บันทึกข้อมูล',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Inter',
+                                    color: Colors.white,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                    if (widget.productDocument != null)
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            var confirmDialogResponse = await showDialog<bool>(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text(
+                                          'ยืนยันการลบ \"${widget.productDocument?.name}\" ?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, false),
+                                          child: Text('ยกเลิก'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, true),
+                                          child: Text('ยืนยัน'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ) ??
+                                false;
+                            if (confirmDialogResponse) {
+                              await widget.productDocument!.reference.delete();
+                              await actions.pushReplacementNamed(
+                                context,
+                                'ProductListPage',
+                              );
+                            }
+                          },
+                          text: 'ลบสินค้า',
+                          options: FFButtonOptions(
+                            width: double.infinity,
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                24.0, 0.0, 24.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).error,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
                                   fontFamily: 'Inter',
                                   color: Colors.white,
                                 ),
-                        elevation: 3.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                            elevation: 3.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
                   ]
                       .addToStart(SizedBox(height: 16.0))
                       .addToEnd(SizedBox(height: 16.0)),
