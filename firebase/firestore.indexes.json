@@ -17,6 +17,24 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "tranfer_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "create_by",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "create_date",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ]
 }

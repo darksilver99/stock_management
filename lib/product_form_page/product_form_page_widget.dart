@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -60,18 +61,32 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
         });
         if (widget.productDocument != null) {
           setState(() {
-            _model.textController1?.text = widget.productDocument!.productId;
+            _model.textFieldProductCodeController?.text =
+                widget.productDocument!.productId;
           });
           setState(() {
             _model.dropDownValueController?.value =
                 widget.productDocument!.category;
           });
           setState(() {
-            _model.textController2?.text = widget.productDocument!.name;
+            _model.textFieldProductNameController?.text =
+                widget.productDocument!.name;
           });
           setState(() {
-            _model.textController3?.text =
+            _model.textFieldProductStockController?.text =
                 widget.productDocument!.stock.toString();
+          });
+          setState(() {
+            _model.textFieldProductStartPriceController?.text =
+                widget.productDocument!.priceStart.toString();
+          });
+          setState(() {
+            _model.textFieldProductSellPriceController?.text =
+                widget.productDocument!.priceSell.toString();
+          });
+          setState(() {
+            _model.textFieldProductDetailController?.text =
+                widget.productDocument!.detail;
           });
           if (widget.productDocument?.photo != null &&
               widget.productDocument?.photo != '') {
@@ -118,14 +133,23 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
       }
     });
 
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
+    _model.textFieldProductCodeController ??= TextEditingController();
+    _model.textFieldProductCodeFocusNode ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.textFieldProductNameController ??= TextEditingController();
+    _model.textFieldProductNameFocusNode ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
+    _model.textFieldProductStartPriceController ??= TextEditingController();
+    _model.textFieldProductStartPriceFocusNode ??= FocusNode();
+
+    _model.textFieldProductSellPriceController ??= TextEditingController();
+    _model.textFieldProductSellPriceFocusNode ??= FocusNode();
+
+    _model.textFieldProductStockController ??= TextEditingController();
+    _model.textFieldProductStockFocusNode ??= FocusNode();
+
+    _model.textFieldProductDetailController ??= TextEditingController();
+    _model.textFieldProductDetailFocusNode ??= FocusNode();
   }
 
   @override
@@ -190,8 +214,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                       child: TextFormField(
-                        controller: _model.textController1,
-                        focusNode: _model.textFieldFocusNode1,
+                        controller: _model.textFieldProductCodeController,
+                        focusNode: _model.textFieldProductCodeFocusNode,
                         readOnly: widget.productDocument != null,
                         obscureText: false,
                         decoration: InputDecoration(
@@ -233,7 +257,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                   .secondaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
-                        validator: _model.textController1Validator
+                        validator: _model
+                            .textFieldProductCodeControllerValidator
                             .asValidator(context),
                       ),
                     ),
@@ -374,8 +399,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                       child: TextFormField(
-                        controller: _model.textController2,
-                        focusNode: _model.textFieldFocusNode2,
+                        controller: _model.textFieldProductNameController,
+                        focusNode: _model.textFieldProductNameFocusNode,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'ชื่อสินค้า',
@@ -414,7 +439,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
-                        validator: _model.textController2Validator
+                        validator: _model
+                            .textFieldProductNameControllerValidator
                             .asValidator(context),
                       ),
                     ),
@@ -422,8 +448,114 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                       child: TextFormField(
-                        controller: _model.textController3,
-                        focusNode: _model.textFieldFocusNode3,
+                        controller: _model.textFieldProductStartPriceController,
+                        focusNode: _model.textFieldProductStartPriceFocusNode,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'ราคาทุน',
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          filled: true,
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        keyboardType: TextInputType.number,
+                        validator: _model
+                            .textFieldProductStartPriceControllerValidator
+                            .asValidator(context),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                      child: TextFormField(
+                        controller: _model.textFieldProductSellPriceController,
+                        focusNode: _model.textFieldProductSellPriceFocusNode,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'ราคาขาย',
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          filled: true,
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        keyboardType: TextInputType.number,
+                        validator: _model
+                            .textFieldProductSellPriceControllerValidator
+                            .asValidator(context),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                      child: TextFormField(
+                        controller: _model.textFieldProductStockController,
+                        focusNode: _model.textFieldProductStockFocusNode,
                         readOnly: widget.productDocument != null,
                         obscureText: false,
                         decoration: InputDecoration(
@@ -468,12 +600,63 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
                         keyboardType: TextInputType.number,
-                        validator: _model.textController3Validator
+                        validator: _model
+                            .textFieldProductStockControllerValidator
                             .asValidator(context),
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                               RegExp('[a-zA-Z0-9]'))
                         ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                      child: TextFormField(
+                        controller: _model.textFieldProductDetailController,
+                        focusNode: _model.textFieldProductDetailFocusNode,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'รายละเอียดสินค้า',
+                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).error,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          filled: true,
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        maxLines: 3,
+                        validator: _model
+                            .textFieldProductDetailControllerValidator
+                            .asValidator(context),
                       ),
                     ),
                     Padding(
@@ -718,9 +901,15 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             await widget.productDocument!.reference
                                 .update(createProductListRecordData(
                               updateDate: getCurrentTimestamp,
-                              name: _model.textController2.text,
+                              name: _model.textFieldProductNameController.text,
                               photo: _model.image,
                               category: _model.dropDownValue,
+                              priceStart: double.tryParse(_model
+                                  .textFieldProductStartPriceController.text),
+                              priceSell: double.tryParse(_model
+                                  .textFieldProductSellPriceController.text),
+                              detail:
+                                  _model.textFieldProductDetailController.text,
                             ));
                             await showDialog(
                               context: context,
@@ -739,7 +928,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             );
                             await actions.pushReplacementNamed(
                               context,
-                              'HomePage',
+                              'ProductListPage',
                             );
                           } else {
                             _model.isDuplicate =
@@ -752,7 +941,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                       )
                                       .where(
                                         'product_id',
-                                        isEqualTo: _model.textController1.text,
+                                        isEqualTo: _model
+                                            .textFieldProductCodeController
+                                            .text,
                                       ),
                               singleRecord: true,
                             ).then((s) => s.firstOrNull);
@@ -775,19 +966,88 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                 },
                               );
                             } else {
-                              await ProductListRecord.collection
-                                  .doc()
+                              var productListRecordReference =
+                                  ProductListRecord.collection.doc();
+                              await productListRecordReference
                                   .set(createProductListRecordData(
+                                createDate: getCurrentTimestamp,
+                                createBy: currentUserReference,
+                                status: 1,
+                                productId:
+                                    _model.textFieldProductCodeController.text,
+                                name:
+                                    _model.textFieldProductNameController.text,
+                                category: _model.dropDownValue,
+                                stock: int.tryParse(_model
+                                    .textFieldProductStockController.text),
+                                photo: _model.image,
+                                updateDate: getCurrentTimestamp,
+                                priceStart: double.tryParse(_model
+                                    .textFieldProductStartPriceController.text),
+                                priceSell: double.tryParse(_model
+                                    .textFieldProductSellPriceController.text),
+                                detail: _model
+                                    .textFieldProductDetailController.text,
+                              ));
+                              _model.insertedProduct =
+                                  ProductListRecord.getDocumentFromData(
+                                      createProductListRecordData(
+                                        createDate: getCurrentTimestamp,
+                                        createBy: currentUserReference,
+                                        status: 1,
+                                        productId: _model
+                                            .textFieldProductCodeController
+                                            .text,
+                                        name: _model
+                                            .textFieldProductNameController
+                                            .text,
+                                        category: _model.dropDownValue,
+                                        stock: int.tryParse(_model
+                                            .textFieldProductStockController
+                                            .text),
+                                        photo: _model.image,
+                                        updateDate: getCurrentTimestamp,
+                                        priceStart: double.tryParse(_model
+                                            .textFieldProductStartPriceController
+                                            .text),
+                                        priceSell: double.tryParse(_model
+                                            .textFieldProductSellPriceController
+                                            .text),
+                                        detail: _model
+                                            .textFieldProductDetailController
+                                            .text,
+                                      ),
+                                      productListRecordReference);
+
+                              await TranferListRecord.collection
+                                  .doc()
+                                  .set(createTranferListRecordData(
                                     createDate: getCurrentTimestamp,
                                     createBy: currentUserReference,
                                     status: 1,
-                                    productId: _model.textController1.text,
-                                    name: _model.textController2.text,
-                                    category: _model.dropDownValue,
-                                    stock: int.tryParse(
-                                        _model.textController3.text),
-                                    photo: _model.image,
-                                    updateDate: getCurrentTimestamp,
+                                    type: 'รับ',
+                                    totalAmount: int.tryParse(_model
+                                        .textFieldProductStockController.text),
+                                    totalPriceStart: functions.sumPrice(
+                                        double.parse(_model
+                                            .textFieldProductStartPriceController
+                                            .text),
+                                        int.parse(_model
+                                            .textFieldProductStockController
+                                            .text)),
+                                    totalPriceSell: functions.sumPrice(
+                                        double.parse(_model
+                                            .textFieldProductSellPriceController
+                                            .text),
+                                        int.parse(_model
+                                            .textFieldProductStockController
+                                            .text)),
+                                    productRef:
+                                        _model.insertedProduct?.reference,
+                                    productName: _model
+                                        .textFieldProductNameController.text,
+                                    productId: _model
+                                        .textFieldProductCodeController.text,
                                   ));
                               await showDialog(
                                 context: context,
@@ -806,7 +1066,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               );
                               await actions.pushReplacementNamed(
                                 context,
-                                'HomePage',
+                                'ProductListPage',
                               );
                             }
                           }

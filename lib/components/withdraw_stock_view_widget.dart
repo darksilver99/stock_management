@@ -3,16 +3,17 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'add_stock_view_model.dart';
-export 'add_stock_view_model.dart';
+import 'withdraw_stock_view_model.dart';
+export 'withdraw_stock_view_model.dart';
 
-class AddStockViewWidget extends StatefulWidget {
-  const AddStockViewWidget({
+class WithdrawStockViewWidget extends StatefulWidget {
+  const WithdrawStockViewWidget({
     super.key,
     required this.productDocument,
   });
@@ -20,11 +21,12 @@ class AddStockViewWidget extends StatefulWidget {
   final ProductListRecord? productDocument;
 
   @override
-  State<AddStockViewWidget> createState() => _AddStockViewWidgetState();
+  State<WithdrawStockViewWidget> createState() =>
+      _WithdrawStockViewWidgetState();
 }
 
-class _AddStockViewWidgetState extends State<AddStockViewWidget> {
-  late AddStockViewModel _model;
+class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
+  late WithdrawStockViewModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -35,7 +37,7 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddStockViewModel());
+    _model = createModel(context, () => WithdrawStockViewModel());
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
@@ -77,7 +79,7 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'เพิ่มสินค้า',
+                            'จ่ายสินค้า',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -184,20 +186,64 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget> {
                                 !_model.formKey.currentState!.validate()) {
                               return;
                             }
-
-                            await widget.productDocument!.reference.update({
-                              ...createProductListRecordData(
-                                updateDate: getCurrentTimestamp,
-                              ),
-                              ...mapToFirestore(
-                                {
-                                  'stock': FieldValue.increment(
-                                      int.parse(_model.textController.text)),
+                            if (widget.productDocument!.stock <
+                                functions
+                                    .stringToInt(_model.textController.text)) {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('จำนวนสินค้าในคลังไม่เพียงพอ'),
+                                    content: Text('คงเหลือ : ${formatNumber(
+                                      widget.productDocument?.stock,
+                                      formatType: FormatType.decimal,
+                                      decimalType: DecimalType.automatic,
+                                    )}'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('ตกลง'),
+                                      ),
+                                    ],
+                                  );
                                 },
-                              ),
-                            });
+                              );
+                            } else {
+                              await widget.productDocument!.reference.update({
+                                ...createProductListRecordData(
+                                  updateDate: getCurrentTimestamp,
+                                ),
+                                ...mapToFirestore(
+                                  {
+                                    'stock': FieldValue.increment(-(int.parse(
+                                        _model.textController.text))),
+                                  },
+                                ),
+                              });
+
+                              await TranferListRecord.collection
+                                  .doc()
+                                  .set(createTranferListRecordData(
+                                    createDate: getCurrentTimestamp,
+                                    createBy: currentUserReference,
+                                    status: 1,
+                                    type: 'จ่าย',
+                                    totalAmount: int.tryParse(
+                                        _model.textController.text),
+                                    totalPriceStart: functions.sumPrice(
+                                        widget.productDocument!.priceStart,
+                                        int.parse(_model.textController.text)),
+                                    totalPriceSell: functions.sumPrice(
+                                        widget.productDocument!.priceSell,
+                                        int.parse(_model.textController.text)),
+                                    productRef:
+                                        widget.productDocument?.reference,
+                                  ));
+                              Navigator.pop(context);
+                            }
                           },
-                          text: 'เพิ่ม',
+                          text: 'ยืนยัน',
                           options: FFButtonOptions(
                             height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(

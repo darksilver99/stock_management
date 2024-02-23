@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/add_stock_view_widget.dart';
+import '/components/deposit_stock_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -379,7 +379,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               .unfocusNode)
                                                       : FocusScope.of(context)
                                                           .unfocus(),
-                                                  child: AddStockViewWidget(
+                                                  child: DepositStockViewWidget(
                                                     productDocument:
                                                         listViewProductListRecord,
                                                   ),
@@ -397,14 +397,85 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Icon(
-                                              Icons.add_rounded,
+                                              Icons.file_download_outlined,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               size: 24.0,
                                             ),
                                             Text(
-                                              'เพิ่ม stock',
+                                              'เติมสินค้า',
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 10.0,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Builder(
+                                    builder: (context) => Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: DepositStockViewWidget(
+                                                    productDocument:
+                                                        listViewProductListRecord,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
+
+                                          if (Navigator.of(context).canPop()) {
+                                            context.pop();
+                                          }
+                                          context.pushNamed('ProductListPage');
+                                        },
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              Icons.file_upload_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              'จ่ายสินค้า',
                                               textAlign: TextAlign.center,
                                               style:
                                                   FlutterFlowTheme.of(context)

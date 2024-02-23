@@ -66,6 +66,21 @@ class ProductListRecord extends FirestoreRecord {
   String get photo => _photo ?? '';
   bool hasPhoto() => _photo != null;
 
+  // "price_start" field.
+  double? _priceStart;
+  double get priceStart => _priceStart ?? 0.0;
+  bool hasPriceStart() => _priceStart != null;
+
+  // "price_sell" field.
+  double? _priceSell;
+  double get priceSell => _priceSell ?? 0.0;
+  bool hasPriceSell() => _priceSell != null;
+
+  // "detail" field.
+  String? _detail;
+  String get detail => _detail ?? '';
+  bool hasDetail() => _detail != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -77,6 +92,9 @@ class ProductListRecord extends FirestoreRecord {
     _name = snapshotData['name'] as String?;
     _stock = castToType<int>(snapshotData['stock']);
     _photo = snapshotData['photo'] as String?;
+    _priceStart = castToType<double>(snapshotData['price_start']);
+    _priceSell = castToType<double>(snapshotData['price_sell']);
+    _detail = snapshotData['detail'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -124,6 +142,9 @@ Map<String, dynamic> createProductListRecordData({
   String? name,
   int? stock,
   String? photo,
+  double? priceStart,
+  double? priceSell,
+  String? detail,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -137,6 +158,9 @@ Map<String, dynamic> createProductListRecordData({
       'name': name,
       'stock': stock,
       'photo': photo,
+      'price_start': priceStart,
+      'price_sell': priceSell,
+      'detail': detail,
     }.withoutNulls,
   );
 
@@ -157,7 +181,10 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
         e1?.category == e2?.category &&
         e1?.name == e2?.name &&
         e1?.stock == e2?.stock &&
-        e1?.photo == e2?.photo;
+        e1?.photo == e2?.photo &&
+        e1?.priceStart == e2?.priceStart &&
+        e1?.priceSell == e2?.priceSell &&
+        e1?.detail == e2?.detail;
   }
 
   @override
@@ -171,7 +198,10 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
         e?.category,
         e?.name,
         e?.stock,
-        e?.photo
+        e?.photo,
+        e?.priceStart,
+        e?.priceSell,
+        e?.detail
       ]);
 
   @override
