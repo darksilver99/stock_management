@@ -7,3 +7,5 @@ export '/product_form_page/product_form_page_widget.dart'
     show ProductFormPageWidget;
 export '/product_list_page/product_list_page_widget.dart'
     show ProductListPageWidget;
+export '/product_tranfer_page/product_tranfer_page_widget.dart'
+    show ProductTranferPageWidget;

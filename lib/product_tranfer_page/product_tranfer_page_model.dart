@@ -1,28 +1,24 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/deposit_stock_view_widget.dart';
+import '/components/product_tranfer_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'product_list_page_widget.dart' show ProductListPageWidget;
-import 'package:easy_debounce/easy_debounce.dart';
+import 'product_tranfer_page_widget.dart' show ProductTranferPageWidget;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
-class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
+class ProductTranferPageModel
+    extends FlutterFlowModel<ProductTranferPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for ListView widget.
 
-  PagingController<DocumentSnapshot?, ProductListRecord>?
+  PagingController<DocumentSnapshot?, TranferListRecord>?
       listViewPagingController;
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
@@ -35,9 +31,6 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode?.dispose();
-    textController?.dispose();
-
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
   }
@@ -46,7 +39,7 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
 
   /// Additional helper methods are added here.
 
-  PagingController<DocumentSnapshot?, ProductListRecord> setListViewController(
+  PagingController<DocumentSnapshot?, TranferListRecord> setListViewController(
     Query query, {
     DocumentReference<Object?>? parent,
   }) {
@@ -58,16 +51,16 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
     return listViewPagingController!;
   }
 
-  PagingController<DocumentSnapshot?, ProductListRecord>
+  PagingController<DocumentSnapshot?, TranferListRecord>
       _createListViewController(
     Query query,
     DocumentReference<Object?>? parent,
   ) {
-    final controller = PagingController<DocumentSnapshot?, ProductListRecord>(
+    final controller = PagingController<DocumentSnapshot?, TranferListRecord>(
         firstPageKey: null);
     return controller
       ..addPageRequestListener(
-        (nextPageMarker) => queryProductListRecordPage(
+        (nextPageMarker) => queryTranferListRecordPage(
           queryBuilder: (_) => listViewPagingQuery ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,

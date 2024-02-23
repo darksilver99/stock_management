@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'product_form_page_widget.dart' show ProductFormPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -42,11 +43,13 @@ class ProductFormPageModel extends FlutterFlowModel<ProductFormPageWidget> {
   final formKey = GlobalKey<FormState>();
   // Stores action output result for [Firestore Query - Query a collection] action in ProductFormPage widget.
   CategoryListRecord? rsCate;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  String? _textController1Validator(BuildContext context, String? val) {
+  // State field(s) for TextFieldProductCode widget.
+  FocusNode? textFieldProductCodeFocusNode;
+  TextEditingController? textFieldProductCodeController;
+  String? Function(BuildContext, String?)?
+      textFieldProductCodeControllerValidator;
+  String? _textFieldProductCodeControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -57,11 +60,13 @@ class ProductFormPageModel extends FlutterFlowModel<ProductFormPageWidget> {
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
-  String? _textController2Validator(BuildContext context, String? val) {
+  // State field(s) for TextFieldProductName widget.
+  FocusNode? textFieldProductNameFocusNode;
+  TextEditingController? textFieldProductNameController;
+  String? Function(BuildContext, String?)?
+      textFieldProductNameControllerValidator;
+  String? _textFieldProductNameControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -69,11 +74,13 @@ class ProductFormPageModel extends FlutterFlowModel<ProductFormPageWidget> {
     return null;
   }
 
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
-  String? _textController3Validator(BuildContext context, String? val) {
+  // State field(s) for TextFieldProductStartPrice widget.
+  FocusNode? textFieldProductStartPriceFocusNode;
+  TextEditingController? textFieldProductStartPriceController;
+  String? Function(BuildContext, String?)?
+      textFieldProductStartPriceControllerValidator;
+  String? _textFieldProductStartPriceControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -81,6 +88,39 @@ class ProductFormPageModel extends FlutterFlowModel<ProductFormPageWidget> {
     return null;
   }
 
+  // State field(s) for TextFieldProductSellPrice widget.
+  FocusNode? textFieldProductSellPriceFocusNode;
+  TextEditingController? textFieldProductSellPriceController;
+  String? Function(BuildContext, String?)?
+      textFieldProductSellPriceControllerValidator;
+  String? _textFieldProductSellPriceControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
+  // State field(s) for TextFieldProductStock widget.
+  FocusNode? textFieldProductStockFocusNode;
+  TextEditingController? textFieldProductStockController;
+  String? Function(BuildContext, String?)?
+      textFieldProductStockControllerValidator;
+  String? _textFieldProductStockControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
+  // State field(s) for TextFieldProductDetail widget.
+  FocusNode? textFieldProductDetailFocusNode;
+  TextEditingController? textFieldProductDetailController;
+  String? Function(BuildContext, String?)?
+      textFieldProductDetailControllerValidator;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -88,27 +128,45 @@ class ProductFormPageModel extends FlutterFlowModel<ProductFormPageWidget> {
 
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   ProductListRecord? isDuplicate;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ProductListRecord? insertedProduct;
 
   /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
-    textController1Validator = _textController1Validator;
-    textController2Validator = _textController2Validator;
-    textController3Validator = _textController3Validator;
+    textFieldProductCodeControllerValidator =
+        _textFieldProductCodeControllerValidator;
+    textFieldProductNameControllerValidator =
+        _textFieldProductNameControllerValidator;
+    textFieldProductStartPriceControllerValidator =
+        _textFieldProductStartPriceControllerValidator;
+    textFieldProductSellPriceControllerValidator =
+        _textFieldProductSellPriceControllerValidator;
+    textFieldProductStockControllerValidator =
+        _textFieldProductStockControllerValidator;
   }
 
   @override
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
+    textFieldProductCodeFocusNode?.dispose();
+    textFieldProductCodeController?.dispose();
 
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
+    textFieldProductNameFocusNode?.dispose();
+    textFieldProductNameController?.dispose();
 
-    textFieldFocusNode3?.dispose();
-    textController3?.dispose();
+    textFieldProductStartPriceFocusNode?.dispose();
+    textFieldProductStartPriceController?.dispose();
+
+    textFieldProductSellPriceFocusNode?.dispose();
+    textFieldProductSellPriceController?.dispose();
+
+    textFieldProductStockFocusNode?.dispose();
+    textFieldProductStockController?.dispose();
+
+    textFieldProductDetailFocusNode?.dispose();
+    textFieldProductDetailController?.dispose();
   }
 
   /// Action blocks are added here.
