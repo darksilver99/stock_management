@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/deposit_stock_view_widget.dart';
+import '/components/withdraw_stock_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -450,7 +451,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               .unfocusNode)
                                                       : FocusScope.of(context)
                                                           .unfocus(),
-                                                  child: DepositStockViewWidget(
+                                                  child:
+                                                      WithdrawStockViewWidget(
                                                     productDocument:
                                                         listViewProductListRecord,
                                                   ),
