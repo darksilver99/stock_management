@@ -450,6 +450,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                       child: TextFormField(
                         controller: _model.textFieldProductStartPriceController,
                         focusNode: _model.textFieldProductStartPriceFocusNode,
+                        textCapitalization: TextCapitalization.none,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'ราคาทุน',
@@ -495,7 +496,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             .asValidator(context),
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
-                              RegExp('[a-zA-Z0-9]'))
+                              RegExp('^[0-9.]+\$'))
                         ],
                       ),
                     ),
@@ -549,7 +550,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             .textFieldProductSellPriceControllerValidator
                             .asValidator(context),
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                          FilteringTextInputFormatter.allow(
+                              RegExp('^[0-9.]+\$'))
                         ],
                       ),
                     ),
@@ -607,8 +609,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                             .textFieldProductStockControllerValidator
                             .asValidator(context),
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp('[a-zA-Z0-9]'))
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]'))
                         ],
                       ),
                     ),
