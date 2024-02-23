@@ -286,7 +286,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
-                                                        fontSize: 16.0,
+                                                        fontSize: 18.0,
                                                       ),
                                                 ),
                                               ),

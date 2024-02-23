@@ -235,7 +235,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                             .override(
                                                               fontFamily:
                                                                   'Inter',
-                                                              fontSize: 16.0,
+                                                              fontSize: 18.0,
                                                             ),
                                                       ),
                                                     ),
@@ -268,7 +268,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                             decimalType:
                                                                 DecimalType
                                                                     .automatic,
-                                                          )}',
+                                                          )} หน่วย',
                                                           maxLines: 1,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
