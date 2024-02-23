@@ -286,7 +286,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
-                                                        fontSize: 16.0,
+                                                        fontSize: 18.0,
                                                       ),
                                                 ),
                                               ),
@@ -312,7 +312,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                             FormatType.decimal,
                                                         decimalType: DecimalType
                                                             .automatic,
-                                                      )}',
+                                                      )} หน่วย',
                                                       maxLines: 1,
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -572,25 +572,34 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                           ],
                                         ),
                                       ),
-                                      Row(
+                                      Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          Flexible(
-                                            child: Text(
-                                              'วันที่อัพเดทล่าสุด ${dateTimeFormat('d/M/y', listViewProductListRecord.updateDate)} ${dateTimeFormat('Hm', listViewProductListRecord.updateDate)}',
-                                              maxLines: 1,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        fontSize: 12.0,
-                                                      ),
-                                            ),
+                                          Text(
+                                            'วันที่อัพเดทล่าสุด ',
+                                            maxLines: 1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 12.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            '${dateTimeFormat('d/M/y', listViewProductListRecord.updateDate)} ${dateTimeFormat('Hm', listViewProductListRecord.updateDate)}',
+                                            maxLines: 1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 12.0,
+                                                ),
                                           ),
                                         ],
                                       ),

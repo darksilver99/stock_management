@@ -235,7 +235,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                             .override(
                                                               fontFamily:
                                                                   'Inter',
-                                                              fontSize: 16.0,
+                                                              fontSize: 18.0,
                                                             ),
                                                       ),
                                                     ),
@@ -268,7 +268,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                             decimalType:
                                                                 DecimalType
                                                                     .automatic,
-                                                          )}',
+                                                          )} หน่วย',
                                                           maxLines: 1,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -329,11 +329,14 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                           ),
                                                 ),
                                               ),
-                                              Text(
-                                                'วันที่อัพเดทล่าสุด ${dateTimeFormat('d/M/y', listViewTranferListRecord.createDate)} ${dateTimeFormat('Hm', listViewTranferListRecord.createDate)}',
-                                                maxLines: 1,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'วันที่อัพเดทล่าสุด ',
+                                                    maxLines: 1,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Inter',
@@ -342,6 +345,22 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                               .secondaryText,
                                                           fontSize: 12.0,
                                                         ),
+                                                  ),
+                                                  Text(
+                                                    '${dateTimeFormat('d/M/y', listViewTranferListRecord.createDate)} ${dateTimeFormat('Hm', listViewTranferListRecord.createDate)}',
+                                                    maxLines: 1,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 12.0,
+                                                        ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
