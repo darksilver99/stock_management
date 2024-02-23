@@ -39,8 +39,11 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
     super.initState();
     _model = createModel(context, () => WithdrawStockViewModel());
 
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.textFieldAmountController ??= TextEditingController();
+    _model.textFieldAmountFocusNode ??= FocusNode();
+
+    _model.textFieldDetailController ??= TextEditingController();
+    _model.textFieldDetailFocusNode ??= FocusNode();
   }
 
   @override
@@ -113,163 +116,206 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
-                  child: Form(
-                    key: _model.formKey,
-                    autovalidateMode: AutovalidateMode.disabled,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 8.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.textController,
-                              focusNode: _model.textFieldFocusNode,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'จำนวน',
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                Form(
+                  key: _model.formKey,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                        child: TextFormField(
+                          controller: _model.textFieldAmountController,
+                          focusNode: _model.textFieldAmountFocusNode,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'จำนวน',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
                               ),
-                              style: FlutterFlowTheme.of(context).bodyMedium,
-                              keyboardType: TextInputType.number,
-                              validator: _model.textControllerValidator
-                                  .asValidator(context),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[a-zA-Z0-9]'))
-                              ],
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          keyboardType: TextInputType.number,
+                          validator: _model.textFieldAmountControllerValidator
+                              .asValidator(context),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp('[a-zA-Z0-9]'))
+                          ],
                         ),
-                        FFButtonWidget(
-                          onPressed: () async {
-                            if (_model.formKey.currentState == null ||
-                                !_model.formKey.currentState!.validate()) {
-                              return;
-                            }
-                            if (widget.productDocument!.stock <
-                                functions
-                                    .stringToInt(_model.textController.text)) {
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('จำนวนสินค้าในคลังไม่เพียงพอ'),
-                                    content: Text('คงเหลือ : ${formatNumber(
-                                      widget.productDocument?.stock,
-                                      formatType: FormatType.decimal,
-                                      decimalType: DecimalType.automatic,
-                                    )}'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('ตกลง'),
-                                      ),
-                                    ],
-                                  );
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                        child: TextFormField(
+                          controller: _model.textFieldDetailController,
+                          focusNode: _model.textFieldDetailFocusNode,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'หมายเหตุ',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          maxLines: 3,
+                          validator: _model.textFieldDetailControllerValidator
+                              .asValidator(context),
+                        ),
+                      ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          if (_model.formKey.currentState == null ||
+                              !_model.formKey.currentState!.validate()) {
+                            return;
+                          }
+                          if (widget.productDocument!.stock <
+                              functions.stringToInt(
+                                  _model.textFieldAmountController.text)) {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('จำนวนสินค้าในคลังไม่เพียงพอ'),
+                                  content: Text('คงเหลือ : ${formatNumber(
+                                    widget.productDocument?.stock,
+                                    formatType: FormatType.decimal,
+                                    decimalType: DecimalType.automatic,
+                                  )}'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('ตกลง'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            await widget.productDocument!.reference.update({
+                              ...createProductListRecordData(
+                                updateDate: getCurrentTimestamp,
+                              ),
+                              ...mapToFirestore(
+                                {
+                                  'stock': FieldValue.increment(-(int.parse(
+                                      _model.textFieldAmountController.text))),
                                 },
-                              );
-                            } else {
-                              await widget.productDocument!.reference.update({
-                                ...createProductListRecordData(
-                                  updateDate: getCurrentTimestamp,
-                                ),
-                                ...mapToFirestore(
-                                  {
-                                    'stock': FieldValue.increment(-(int.parse(
-                                        _model.textController.text))),
-                                  },
-                                ),
-                              });
+                              ),
+                            });
 
-                              await TranferListRecord.collection
-                                  .doc()
-                                  .set(createTranferListRecordData(
-                                    createDate: getCurrentTimestamp,
-                                    createBy: currentUserReference,
-                                    status: 1,
-                                    type: 'จ่าย',
-                                    totalAmount: int.tryParse(
-                                        _model.textController.text),
-                                    totalPriceStart: functions.sumPrice(
-                                        widget.productDocument!.priceStart,
-                                        int.parse(_model.textController.text)),
-                                    totalPriceSell: functions.sumPrice(
-                                        widget.productDocument!.priceSell,
-                                        int.parse(_model.textController.text)),
-                                    productRef:
-                                        widget.productDocument?.reference,
-                                    productName: widget.productDocument?.name,
-                                    productId:
-                                        widget.productDocument?.productId,
-                                  ));
-                              Navigator.pop(context);
-                            }
-                          },
-                          text: 'ยืนยัน',
-                          options: FFButtonOptions(
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: Colors.white,
-                                ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
+                            await TranferListRecord.collection
+                                .doc()
+                                .set(createTranferListRecordData(
+                                  createDate: getCurrentTimestamp,
+                                  createBy: currentUserReference,
+                                  status: 1,
+                                  type: 'จ่าย',
+                                  totalAmount: int.tryParse(
+                                      _model.textFieldAmountController.text),
+                                  totalPriceStart: functions.sumPrice(
+                                      widget.productDocument!.priceStart,
+                                      int.parse(_model
+                                          .textFieldAmountController.text)),
+                                  totalPriceSell: functions.sumPrice(
+                                      widget.productDocument!.priceSell,
+                                      int.parse(_model
+                                          .textFieldAmountController.text)),
+                                  productRef: widget.productDocument?.reference,
+                                  productName: widget.productDocument?.name,
+                                  productId: widget.productDocument?.productId,
+                                  remark: _model.textFieldDetailController.text,
+                                ));
+                            Navigator.pop(context);
+                          }
+                        },
+                        text: 'ยืนยัน',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Inter',
+                                    color: Colors.white,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
                           ),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ]
