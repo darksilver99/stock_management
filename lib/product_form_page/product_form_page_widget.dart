@@ -1052,6 +1052,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                         .textFieldProductNameController.text,
                                     productId: _model
                                         .textFieldProductCodeController.text,
+                                    remark: 'เพิ่มสินค้าใหม่',
                                   ));
                               await showDialog(
                                 context: context,

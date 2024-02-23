@@ -244,12 +244,45 @@ class _ProductTranferDetailViewWidgetState
                     ],
                   ),
                 ),
+                Divider(
+                  thickness: 1.0,
+                  color: FlutterFlowTheme.of(context).alternate,
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'หมายเหตุ ${valueOrDefault<String>(
+                                widget.productTranferDocument?.remark,
+                                '-',
+                              )}',
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Text(
                         'วันที่${widget.productTranferDocument?.type} ${dateTimeFormat('d/M/y', widget.productTranferDocument?.createDate)} ${dateTimeFormat('Hm', widget.productTranferDocument?.createDate)}',
+                        textAlign: TextAlign.end,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               color: FlutterFlowTheme.of(context).secondaryText,

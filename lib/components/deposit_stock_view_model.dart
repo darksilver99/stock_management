@@ -17,9 +17,9 @@ class DepositStockViewModel extends FlutterFlowModel<DepositStockViewWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
-  String? _textControllerValidator(BuildContext context, String? val) {
+  TextEditingController? textController1;
+  String? Function(BuildContext, String?)? textController1Validator;
+  String? _textController1Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -27,17 +27,25 @@ class DepositStockViewModel extends FlutterFlowModel<DepositStockViewWidget> {
     return null;
   }
 
+  // State field(s) for TextFieldDetail widget.
+  FocusNode? textFieldDetailFocusNode;
+  TextEditingController? textFieldDetailController;
+  String? Function(BuildContext, String?)? textFieldDetailControllerValidator;
+
   /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
-    textControllerValidator = _textControllerValidator;
+    textController1Validator = _textController1Validator;
   }
 
   @override
   void dispose() {
     textFieldFocusNode?.dispose();
-    textController?.dispose();
+    textController1?.dispose();
+
+    textFieldDetailFocusNode?.dispose();
+    textFieldDetailController?.dispose();
   }
 
   /// Action blocks are added here.

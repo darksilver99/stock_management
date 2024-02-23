@@ -38,8 +38,11 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
     super.initState();
     _model = createModel(context, () => DepositStockViewModel());
 
-    _model.textController ??= TextEditingController();
+    _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    _model.textFieldDetailController ??= TextEditingController();
+    _model.textFieldDetailFocusNode ??= FocusNode();
   }
 
   @override
@@ -117,66 +120,113 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                   child: Form(
                     key: _model.formKey,
                     autovalidateMode: AutovalidateMode.disabled,
-                    child: Row(
+                    child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 8.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.textController,
-                              focusNode: _model.textFieldFocusNode,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'จำนวน',
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: TextFormField(
+                            controller: _model.textController1,
+                            focusNode: _model.textFieldFocusNode,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'จำนวน',
+                              labelStyle:
+                                  FlutterFlowTheme.of(context).labelMedium,
+                              hintStyle:
+                                  FlutterFlowTheme.of(context).labelMedium,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                              style: FlutterFlowTheme.of(context).bodyMedium,
-                              keyboardType: TextInputType.number,
-                              validator: _model.textControllerValidator
-                                  .asValidator(context),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[a-zA-Z0-9]'))
-                              ],
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              filled: true,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            keyboardType: TextInputType.number,
+                            validator: _model.textController1Validator
+                                .asValidator(context),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp('[a-zA-Z0-9]'))
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: TextFormField(
+                            controller: _model.textFieldDetailController,
+                            focusNode: _model.textFieldDetailFocusNode,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'หมายเหตุ',
+                              labelStyle:
+                                  FlutterFlowTheme.of(context).labelMedium,
+                              hintStyle:
+                                  FlutterFlowTheme.of(context).labelMedium,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              filled: true,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            maxLines: 3,
+                            validator: _model.textFieldDetailControllerValidator
+                                .asValidator(context),
                           ),
                         ),
                         FFButtonWidget(
@@ -193,7 +243,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                               ...mapToFirestore(
                                 {
                                   'stock': FieldValue.increment(
-                                      int.parse(_model.textController.text)),
+                                      int.parse(_model.textController1.text)),
                                 },
                               ),
                             });
@@ -206,22 +256,24 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                   status: 1,
                                   type: 'รับ',
                                   totalAmount:
-                                      int.tryParse(_model.textController.text),
+                                      int.tryParse(_model.textController1.text),
                                   totalPriceStart: functions.sumPrice(
                                       widget.productDocument!.priceStart,
-                                      int.parse(_model.textController.text)),
+                                      int.parse(_model.textController1.text)),
                                   totalPriceSell: functions.sumPrice(
                                       widget.productDocument!.priceSell,
-                                      int.parse(_model.textController.text)),
+                                      int.parse(_model.textController1.text)),
                                   productRef: widget.productDocument?.reference,
                                   productName: widget.productDocument?.name,
                                   productId: widget.productDocument?.productId,
+                                  remark: _model.textFieldDetailController.text,
                                 ));
                             Navigator.pop(context);
                           },
                           text: 'ยืนยัน',
                           options: FFButtonOptions(
-                            height: 50.0,
+                            width: double.infinity,
+                            height: 40.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
