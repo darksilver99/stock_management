@@ -431,7 +431,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                   .file_download_outlined,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText,
+                                                                  .success,
                                                               size: 24.0,
                                                             ),
                                                             Text(
@@ -548,7 +548,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                   .file_upload_outlined,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText,
+                                                                  .warning,
                                                               size: 24.0,
                                                             ),
                                                             Text(
@@ -574,73 +574,83 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                 ),
                                               ),
                                             ),
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                context.pushNamed(
-                                                  'ProductFormPage',
-                                                  queryParameters: {
-                                                    'productDocument':
-                                                        serializeParam(
-                                                      listViewProductListRecord,
-                                                      ParamType.Document,
-                                                    ),
-                                                  }.withoutNulls,
-                                                  extra: <String, dynamic>{
-                                                    'productDocument':
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 4.0, 0.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                    'ProductFormPage',
+                                                    queryParameters: {
+                                                      'productDocument':
+                                                          serializeParam(
                                                         listViewProductListRecord,
-                                                  },
-                                                );
-                                              },
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                elevation: 3.0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          4.0),
-                                                ),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
+                                                        ParamType.Document,
+                                                      ),
+                                                    }.withoutNulls,
+                                                    extra: <String, dynamic>{
+                                                      'productDocument':
+                                                          listViewProductListRecord,
+                                                    },
+                                                  );
+                                                },
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  elevation: 3.0,
+                                                  shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             4.0),
                                                   ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.edit_rounded,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          size: 24.0,
-                                                        ),
-                                                        Text(
-                                                          'แก้ไข',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontSize: 10.0,
-                                                              ),
-                                                        ),
-                                                      ],
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  2.0,
+                                                                  8.0,
+                                                                  2.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.edit_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            size: 24.0,
+                                                          ),
+                                                          Text(
+                                                            'แก้ไข',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  fontSize:
+                                                                      10.0,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
