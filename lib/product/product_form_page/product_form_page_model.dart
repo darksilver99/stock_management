@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -36,6 +37,8 @@ class ProductFormPageModel extends FlutterFlowModel<ProductFormPageWidget> {
       cateList[index] = updateFn(cateList[index]);
 
   String? image;
+
+  bool isUploading = false;
 
   ///  State fields for stateful widgets in this page.
 
