@@ -112,7 +112,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                   child: FlutterFlowDropDown<String>(
                     controller: _model.dropDownValueController ??=
                         FormFieldController<String>(null),
-                    options: ['Option 1'],
+                    options: _model.cateList,
                     onChanged: (val) =>
                         setState(() => _model.dropDownValue = val),
                     width: double.infinity,
