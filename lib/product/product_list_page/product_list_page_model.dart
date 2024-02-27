@@ -1,11 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/deposit_stock_view_widget.dart';
-import '/components/withdraw_stock_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/product/deposit_stock_view/deposit_stock_view_widget.dart';
+import '/product/withdraw_stock_view/withdraw_stock_view_widget.dart';
 import 'product_list_page_widget.dart' show ProductListPageWidget;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,11 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
       listViewPagingController;
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
+
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
+  String? rs;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
+  String? rs2;
 
   /// Initialization and disposal methods.
 

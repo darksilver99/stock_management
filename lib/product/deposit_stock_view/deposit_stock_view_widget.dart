@@ -103,7 +103,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            Navigator.pop(context);
+                            Navigator.pop(context, 'false');
                           },
                           child: Icon(
                             Icons.close_rounded,
@@ -268,7 +268,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                   productId: widget.productDocument?.productId,
                                   remark: _model.textFieldDetailController.text,
                                 ));
-                            Navigator.pop(context);
+                            Navigator.pop(context, 'success');
                           },
                           text: 'ยืนยัน',
                           options: FFButtonOptions(
