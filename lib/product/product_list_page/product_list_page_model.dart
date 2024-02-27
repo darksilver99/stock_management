@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/product/deposit_stock_view/deposit_stock_view_widget.dart';
-import '/product/product_photo_view/product_photo_view_widget.dart';
+import '/product/product_detail_view/product_detail_view_widget.dart';
 import '/product/withdraw_stock_view/withdraw_stock_view_widget.dart';
 import 'product_list_page_widget.dart' show ProductListPageWidget;
 import 'package:easy_debounce/easy_debounce.dart';

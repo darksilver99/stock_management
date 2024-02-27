@@ -1,11 +1,12 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'product_photo_view_widget.dart' show ProductPhotoViewWidget;
+import 'product_detail_view_widget.dart' show ProductDetailViewWidget;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ProductPhotoViewModel extends FlutterFlowModel<ProductPhotoViewWidget> {
+class ProductDetailViewModel extends FlutterFlowModel<ProductDetailViewWidget> {
   /// Initialization and disposal methods.
 
   @override
