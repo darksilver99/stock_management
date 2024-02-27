@@ -47,6 +47,7 @@ Future<String> exportExcel(String? category) async {
     rs = await FirebaseFirestore.instance
         .collection('tranfer_list')
         .where('create_by', isEqualTo: currentUserReference)
+        .orderBy('product_id', descending: false)
         .orderBy('create_date', descending: false)
         .get();
   } else {
@@ -54,6 +55,7 @@ Future<String> exportExcel(String? category) async {
         .collection('tranfer_list')
         .where("product_cate", isEqualTo: category)
         .where('create_by', isEqualTo: currentUserReference)
+        .orderBy('product_id', descending: false)
         .orderBy('create_date', descending: false)
         .get();
   }
