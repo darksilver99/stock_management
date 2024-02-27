@@ -460,7 +460,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
                                           title: Text(
-                                              'ส่งข้อมูลเรียบร้อย ปัญหาของท่าจะได้รับการแก้ไขโดยเร็วที่สุด'),
+                                              'ส่งข้อมูลเรียบร้อย ปัญหาของท่านจะได้รับการแก้ไขโดยเร็วที่สุด'),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(

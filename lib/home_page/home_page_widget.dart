@@ -95,17 +95,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      currentUserEmail,
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                    Expanded(
+                      child: Text(
+                        currentUserEmail,
+                        maxLines: 1,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
                     ),
                     Text(
                       FFAppState().appVersion,
+                      maxLines: 1,
                       style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
                   ],
