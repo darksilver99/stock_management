@@ -22,3 +22,21 @@ double sumPrice(
 int stringToInt(String str) {
   return int.parse(str);
 }
+
+DateTime? getNextDay(int? nextDay) {
+  DateTime currentDate = DateTime.now();
+  DateTime futureDate = currentDate.add(Duration(days: nextDay!));
+  return futureDate;
+}
+
+String? removeLastTwoZero() {
+  String numberString = FFAppState().price.toString();
+
+  return numberString.substring(0, numberString.length - 2);
+}
+
+int? removeLastTwoZeroInt() {
+  String numberString = FFAppState().price.toString();
+
+  return int.parse(numberString.substring(0, numberString.length - 2));
+}

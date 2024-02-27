@@ -161,26 +161,30 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                             ),
                             alignment: AlignmentDirectional(-1.0, 0.0),
                             child: Align(
-                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      'brand.ai',
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineMedium
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: Color(0xFF101213),
-                                            fontSize: 24.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.asset(
+                                      'assets/images/revaluation_12062459.png',
+                                      height: 120.0,
+                                      fit: BoxFit.cover,
                                     ),
+                                  ),
+                                  Text(
+                                    'ระบบจัดการพัสดุ',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          fontSize: 22.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -269,21 +273,6 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                       ),
                                     ),
                                   ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 12.0, 0.0, 24.0),
-                                  child: Text(
-                                    'Let\'s get started by filling out the form below.',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional(0.0, 0.0),

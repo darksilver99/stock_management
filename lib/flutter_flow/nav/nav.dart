@@ -123,6 +123,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ProductTranferPage',
           path: '/productTranferPage',
           builder: (context, params) => ProductTranferPageWidget(),
+        ),
+        FFRoute(
+          name: 'HelpPage',
+          path: '/helpPage',
+          builder: (context, params) => HelpPageWidget(),
+        ),
+        FFRoute(
+          name: 'PaymentCreditCardPage',
+          path: '/paymentCreditCardPage',
+          builder: (context, params) => PaymentCreditCardPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -303,14 +313,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/revaluation_12062459.png',
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

@@ -1,11 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/deposit_stock_view_widget.dart';
-import '/components/withdraw_stock_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/product/deposit_stock_view/deposit_stock_view_widget.dart';
+import '/product/withdraw_stock_view/withdraw_stock_view_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -258,7 +258,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  'รหัสสินค้า ${listViewProductListRecord.productId}',
+                                                  'CODE ${listViewProductListRecord.productId}',
                                                   maxLines: 1,
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -392,14 +392,22 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         );
                                                       },
                                                     ).then((value) =>
-                                                        setState(() {}));
+                                                        safeSetState(() =>
+                                                            _model.rs = value));
 
-                                                    if (Navigator.of(context)
-                                                        .canPop()) {
-                                                      context.pop();
+                                                    if ((_model.rs != null &&
+                                                            _model.rs != '') &&
+                                                        (_model.rs ==
+                                                            'success')) {
+                                                      if (Navigator.of(context)
+                                                          .canPop()) {
+                                                        context.pop();
+                                                      }
+                                                      context.pushNamed(
+                                                          'ProductListPage');
                                                     }
-                                                    context.pushNamed(
-                                                        'ProductListPage');
+
+                                                    setState(() {});
                                                   },
                                                   child: Material(
                                                     color: Colors.transparent,
@@ -509,14 +517,23 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         );
                                                       },
                                                     ).then((value) =>
-                                                        setState(() {}));
+                                                        safeSetState(() =>
+                                                            _model.rs2 =
+                                                                value));
 
-                                                    if (Navigator.of(context)
-                                                        .canPop()) {
-                                                      context.pop();
+                                                    if ((_model.rs2 != null &&
+                                                            _model.rs2 != '') &&
+                                                        (_model.rs2 ==
+                                                            'success')) {
+                                                      if (Navigator.of(context)
+                                                          .canPop()) {
+                                                        context.pop();
+                                                      }
+                                                      context.pushNamed(
+                                                          'ProductListPage');
                                                     }
-                                                    context.pushNamed(
-                                                        'ProductListPage');
+
+                                                    setState(() {});
                                                   },
                                                   child: Material(
                                                     color: Colors.transparent,
