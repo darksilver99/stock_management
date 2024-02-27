@@ -292,6 +292,7 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                                   productName: widget.productDocument?.name,
                                   productId: widget.productDocument?.productId,
                                   remark: _model.textFieldDetailController.text,
+                                  productCate: widget.productDocument?.category,
                                 ));
                             Navigator.pop(context, 'success');
                           }

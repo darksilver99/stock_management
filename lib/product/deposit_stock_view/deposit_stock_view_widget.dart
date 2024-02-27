@@ -267,6 +267,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                   productName: widget.productDocument?.name,
                                   productId: widget.productDocument?.productId,
                                   remark: _model.textFieldDetailController.text,
+                                  productCate: widget.productDocument?.category,
                                 ));
                             Navigator.pop(context, 'success');
                           },
