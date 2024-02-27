@@ -1118,6 +1118,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                             .textFieldProductCodeController
                                             .text,
                                         remark: 'เพิ่มสินค้าใหม่',
+                                        productCate: _model.dropDownValue,
                                       ));
                                   if (valueOrDefault<bool>(
                                       currentUserDocument?.isFirstTime,
