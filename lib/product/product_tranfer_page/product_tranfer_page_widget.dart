@@ -46,8 +46,9 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
         singleRecord: true,
       ).then((s) => s.firstOrNull);
       if (_model.rsCate != null) {
+        _model.cateList = _model.rsCate!.nameList.toList().cast<String>();
         setState(() {
-          _model.cateList = _model.rsCate!.nameList.toList().cast<String>();
+          _model.insertAtIndexInCateList(0, 'ทั้งหมด');
         });
       }
     });
@@ -113,8 +114,18 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                     controller: _model.dropDownValueController ??=
                         FormFieldController<String>(null),
                     options: _model.cateList,
-                    onChanged: (val) =>
-                        setState(() => _model.dropDownValue = val),
+                    onChanged: (val) async {
+                      setState(() => _model.dropDownValue = val);
+                      if (_model.dropDownValue == 'ทั้งหมด') {
+                        setState(() {
+                          _model.isFullList = true;
+                        });
+                      } else {
+                        setState(() {
+                          _model.isFullList = false;
+                        });
+                      }
+                    },
                     width: double.infinity,
                     height: 50.0,
                     textStyle: FlutterFlowTheme.of(context).bodyMedium,
