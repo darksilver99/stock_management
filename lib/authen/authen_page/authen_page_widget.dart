@@ -9,6 +9,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'authen_page_model.dart';
 export 'authen_page_model.dart';
 
@@ -965,6 +966,95 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                 ),
                                               ),
                                             ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 16.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Theme(
+                                                    data: ThemeData(
+                                                      checkboxTheme:
+                                                          CheckboxThemeData(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      4.0),
+                                                        ),
+                                                      ),
+                                                      unselectedWidgetColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                    ),
+                                                    child: Checkbox(
+                                                      value: _model
+                                                              .checkboxValue ??=
+                                                          false,
+                                                      onChanged:
+                                                          (newValue) async {
+                                                        setState(() => _model
+                                                                .checkboxValue =
+                                                            newValue!);
+                                                      },
+                                                      activeColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      checkColor: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                        'WebViewPage',
+                                                        queryParameters: {
+                                                          'title':
+                                                              serializeParam(
+                                                            'Terms and Condition',
+                                                            ParamType.String,
+                                                          ),
+                                                          'url': serializeParam(
+                                                            'https://www.silver-api.com/terms.php',
+                                                            ParamType.String,
+                                                          ),
+                                                        }.withoutNulls,
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      'Terms and Condition',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: Color(
+                                                                0xFF1C15EF),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
@@ -974,6 +1064,8 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                         0.0, 0.0, 0.0, 16.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
+                                                    Function() _navigate =
+                                                        () {};
                                                     if (_model.formKey2
                                                                 .currentState ==
                                                             null ||
@@ -982,52 +1074,80 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                             .validate()) {
                                                       return;
                                                     }
-                                                    GoRouter.of(context)
-                                                        .prepareAuthEvent();
-                                                    if (_model
-                                                            .passwordCreateController
-                                                            .text !=
-                                                        _model
-                                                            .passwordConfirmController
-                                                            .text) {
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Passwords don\'t match!',
+                                                    if (_model.checkboxValue!) {
+                                                      GoRouter.of(context)
+                                                          .prepareAuthEvent();
+                                                      if (_model
+                                                              .passwordCreateController
+                                                              .text !=
+                                                          _model
+                                                              .passwordConfirmController
+                                                              .text) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'Passwords don\'t match!',
+                                                            ),
                                                           ),
-                                                        ),
+                                                        );
+                                                        return;
+                                                      }
+
+                                                      final user = await authManager
+                                                          .createAccountWithEmail(
+                                                        context,
+                                                        _model
+                                                            .emailAddressCreateController
+                                                            .text,
+                                                        _model
+                                                            .passwordCreateController
+                                                            .text,
                                                       );
-                                                      return;
+                                                      if (user == null) {
+                                                        return;
+                                                      }
+
+                                                      await UsersRecord
+                                                          .collection
+                                                          .doc(user.uid)
+                                                          .update(
+                                                              createUsersRecordData(
+                                                            createdTime:
+                                                                getCurrentTimestamp,
+                                                            isFirstTime: true,
+                                                          ));
+
+                                                      _navigate = () =>
+                                                          context.goNamedAuth(
+                                                              'HomePage',
+                                                              context.mounted);
+                                                    } else {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return WebViewAware(
+                                                            child: AlertDialog(
+                                                              title: Text(
+                                                                  'กรุณายอมรับเงื่อนไข'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'ตกลง'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
                                                     }
 
-                                                    final user = await authManager
-                                                        .createAccountWithEmail(
-                                                      context,
-                                                      _model
-                                                          .emailAddressCreateController
-                                                          .text,
-                                                      _model
-                                                          .passwordCreateController
-                                                          .text,
-                                                    );
-                                                    if (user == null) {
-                                                      return;
-                                                    }
-
-                                                    await UsersRecord.collection
-                                                        .doc(user.uid)
-                                                        .update(
-                                                            createUsersRecordData(
-                                                          createdTime:
-                                                              getCurrentTimestamp,
-                                                          isFirstTime: true,
-                                                        ));
-
-                                                    context.goNamedAuth(
-                                                        'HomePage',
-                                                        context.mounted);
+                                                    _navigate();
                                                   },
                                                   text: 'ลงทะเบียน',
                                                   options: FFButtonOptions(

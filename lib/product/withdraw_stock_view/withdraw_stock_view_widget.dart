@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'withdraw_stock_view_model.dart';
 export 'withdraw_stock_view_model.dart';
 
@@ -238,20 +239,22 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('จำนวนสินค้าในคลังไม่เพียงพอ'),
-                                  content: Text('คงเหลือ : ${formatNumber(
-                                    widget.productDocument?.stock,
-                                    formatType: FormatType.decimal,
-                                    decimalType: DecimalType.automatic,
-                                  )}'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('ตกลง'),
-                                    ),
-                                  ],
+                                return WebViewAware(
+                                  child: AlertDialog(
+                                    title: Text('จำนวนสินค้าในคลังไม่เพียงพอ'),
+                                    content: Text('คงเหลือ : ${formatNumber(
+                                      widget.productDocument?.stock,
+                                      formatType: FormatType.decimal,
+                                      decimalType: DecimalType.automatic,
+                                    )}'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('ตกลง'),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               },
                             );

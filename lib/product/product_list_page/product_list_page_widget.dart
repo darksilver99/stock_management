@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'product_list_page_model.dart';
 export 'product_list_page_model.dart';
 
@@ -370,23 +371,25 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
+                                                          child: WebViewAware(
                                                             child:
-                                                                DepositStockViewWidget(
-                                                              productDocument:
-                                                                  listViewProductListRecord,
+                                                                GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child:
+                                                                  DepositStockViewWidget(
+                                                                productDocument:
+                                                                    listViewProductListRecord,
+                                                              ),
                                                             ),
                                                           ),
                                                         );
@@ -495,23 +498,25 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
+                                                          child: WebViewAware(
                                                             child:
-                                                                WithdrawStockViewWidget(
-                                                              productDocument:
-                                                                  listViewProductListRecord,
+                                                                GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child:
+                                                                  WithdrawStockViewWidget(
+                                                                productDocument:
+                                                                    listViewProductListRecord,
+                                                              ),
                                                             ),
                                                           ),
                                                         );

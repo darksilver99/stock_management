@@ -22,6 +22,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'product_form_page_model.dart';
 export 'product_form_page_model.dart';
 
@@ -100,14 +101,16 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
-            return AlertDialog(
-              title: Text('กรุณาเพิ่มหมวดหมู่สินค้า'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(alertDialogContext),
-                  child: Text('ตกลง'),
-                ),
-              ],
+            return WebViewAware(
+              child: AlertDialog(
+                title: Text('กรุณาเพิ่มหมวดหมู่สินค้า'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: Text('ตกลง'),
+                  ),
+                ],
+              ),
             );
           },
         );
@@ -118,13 +121,15 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
           useSafeArea: true,
           context: context,
           builder: (context) {
-            return GestureDetector(
-              onTap: () => _model.unfocusNode.canRequestFocus
-                  ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                  : FocusScope.of(context).unfocus(),
-              child: Padding(
-                padding: MediaQuery.viewInsetsOf(context),
-                child: CategoryViewWidget(),
+            return WebViewAware(
+              child: GestureDetector(
+                onTap: () => _model.unfocusNode.canRequestFocus
+                    ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                    : FocusScope.of(context).unfocus(),
+                child: Padding(
+                  padding: MediaQuery.viewInsetsOf(context),
+                  child: CategoryViewWidget(),
+                ),
               ),
             );
           },
@@ -372,18 +377,21 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                         useSafeArea: true,
                                         context: context,
                                         builder: (context) {
-                                          return GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: CategoryViewWidget(),
+                                          return WebViewAware(
+                                            child: GestureDetector(
+                                              onTap: () => _model.unfocusNode
+                                                      .canRequestFocus
+                                                  ? FocusScope.of(context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode)
+                                                  : FocusScope.of(context)
+                                                      .unfocus(),
+                                              child: Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child: CategoryViewWidget(),
+                                              ),
                                             ),
                                           );
                                         },
@@ -929,15 +937,17 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('เลือกหมวดหมู่'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('ตกลง'),
-                                        ),
-                                      ],
+                                    return WebViewAware(
+                                      child: AlertDialog(
+                                        title: Text('เลือกหมวดหมู่'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('ตกลง'),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 );
@@ -963,15 +973,18 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('ตกลง'),
-                                        ),
-                                      ],
+                                    return WebViewAware(
+                                      child: AlertDialog(
+                                        title:
+                                            Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('ตกลง'),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 );
@@ -1000,17 +1013,19 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('รหัสสินค้าซ้ำ'),
-                                        content: Text(
-                                            'ชื่อสินค้า : ${_model.isDuplicate?.name}หมวด : ${_model.isDuplicate?.category}'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
+                                      return WebViewAware(
+                                        child: AlertDialog(
+                                          title: Text('รหัสสินค้าซ้ำ'),
+                                          content: Text(
+                                              'ชื่อสินค้า : ${_model.isDuplicate?.name}หมวด : ${_model.isDuplicate?.category}'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        ),
                                       );
                                     },
                                   );
@@ -1110,18 +1125,20 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title:
-                                              Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                          content: Text(
-                                              'พิเศษบัญชีของท่านได้รับสิทธิ์ใช้ฟรี 90 วัน!'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('ตกลง'),
-                                            ),
-                                          ],
+                                        return WebViewAware(
+                                          child: AlertDialog(
+                                            title: Text(
+                                                'บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                            content: Text(
+                                                'พิเศษบัญชีของท่านได้รับสิทธิ์ใช้ฟรี 90 วัน!'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('ตกลง'),
+                                              ),
+                                            ],
+                                          ),
                                         );
                                       },
                                     );
@@ -1135,16 +1152,18 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title:
-                                              Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('ตกลง'),
-                                            ),
-                                          ],
+                                        return WebViewAware(
+                                          child: AlertDialog(
+                                            title: Text(
+                                                'บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('ตกลง'),
+                                              ),
+                                            ],
+                                          ),
                                         );
                                       },
                                     );
@@ -1193,25 +1212,27 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                     await showDialog<bool>(
                                           context: context,
                                           builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                  'ยืนยันการลบ \"${widget.productDocument?.name}\" ?'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          false),
-                                                  child: Text('ยกเลิก'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          true),
-                                                  child: Text('ยืนยัน'),
-                                                ),
-                                              ],
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text(
+                                                    'ยืนยันการลบ \"${widget.productDocument?.name}\" ?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            false),
+                                                    child: Text('ยกเลิก'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            true),
+                                                    child: Text('ยืนยัน'),
+                                                  ),
+                                                ],
+                                              ),
                                             );
                                           },
                                         ) ??

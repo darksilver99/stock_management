@@ -133,6 +133,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PaymentCreditCardPage',
           path: '/paymentCreditCardPage',
           builder: (context, params) => PaymentCreditCardPageWidget(),
+        ),
+        FFRoute(
+          name: 'WebViewPage',
+          path: '/webViewPage',
+          builder: (context, params) => WebViewPageWidget(
+            title: params.getParam('title', ParamType.String),
+            url: params.getParam('url', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
