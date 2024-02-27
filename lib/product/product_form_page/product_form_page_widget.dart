@@ -1054,21 +1054,49 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                         .textFieldProductCodeController.text,
                                     remark: 'เพิ่มสินค้าใหม่',
                                   ));
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('ตกลง'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                              if (valueOrDefault<bool>(
+                                  currentUserDocument?.isFirstTime, false)) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                      content: Text(
+                                          'พิเศษบัญชีของท่านได้รับสิทธิ์ใช้ฟรี 90 วัน!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('ตกลง'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('ตกลง'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  isFirstTime: false,
+                                  expireDate: functions.getNextDay(90),
+                                ));
+                              }
+
                               await actions.pushReplacementNamed(
                                 context,
                                 'HomePage',
