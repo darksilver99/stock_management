@@ -93,12 +93,14 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                         child: Image.network(
                           widget.productDocument!.photo,
                           width: double.infinity,
-                          fit: BoxFit.cover,
+                          height: 300.0,
+                          fit: BoxFit.contain,
                           errorBuilder: (context, error, stackTrace) =>
                               Image.asset(
                             'assets/images/error_image.jpg',
                             width: double.infinity,
-                            fit: BoxFit.cover,
+                            height: 300.0,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),

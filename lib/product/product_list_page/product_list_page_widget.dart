@@ -283,6 +283,13 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
+                                                Icon(
+                                                  Icons.search_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 24.0,
+                                                ),
                                                 Expanded(
                                                   child: Builder(
                                                     builder: (context) =>
@@ -357,9 +364,6 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .underline,
                                                                 ),
                                                       ),
                                                     ),
