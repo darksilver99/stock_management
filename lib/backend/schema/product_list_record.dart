@@ -81,10 +81,10 @@ class ProductListRecord extends FirestoreRecord {
   String get detail => _detail ?? '';
   bool hasDetail() => _detail != null;
 
-  // "keyword" field.
-  List<String>? _keyword;
-  List<String> get keyword => _keyword ?? const [];
-  bool hasKeyword() => _keyword != null;
+  // "search_data" field.
+  List<String>? _searchData;
+  List<String> get searchData => _searchData ?? const [];
+  bool hasSearchData() => _searchData != null;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
@@ -100,7 +100,7 @@ class ProductListRecord extends FirestoreRecord {
     _priceStart = castToType<double>(snapshotData['price_start']);
     _priceSell = castToType<double>(snapshotData['price_sell']);
     _detail = snapshotData['detail'] as String?;
-    _keyword = getDataList(snapshotData['keyword']);
+    _searchData = getDataList(snapshotData['search_data']);
   }
 
   static CollectionReference get collection =>
@@ -192,7 +192,7 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
         e1?.priceStart == e2?.priceStart &&
         e1?.priceSell == e2?.priceSell &&
         e1?.detail == e2?.detail &&
-        listEquality.equals(e1?.keyword, e2?.keyword);
+        listEquality.equals(e1?.searchData, e2?.searchData);
   }
 
   @override
@@ -210,7 +210,7 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
         e?.priceStart,
         e?.priceSell,
         e?.detail,
-        e?.keyword
+        e?.searchData
       ]);
 
   @override
