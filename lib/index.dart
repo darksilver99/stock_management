@@ -12,3 +12,4 @@ export '/product/product_tranfer_page/product_tranfer_page_widget.dart'
 export '/help_page/help_page_widget.dart' show HelpPageWidget;
 export '/payment/payment_credit_card_page/payment_credit_card_page_widget.dart'
     show PaymentCreditCardPageWidget;
+export '/web_view_page/web_view_page_widget.dart' show WebViewPageWidget;

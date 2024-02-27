@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'forget_password_page_model.dart';
 export 'forget_password_page_model.dart';
 
@@ -186,16 +187,18 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text(
-                                          'ระบบได้ส่งลิงก์ตั้งรหัสผ่านใหม่ไปยัง ${_model.emailAddressController.text} แล้ว กรุณาตรวจสอบกล่องข้อความหรือข้อความขยะ'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('ตกลง'),
-                                        ),
-                                      ],
+                                    return WebViewAware(
+                                      child: AlertDialog(
+                                        title: Text(
+                                            'ระบบได้ส่งลิงก์ตั้งรหัสผ่านใหม่ไปยัง ${_model.emailAddressController.text} แล้ว กรุณาตรวจสอบกล่องข้อความหรือข้อความขยะ'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('ตกลง'),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 );

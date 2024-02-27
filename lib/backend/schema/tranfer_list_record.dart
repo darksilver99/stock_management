@@ -71,6 +71,11 @@ class TranferListRecord extends FirestoreRecord {
   String get remark => _remark ?? '';
   bool hasRemark() => _remark != null;
 
+  // "product_cate" field.
+  String? _productCate;
+  String get productCate => _productCate ?? '';
+  bool hasProductCate() => _productCate != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -83,6 +88,7 @@ class TranferListRecord extends FirestoreRecord {
     _productName = snapshotData['product_name'] as String?;
     _productId = snapshotData['product_id'] as String?;
     _remark = snapshotData['remark'] as String?;
+    _productCate = snapshotData['product_cate'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -131,6 +137,7 @@ Map<String, dynamic> createTranferListRecordData({
   String? productName,
   String? productId,
   String? remark,
+  String? productCate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -145,6 +152,7 @@ Map<String, dynamic> createTranferListRecordData({
       'product_name': productName,
       'product_id': productId,
       'remark': remark,
+      'product_cate': productCate,
     }.withoutNulls,
   );
 
@@ -166,7 +174,8 @@ class TranferListRecordDocumentEquality implements Equality<TranferListRecord> {
         e1?.productRef == e2?.productRef &&
         e1?.productName == e2?.productName &&
         e1?.productId == e2?.productId &&
-        e1?.remark == e2?.remark;
+        e1?.remark == e2?.remark &&
+        e1?.productCate == e2?.productCate;
   }
 
   @override
@@ -181,7 +190,8 @@ class TranferListRecordDocumentEquality implements Equality<TranferListRecord> {
         e?.productRef,
         e?.productName,
         e?.productId,
-        e?.remark
+        e?.remark,
+        e?.productCate
       ]);
 
   @override
