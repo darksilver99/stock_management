@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/product/deposit_stock_view/deposit_stock_view_widget.dart';
-import '/product/product_photo_view/product_photo_view_widget.dart';
+import '/product/product_detail_view/product_detail_view_widget.dart';
 import '/product/withdraw_stock_view/withdraw_stock_view_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -284,32 +284,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Expanded(
-                                                  child: Text(
-                                                    'รหัสสินค้า ${listViewProductListRecord.productId}',
-                                                    maxLines: 1,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                if (listViewProductListRecord
-                                                            .photo !=
-                                                        null &&
-                                                    listViewProductListRecord
-                                                            .photo !=
-                                                        '')
-                                                  Builder(
+                                                  child: Builder(
                                                     builder: (context) =>
                                                         InkWell(
                                                       splashColor:
@@ -353,10 +328,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                               context)
                                                                           .unfocus(),
                                                                   child:
-                                                                      ProductPhotoViewWidget(
-                                                                    photoPath:
-                                                                        listViewProductListRecord
-                                                                            .photo,
+                                                                      ProductDetailViewWidget(
+                                                                    productDocument:
+                                                                        listViewProductListRecord,
                                                                   ),
                                                                 ),
                                                               ),
@@ -366,7 +340,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                             setState(() {}));
                                                       },
                                                       child: Text(
-                                                        'รูป ',
+                                                        'รหัสสินค้า ${listViewProductListRecord.productId}',
+                                                        maxLines: 1,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -377,6 +352,11 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primary,
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -384,6 +364,12 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                       ),
                                                     ),
                                                   ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
                                                 Expanded(
                                                   child: Text(
                                                     listViewProductListRecord
