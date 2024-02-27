@@ -85,6 +85,11 @@ class _ProductPhotoViewWidgetState extends State<ProductPhotoViewWidget> {
                     widget.photoPath!,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                      'assets/images/error_image.jpg',
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ]
