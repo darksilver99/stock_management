@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/product/product_tranfer_detail_view/product_tranfer_detail_view_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -106,48 +107,93 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (_model.cateList.isNotEmpty)
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                  child: FlutterFlowDropDown<String>(
-                    controller: _model.dropDownValueController ??=
-                        FormFieldController<String>(null),
-                    options: _model.cateList,
-                    onChanged: (val) async {
-                      setState(() => _model.dropDownValue = val);
-                      if (_model.dropDownValue == 'ทั้งหมด') {
-                        setState(() {
-                          _model.isFullList = true;
-                        });
-                      } else {
-                        setState(() {
-                          _model.isFullList = false;
-                        });
-                      }
-                    },
-                    width: double.infinity,
-                    height: 50.0,
-                    textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                    hintText: 'หมวดหมู่',
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (_model.cateList.isNotEmpty)
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 1.0, 8.0, 0.0),
+                          child: FlutterFlowDropDown<String>(
+                            controller: _model.dropDownValueController ??=
+                                FormFieldController<String>(null),
+                            options: _model.cateList,
+                            onChanged: (val) async {
+                              setState(() => _model.dropDownValue = val);
+                              if (_model.dropDownValue == 'ทั้งหมด') {
+                                setState(() {
+                                  _model.isFullList = true;
+                                });
+                              } else {
+                                setState(() {
+                                  _model.isFullList = false;
+                                });
+                              }
+                            },
+                            width: 100.0,
+                            height: 50.0,
+                            textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                            hintText: 'หมวดหมู่',
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
+                            ),
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            elevation: 2.0,
+                            borderColor: FlutterFlowTheme.of(context).alternate,
+                            borderWidth: 2.0,
+                            borderRadius: 8.0,
+                            margin: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 4.0, 16.0, 4.0),
+                            hidesUnderline: true,
+                            isOverButton: true,
+                            isSearchable: false,
+                            isMultiSelect: false,
+                          ),
+                        ),
+                      ),
+                    FFButtonWidget(
+                      onPressed: () async {
+                        _model.path = await actions.exportExcel(
+                          _model.dropDownValue,
+                        );
+                        await actions.shareFile(
+                          _model.path,
+                        );
+
+                        setState(() {});
+                      },
+                      text: 'Export&Share',
+                      options: FFButtonOptions(
+                        height: 48.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).success,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter',
+                                  color: Colors.white,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                        elevation: 3.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    elevation: 2.0,
-                    borderColor: FlutterFlowTheme.of(context).alternate,
-                    borderWidth: 2.0,
-                    borderRadius: 8.0,
-                    margin:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
-                    hidesUnderline: true,
-                    isOverButton: true,
-                    isSearchable: false,
-                    isMultiSelect: false,
-                  ),
+                  ],
                 ),
+              ),
               if (_model.isFullList)
                 Expanded(
                   child: PagedListView<DocumentSnapshot<Object?>?,

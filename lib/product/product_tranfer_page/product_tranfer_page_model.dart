@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/product/product_tranfer_detail_view/product_tranfer_detail_view_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'product_tranfer_page_widget.dart' show ProductTranferPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -40,6 +41,8 @@ class ProductTranferPageModel
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Custom Action - exportExcel] action in Button widget.
+  String? path;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, TranferListRecord>?
