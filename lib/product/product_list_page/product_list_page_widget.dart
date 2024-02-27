@@ -258,7 +258,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  'CODE ${listViewProductListRecord.productId}',
+                                                  'รหัสสินค้า ${listViewProductListRecord.productId}',
                                                   maxLines: 1,
                                                   style: FlutterFlowTheme.of(
                                                           context)
