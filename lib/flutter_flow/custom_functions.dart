@@ -31,7 +31,6 @@ DateTime? getNextDay(int? nextDay) {
 
 String? removeLastTwoZero() {
   String numberString = FFAppState().price.toString();
-
   return numberString.substring(0, numberString.length - 2);
 }
 
