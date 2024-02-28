@@ -1119,6 +1119,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                             .text,
                                         remark: 'เพิ่มสินค้าใหม่',
                                         productCate: _model.dropDownValue,
+                                        totalRemain: int.tryParse(_model
+                                            .textFieldProductStockController
+                                            .text),
                                       ));
                                   if (valueOrDefault<bool>(
                                       currentUserDocument?.isFirstTime,
