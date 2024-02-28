@@ -31,6 +31,8 @@ class DepositStockViewModel extends FlutterFlowModel<DepositStockViewWidget> {
   FocusNode? textFieldDetailFocusNode;
   TextEditingController? textFieldDetailController;
   String? Function(BuildContext, String?)? textFieldDetailControllerValidator;
+  // Stores action output result for [Backend Call - Read Document] action in Button widget.
+  ProductListRecord? rsProduct;
 
   /// Initialization and disposal methods.
 
