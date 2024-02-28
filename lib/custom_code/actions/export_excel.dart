@@ -103,6 +103,10 @@ Future<String> exportExcel(String? category) async {
       "field": "total_amount",
     },
     {
+      "text": "คงเหลือ(หน่วย)",
+      "field": "total_remain",
+    },
+    {
       "text": "หมายเหตุ",
       "field": "remark",
     },
