@@ -155,7 +155,7 @@ class _ProductTranferDetailViewWidgetState
                         children: [
                           Expanded(
                             child: Text(
-                              '(คงเหลือ ${rowProductListRecord.stock.toString()})',
+                              '(คงเหลือ ${widget.productTranferDocument?.totalRemain?.toString()})',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium

@@ -247,6 +247,9 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                 },
                               ),
                             });
+                            _model.rsProduct =
+                                await ProductListRecord.getDocumentOnce(
+                                    widget.productDocument!.reference);
 
                             await TranferListRecord.collection
                                 .doc()
@@ -268,8 +271,12 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                   productId: widget.productDocument?.productId,
                                   remark: _model.textFieldDetailController.text,
                                   productCate: widget.productDocument?.category,
+                                  totalRemain: _model.rsProduct!.stock +
+                                      int.parse(_model.textController1.text),
                                 ));
                             Navigator.pop(context, 'success');
+
+                            setState(() {});
                           },
                           text: 'ยืนยัน',
                           options: FFButtonOptions(

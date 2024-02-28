@@ -169,9 +169,29 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                         setState(() {
                           _model.isLoading = false;
                         });
-                        await actions.shareFile(
-                          _model.path,
-                        );
+                        if (_model.path == 'No Data') {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return WebViewAware(
+                                child: AlertDialog(
+                                  title: Text('ไม่มีข้อมูล'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('ตกลง'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          await actions.shareFile(
+                            _model.path,
+                          );
+                        }
 
                         setState(() {});
                       },

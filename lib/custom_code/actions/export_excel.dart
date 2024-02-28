@@ -63,6 +63,10 @@ Future<String> exportExcel(String? category) async {
   print("rsrsrs");
   print(rs.size);
 
+  if (rs.size == 0) {
+    return "No Data";
+  }
+
   var excel = Excel.createExcel();
   Sheet sheetObject = excel['Sheet1'];
 

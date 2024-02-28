@@ -233,7 +233,10 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                               !_model.formKey.currentState!.validate()) {
                             return;
                           }
-                          if (widget.productDocument!.stock <
+                          _model.rsProduct =
+                              await ProductListRecord.getDocumentOnce(
+                                  widget.productDocument!.reference);
+                          if (_model.rsProduct!.stock <
                               functions.stringToInt(
                                   _model.textFieldAmountController.text)) {
                             await showDialog(
@@ -293,9 +296,14 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                                   productId: widget.productDocument?.productId,
                                   remark: _model.textFieldDetailController.text,
                                   productCate: widget.productDocument?.category,
+                                  totalRemain: _model.rsProduct!.stock -
+                                      int.parse(_model
+                                          .textFieldAmountController.text),
                                 ));
                             Navigator.pop(context, 'success');
                           }
+
+                          setState(() {});
                         },
                         text: 'ยืนยัน',
                         options: FFButtonOptions(
