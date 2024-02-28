@@ -235,6 +235,9 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                 !_model.formKey.currentState!.validate()) {
                               return;
                             }
+                            _model.rsProduct =
+                                await ProductListRecord.getDocumentOnce(
+                                    widget.productDocument!.reference);
 
                             await widget.productDocument!.reference.update({
                               ...createProductListRecordData(
@@ -247,9 +250,6 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                 },
                               ),
                             });
-                            _model.rsProduct =
-                                await ProductListRecord.getDocumentOnce(
-                                    widget.productDocument!.reference);
 
                             await TranferListRecord.collection
                                 .doc()
