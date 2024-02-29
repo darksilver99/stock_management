@@ -1139,7 +1139,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                               formatType: FormatType.decimal,
                                               decimalType:
                                                   DecimalType.automatic,
-                                            )}บาท/เดือน'),
+                                            )} บาท/เดือน'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
