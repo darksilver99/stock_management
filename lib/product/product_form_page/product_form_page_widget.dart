@@ -1134,7 +1134,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                             title: Text(
                                                 'บันทึกข้อมูลเรียบร้อยแล้ว'),
                                             content: Text(
-                                                'พิเศษบัญชีของท่านได้รับสิทธิ์ใช้ฟรี 90 วัน!'),
+                                                'พิเศษบัญชีของท่านได้รับสิทธิ์ใช้ฟรี 90 วัน! หลังจากนั้นจะมีค่าบริการายเดือน 349 บาท/เดือน'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
