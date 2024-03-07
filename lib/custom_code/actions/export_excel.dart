@@ -45,14 +45,14 @@ Future<String> exportExcel(String? category) async {
   QuerySnapshot<Map<String, dynamic>> rs;
   if (category == "ทั้งหมด" || category == null) {
     rs = await FirebaseFirestore.instance
-        .collection('tranfer_list')
+        .collection('tranfer_list/$currentUserUid/tranfer_data')
         .where('create_by', isEqualTo: currentUserReference)
         .orderBy('product_id', descending: false)
         .orderBy('create_date', descending: false)
         .get();
   } else {
     rs = await FirebaseFirestore.instance
-        .collection('tranfer_list')
+        .collection('tranfer_list/$currentUserUid/tranfer_data')
         .where("product_cate", isEqualTo: category)
         .where('create_by', isEqualTo: currentUserReference)
         .orderBy('product_id', descending: false)
