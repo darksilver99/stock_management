@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:stock_management/auth/firebase_auth/auth_util.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
@@ -104,7 +105,7 @@ class ProductListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('product_list');
+      FirebaseFirestore.instance.collection('product_list/$currentUserUid/product_data');
 
   static Stream<ProductListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => ProductListRecord.fromSnapshot(s));

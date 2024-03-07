@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:stock_management/auth/firebase_auth/auth_util.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
@@ -98,7 +99,7 @@ class TranferListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('tranfer_list');
+      FirebaseFirestore.instance.collection('tranfer_list/$currentUserUid/tranfer_data');
 
   static Stream<TranferListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => TranferListRecord.fromSnapshot(s));
