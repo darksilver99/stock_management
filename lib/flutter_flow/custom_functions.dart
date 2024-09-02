@@ -30,13 +30,13 @@ DateTime? getNextDay(int? nextDay) {
   return futureDate;
 }
 
-String? removeLastTwoZero() {
-  String numberString = FFAppState().price.toString();
+String? removeLastTwoZero(int val) {
+  String numberString = val.toString();
   return numberString.substring(0, numberString.length - 2);
 }
 
-int? removeLastTwoZeroInt() {
-  String numberString = FFAppState().price.toString();
+int? removeLastTwoZeroInt(int val) {
+  String numberString = val.toString();
 
   return int.parse(numberString.substring(0, numberString.length - 2));
 }

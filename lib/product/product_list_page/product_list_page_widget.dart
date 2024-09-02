@@ -46,12 +46,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -90,6 +86,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                   fontFamily: 'Readex Pro',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -119,22 +116,30 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                             () async {
                               if (_model.textController.text != null &&
                                   _model.textController.text != '') {
-                                setState(() {
-                                  _model.isFullList = false;
-                                });
+                                _model.isFullList = false;
+                                setState(() {});
                               } else {
-                                setState(() {
-                                  _model.isFullList = true;
-                                });
+                                _model.isFullList = true;
+                                setState(() {});
                               }
                             },
                           ),
+                          autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'ค้นหา ชื่อ/รหัส สินค้า',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context).alternate,
@@ -172,13 +177,11 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                       _model.textController?.clear();
                                       if (_model.textController.text != null &&
                                           _model.textController.text != '') {
-                                        setState(() {
-                                          _model.isFullList = false;
-                                        });
+                                        _model.isFullList = false;
+                                        setState(() {});
                                       } else {
-                                        setState(() {
-                                          _model.isFullList = true;
-                                        });
+                                        _model.isFullList = true;
+                                        setState(() {});
                                       }
 
                                       setState(() {});
@@ -190,7 +193,11 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                   )
                                 : null,
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
                           validator: _model.textControllerValidator
                               .asValidator(context),
                         ),
@@ -306,16 +313,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         child: WebViewAware(
                                                           child:
                                                               GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
+                                                            onTap: () =>
+                                                                FocusScope.of(
+                                                                        dialogContext)
                                                                     .unfocus(),
                                                             child:
                                                                 ProductDetailViewWidget(
@@ -326,8 +326,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         ),
                                                       );
                                                     },
-                                                  ).then((value) =>
-                                                      setState(() {}));
+                                                  );
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -357,6 +356,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                       .primary,
                                                                   fontSize:
                                                                       18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -381,6 +382,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                 ),
@@ -419,6 +421,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               fontFamily:
                                                                   'Inter',
                                                               fontSize: 16.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -474,15 +478,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                             child: WebViewAware(
                                                               child:
                                                                   GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
+                                                                onTap: () =>
+                                                                    FocusScope.of(
+                                                                            dialogContext)
                                                                         .unfocus(),
                                                                 child:
                                                                     DepositStockViewWidget(
@@ -564,6 +562,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                           'Inter',
                                                                       fontSize:
                                                                           10.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                     ),
                                                               ),
                                                             ],
@@ -608,15 +608,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                             child: WebViewAware(
                                                               child:
                                                                   GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
+                                                                onTap: () =>
+                                                                    FocusScope.of(
+                                                                            dialogContext)
                                                                         .unfocus(),
                                                                 child:
                                                                     WithdrawStockViewWidget(
@@ -698,6 +692,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                           'Inter',
                                                                       fontSize:
                                                                           10.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                     ),
                                                               ),
                                                             ],
@@ -788,6 +784,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         10.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                           ],
@@ -816,10 +814,11 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                       ),
                                             ),
                                             Text(
-                                              '${dateTimeFormat('d/M/y', listViewProductListRecord.updateDate)} ${dateTimeFormat('Hm', listViewProductListRecord.updateDate)}',
+                                              '${dateTimeFormat("d/M/y", listViewProductListRecord.updateDate)} ${dateTimeFormat("Hm", listViewProductListRecord.updateDate)}',
                                               maxLines: 1,
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -831,6 +830,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                       ),
                                             ),
                                           ],
@@ -959,16 +959,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         child: WebViewAware(
                                                           child:
                                                               GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
+                                                            onTap: () =>
+                                                                FocusScope.of(
+                                                                        dialogContext)
                                                                     .unfocus(),
                                                             child:
                                                                 ProductDetailViewWidget(
@@ -979,8 +972,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         ),
                                                       );
                                                     },
-                                                  ).then((value) =>
-                                                      setState(() {}));
+                                                  );
                                                 },
                                                 child: Row(
                                                   mainAxisSize:
@@ -1010,6 +1002,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                       .primary,
                                                                   fontSize:
                                                                       18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -1034,6 +1028,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                 ),
@@ -1072,6 +1067,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               fontFamily:
                                                                   'Inter',
                                                               fontSize: 16.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -1127,15 +1124,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                             child: WebViewAware(
                                                               child:
                                                                   GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
+                                                                onTap: () =>
+                                                                    FocusScope.of(
+                                                                            dialogContext)
                                                                         .unfocus(),
                                                                 child:
                                                                     DepositStockViewWidget(
@@ -1217,6 +1208,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                           'Inter',
                                                                       fontSize:
                                                                           10.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                     ),
                                                               ),
                                                             ],
@@ -1261,15 +1254,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                             child: WebViewAware(
                                                               child:
                                                                   GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
+                                                                onTap: () =>
+                                                                    FocusScope.of(
+                                                                            dialogContext)
                                                                         .unfocus(),
                                                                 child:
                                                                     WithdrawStockViewWidget(
@@ -1351,6 +1338,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                           'Inter',
                                                                       fontSize:
                                                                           10.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                     ),
                                                               ),
                                                             ],
@@ -1441,6 +1430,8 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         10.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                           ],
@@ -1469,10 +1460,11 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                       ),
                                             ),
                                             Text(
-                                              '${dateTimeFormat('d/M/y', listViewProductListRecord.updateDate)} ${dateTimeFormat('Hm', listViewProductListRecord.updateDate)}',
+                                              '${dateTimeFormat("d/M/y", listViewProductListRecord.updateDate)} ${dateTimeFormat("Hm", listViewProductListRecord.updateDate)}',
                                               maxLines: 1,
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -1484,6 +1476,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
+                                                        letterSpacing: 0.0,
                                                       ),
                                             ),
                                           ],

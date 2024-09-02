@@ -40,10 +40,10 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
     super.initState();
     _model = createModel(context, () => WithdrawStockViewModel());
 
-    _model.textFieldAmountController ??= TextEditingController();
+    _model.textFieldAmountTextController ??= TextEditingController();
     _model.textFieldAmountFocusNode ??= FocusNode();
 
-    _model.textFieldDetailController ??= TextEditingController();
+    _model.textFieldDetailTextController ??= TextEditingController();
     _model.textFieldDetailFocusNode ??= FocusNode();
   }
 
@@ -56,8 +56,6 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -90,6 +88,7 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 22.0,
+                                  letterSpacing: 0.0,
                                 ),
                           ),
                         ],
@@ -127,14 +126,24 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                         child: TextFormField(
-                          controller: _model.textFieldAmountController,
+                          controller: _model.textFieldAmountTextController,
                           focusNode: _model.textFieldAmountFocusNode,
+                          autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'จำนวน',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context).alternate,
@@ -167,9 +176,14 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
                           keyboardType: TextInputType.number,
-                          validator: _model.textFieldAmountControllerValidator
+                          validator: _model
+                              .textFieldAmountTextControllerValidator
                               .asValidator(context),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
@@ -181,14 +195,24 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                         child: TextFormField(
-                          controller: _model.textFieldDetailController,
+                          controller: _model.textFieldDetailTextController,
                           focusNode: _model.textFieldDetailFocusNode,
+                          autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'หมายเหตุ',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context).alternate,
@@ -221,9 +245,14 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                             fillColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
                           maxLines: 3,
-                          validator: _model.textFieldDetailControllerValidator
+                          validator: _model
+                              .textFieldDetailTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -235,10 +264,10 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                           }
                           _model.rsProduct =
                               await ProductListRecord.getDocumentOnce(
-                                  widget.productDocument!.reference);
+                                  widget!.productDocument!.reference);
                           if (_model.rsProduct!.stock <
                               functions.stringToInt(
-                                  _model.textFieldAmountController.text)) {
+                                  _model.textFieldAmountTextController.text)) {
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
@@ -246,7 +275,7 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                                   child: AlertDialog(
                                     title: Text('จำนวนสินค้าในคลังไม่เพียงพอ'),
                                     content: Text('คงเหลือ : ${formatNumber(
-                                      widget.productDocument?.stock,
+                                      widget!.productDocument?.stock,
                                       formatType: FormatType.decimal,
                                       decimalType: DecimalType.automatic,
                                     )}'),
@@ -262,14 +291,15 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                               },
                             );
                           } else {
-                            await widget.productDocument!.reference.update({
+                            await widget!.productDocument!.reference.update({
                               ...createProductListRecordData(
                                 updateDate: getCurrentTimestamp,
                               ),
                               ...mapToFirestore(
                                 {
                                   'stock': FieldValue.increment(-(int.parse(
-                                      _model.textFieldAmountController.text))),
+                                      _model.textFieldAmountTextController
+                                          .text))),
                                 },
                               ),
                             });
@@ -281,24 +311,27 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                                   createBy: currentUserReference,
                                   status: 1,
                                   type: 'จ่าย',
-                                  totalAmount: int.tryParse(
-                                      _model.textFieldAmountController.text),
+                                  totalAmount: int.tryParse(_model
+                                      .textFieldAmountTextController.text),
                                   totalPriceStart: functions.sumPrice(
-                                      widget.productDocument!.priceStart,
+                                      widget!.productDocument!.priceStart,
                                       int.parse(_model
-                                          .textFieldAmountController.text)),
+                                          .textFieldAmountTextController.text)),
                                   totalPriceSell: functions.sumPrice(
-                                      widget.productDocument!.priceSell,
+                                      widget!.productDocument!.priceSell,
                                       int.parse(_model
-                                          .textFieldAmountController.text)),
-                                  productRef: widget.productDocument?.reference,
-                                  productName: widget.productDocument?.name,
-                                  productId: widget.productDocument?.productId,
-                                  remark: _model.textFieldDetailController.text,
-                                  productCate: widget.productDocument?.category,
+                                          .textFieldAmountTextController.text)),
+                                  productRef:
+                                      widget!.productDocument?.reference,
+                                  productName: widget!.productDocument?.name,
+                                  productId: widget!.productDocument?.productId,
+                                  remark:
+                                      _model.textFieldDetailTextController.text,
+                                  productCate:
+                                      widget!.productDocument?.category,
                                   totalRemain: _model.rsProduct!.stock -
                                       int.parse(_model
-                                          .textFieldAmountController.text),
+                                          .textFieldAmountTextController.text),
                                 ));
                             Navigator.pop(context, 'success');
                           }
@@ -318,6 +351,7 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Inter',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                   ),
                           elevation: 3.0,
                           borderSide: BorderSide(

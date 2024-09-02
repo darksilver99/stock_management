@@ -43,12 +43,8 @@ class _WebViewPageWidgetState extends State<WebViewPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -71,13 +67,14 @@ class _WebViewPageWidgetState extends State<WebViewPageWidget> {
           ),
           title: Text(
             valueOrDefault<String>(
-              widget.title,
+              widget!.title,
               '-',
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Readex Pro',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -87,7 +84,7 @@ class _WebViewPageWidgetState extends State<WebViewPageWidget> {
         body: SafeArea(
           top: true,
           child: FlutterFlowWebView(
-            content: widget.url!,
+            content: widget!.url!,
             bypass: false,
             width: MediaQuery.sizeOf(context).width * 1.0,
             height: MediaQuery.sizeOf(context).height * 1.0,

@@ -41,7 +41,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    _model.textFieldDetailController ??= TextEditingController();
+    _model.textFieldDetailTextController ??= TextEditingController();
     _model.textFieldDetailFocusNode ??= FocusNode();
   }
 
@@ -54,8 +54,6 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -88,6 +86,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 22.0,
+                                  letterSpacing: 0.0,
                                 ),
                           ),
                         ],
@@ -129,13 +128,22 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                           child: TextFormField(
                             controller: _model.textController1,
                             focusNode: _model.textFieldFocusNode,
+                            autofocus: false,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'จำนวน',
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
-                              hintStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).alternate,
@@ -168,7 +176,12 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                               fillColor: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
                             ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
                             keyboardType: TextInputType.number,
                             validator: _model.textController1Validator
                                 .asValidator(context),
@@ -182,15 +195,24 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
                           child: TextFormField(
-                            controller: _model.textFieldDetailController,
+                            controller: _model.textFieldDetailTextController,
                             focusNode: _model.textFieldDetailFocusNode,
+                            autofocus: false,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'หมายเหตุ',
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
-                              hintStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).alternate,
@@ -223,9 +245,15 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                               fillColor: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
                             ),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
                             maxLines: 3,
-                            validator: _model.textFieldDetailControllerValidator
+                            validator: _model
+                                .textFieldDetailTextControllerValidator
                                 .asValidator(context),
                           ),
                         ),
@@ -237,9 +265,9 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                             }
                             _model.rsProduct =
                                 await ProductListRecord.getDocumentOnce(
-                                    widget.productDocument!.reference);
+                                    widget!.productDocument!.reference);
 
-                            await widget.productDocument!.reference.update({
+                            await widget!.productDocument!.reference.update({
                               ...createProductListRecordData(
                                 updateDate: getCurrentTimestamp,
                               ),
@@ -261,16 +289,19 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                   totalAmount:
                                       int.tryParse(_model.textController1.text),
                                   totalPriceStart: functions.sumPrice(
-                                      widget.productDocument!.priceStart,
+                                      widget!.productDocument!.priceStart,
                                       int.parse(_model.textController1.text)),
                                   totalPriceSell: functions.sumPrice(
-                                      widget.productDocument!.priceSell,
+                                      widget!.productDocument!.priceSell,
                                       int.parse(_model.textController1.text)),
-                                  productRef: widget.productDocument?.reference,
-                                  productName: widget.productDocument?.name,
-                                  productId: widget.productDocument?.productId,
-                                  remark: _model.textFieldDetailController.text,
-                                  productCate: widget.productDocument?.category,
+                                  productRef:
+                                      widget!.productDocument?.reference,
+                                  productName: widget!.productDocument?.name,
+                                  productId: widget!.productDocument?.productId,
+                                  remark:
+                                      _model.textFieldDetailTextController.text,
+                                  productCate:
+                                      widget!.productDocument?.category,
                                   totalRemain: _model.rsProduct!.stock +
                                       int.parse(_model.textController1.text),
                                 ));
@@ -292,6 +323,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   color: Colors.white,
+                                  letterSpacing: 0.0,
                                 ),
                             elevation: 3.0,
                             borderSide: BorderSide(

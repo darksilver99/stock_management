@@ -1,6 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-
+import 'package:flutter/foundation.dart';
 import 'form_field_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +35,8 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
     this.menuOffset,
     this.isSearchable = false,
     this.isMultiSelect = false,
+    this.labelText,
+    this.labelTextStyle,
   }) : assert(
           isMultiSelect
               ? (controller == null &&
@@ -75,6 +77,8 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
   final Offset? menuOffset;
   final bool isSearchable;
   final bool isMultiSelect;
+  final String? labelText;
+  final TextStyle? labelTextStyle;
 
   @override
   State<FlutterFlowDropDown<T>> createState() => _FlutterFlowDropDownState<T>();
@@ -180,7 +184,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       _useDropdown2() ? _buildDropdown() : _buildLegacyDropdown();
 
   Widget _buildLegacyDropdown() {
-    return DropdownButton<T>(
+    return DropdownButtonFormField<T>(
       value: currentValue,
       hint: _createHintText(),
       items: _createMenuItems(),
@@ -190,6 +194,15 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       isExpanded: true,
       dropdownColor: widget.fillColor,
       focusColor: Colors.transparent,
+      decoration: InputDecoration(
+        labelText: widget.labelText == null || widget.labelText!.isEmpty
+            ? null
+            : widget.labelText,
+        labelStyle: widget.labelTextStyle,
+        border: widget.hidesUnderline
+            ? InputBorder.none
+            : const UnderlineInputBorder(),
+      ),
     );
   }
 
@@ -201,13 +214,17 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       .map(
         (option) => DropdownMenuItem<T>(
             value: option,
-            child: WebViewAware(
-              child: Padding(
+            child: Builder(builder: (_) {
+              final child = Padding(
                 padding: _useDropdown2() ? horizontalMargin : EdgeInsets.zero,
                 child:
                     Text(optionLabels[option] ?? '', style: widget.textStyle),
-              ),
-            )),
+              );
+              if (kIsWeb) {
+                return WebViewAware(child: child);
+              }
+              return child;
+            })),
       )
       .toList();
 
@@ -221,39 +238,41 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
             builder: (context, menuSetState) {
               final isSelected =
                   multiSelectController.value?.contains(item) ?? false;
-              return InkWell(
-                  onTap: () {
-                    multiSelectController.value ??= [];
-                    isSelected
-                        ? multiSelectController.value!.remove(item)
-                        : multiSelectController.value!.add(item);
-                    multiSelectController.update();
-                    // This rebuilds the StatefulWidget to update the button's text.
-                    setState(() {});
-                    // This rebuilds the dropdownMenu Widget to update the check mark.
-                    menuSetState(() {});
-                  },
-                  child: WebViewAware(
-                    child: Container(
-                      height: double.infinity,
-                      padding: horizontalMargin,
-                      child: Row(
-                        children: [
-                          if (isSelected)
-                            const Icon(Icons.check_box_outlined)
-                          else
-                            const Icon(Icons.check_box_outline_blank),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Text(
-                              optionLabels[item]!,
-                              style: widget.textStyle,
-                            ),
-                          ),
-                        ],
+              return InkWell(onTap: () {
+                multiSelectController.value ??= [];
+                isSelected
+                    ? multiSelectController.value!.remove(item)
+                    : multiSelectController.value!.add(item);
+                multiSelectController.update();
+                // This rebuilds the StatefulWidget to update the button's text.
+                setState(() {});
+                // This rebuilds the dropdownMenu Widget to update the check mark.
+                menuSetState(() {});
+              }, child: Builder(builder: (_) {
+                final child = Container(
+                  height: double.infinity,
+                  padding: horizontalMargin,
+                  child: Row(
+                    children: [
+                      if (isSelected)
+                        const Icon(Icons.check_box_outlined)
+                      else
+                        const Icon(Icons.check_box_outline_blank),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Text(
+                          optionLabels[item]!,
+                          style: widget.textStyle,
+                        ),
                       ),
-                    ),
-                  ));
+                    ],
+                  ),
+                );
+                if (kIsWeb) {
+                  return WebViewAware(child: child);
+                }
+                return child;
+              }));
             },
           ),
         ),
@@ -296,8 +315,8 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
           : (isMultiSelect ? (_) {} : (val) => widget.controller!.value = val),
       isExpanded: true,
       selectedItemBuilder: (context) => widget.options
-          .map((item) => WebViewAware(
-                child: Align(
+          .map((item) => Builder(builder: (_) {
+                final child = Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     isMultiSelect
@@ -309,8 +328,12 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
                     style: widget.textStyle,
                     maxLines: 1,
                   ),
-                ),
-              ))
+                );
+                if (kIsWeb) {
+                  return WebViewAware(child: child);
+                }
+                return child;
+              }))
           .toList(),
       dropdownSearchData: widget.isSearchable
           ? DropdownSearchData<T>(

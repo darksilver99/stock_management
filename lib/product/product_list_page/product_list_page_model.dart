@@ -50,14 +50,11 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
   String? rs4;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
@@ -68,10 +65,7 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
     listViewPagingController2?.dispose();
   }
 
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
-
+  /// Additional helper methods.
   PagingController<DocumentSnapshot?, ProductListRecord> setListViewController1(
     Query query, {
     DocumentReference<Object?>? parent,

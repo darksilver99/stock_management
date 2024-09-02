@@ -46,8 +46,6 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
       alignment: AlignmentDirectional(0.0, 1.0),
       child: Padding(
@@ -104,13 +102,22 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                             child: TextFormField(
                               controller: _model.textController,
                               focusNode: _model.textFieldFocusNode,
+                              autofocus: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'ชื่อหมวดหมู่',
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color:
@@ -145,7 +152,12 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                                 fillColor: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                               ),
-                              style: FlutterFlowTheme.of(context).bodyMedium,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
                               validator: _model.textControllerValidator
                                   .asValidator(context),
                             ),
@@ -210,6 +222,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   color: Colors.white,
+                                  letterSpacing: 0.0,
                                 ),
                             elevation: 3.0,
                             borderSide: BorderSide(
@@ -258,11 +271,13 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                           listViewCategoryListRecordList.isNotEmpty
                               ? listViewCategoryListRecordList.first
                               : null;
+
                       return Builder(
                         builder: (context) {
                           final cateList =
                               listViewCategoryListRecord?.nameList?.toList() ??
                                   [];
+
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
@@ -287,6 +302,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                                               .override(
                                                 fontFamily: 'Inter',
                                                 fontSize: 20.0,
+                                                letterSpacing: 0.0,
                                               ),
                                         ),
                                       ),
@@ -342,6 +358,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                                             ),
                                           });
                                         }
+
                                         setState(() {});
                                       },
                                       child: Icon(

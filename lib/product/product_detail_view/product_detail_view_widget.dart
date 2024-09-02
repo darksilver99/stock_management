@@ -44,8 +44,6 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -83,15 +81,15 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                       ),
                     ],
                   ),
-                  if (widget.productDocument?.photo != null &&
-                      widget.productDocument?.photo != '')
+                  if (widget!.productDocument?.photo != null &&
+                      widget!.productDocument?.photo != '')
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(0.0),
                         child: Image.network(
-                          widget.productDocument!.photo,
+                          widget!.productDocument!.photo,
                           width: double.infinity,
                           height: 300.0,
                           fit: BoxFit.contain,
@@ -112,12 +110,13 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            'รหัสสินค้า ${widget.productDocument?.productId}',
+                            'รหัสสินค้า ${widget!.productDocument?.productId}',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 22.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
@@ -132,12 +131,13 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            '${widget.productDocument?.name} (${widget.productDocument?.category})',
+                            '${widget!.productDocument?.name} (${widget!.productDocument?.category})',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 22.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
@@ -153,7 +153,7 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                         Expanded(
                           child: Text(
                             'คงเหลือ ${formatNumber(
-                              widget.productDocument?.stock,
+                              widget!.productDocument?.stock,
                               formatType: FormatType.decimal,
                               decimalType: DecimalType.automatic,
                             )}',
@@ -163,6 +163,7 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                                   fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
@@ -170,8 +171,8 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                       ],
                     ),
                   ),
-                  if (widget.productDocument?.detail != null &&
-                      widget.productDocument?.detail != '')
+                  if (widget!.productDocument?.detail != null &&
+                      widget!.productDocument?.detail != '')
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
@@ -181,7 +182,7 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                           Expanded(
                             child: Text(
                               valueOrDefault<String>(
-                                widget.productDocument?.detail,
+                                widget!.productDocument?.detail,
                                 '-',
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -189,6 +190,7 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                                   .override(
                                     fontFamily: 'Inter',
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
@@ -212,12 +214,13 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                                     .override(
                                       fontFamily: 'Inter',
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
                               Text(
                                 formatNumber(
-                                  widget.productDocument!.priceStart,
+                                  widget!.productDocument!.priceStart,
                                   formatType: FormatType.decimal,
                                   decimalType: DecimalType.automatic,
                                 ),
@@ -228,6 +231,7 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                                       color:
                                           FlutterFlowTheme.of(context).warning,
                                       fontSize: 20.0,
+                                      letterSpacing: 0.0,
                                     ),
                               ),
                             ],
@@ -251,12 +255,13 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                                     .override(
                                       fontFamily: 'Inter',
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
                               Text(
                                 formatNumber(
-                                  widget.productDocument!.priceSell,
+                                  widget!.productDocument!.priceSell,
                                   formatType: FormatType.decimal,
                                   decimalType: DecimalType.automatic,
                                 ),
@@ -267,6 +272,7 @@ class _ProductDetailViewWidgetState extends State<ProductDetailViewWidget> {
                                       color:
                                           FlutterFlowTheme.of(context).success,
                                       fontSize: 20.0,
+                                      letterSpacing: 0.0,
                                     ),
                               ),
                             ],

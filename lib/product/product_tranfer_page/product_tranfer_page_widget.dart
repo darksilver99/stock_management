@@ -49,9 +49,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
       ).then((s) => s.firstOrNull);
       if (_model.rsCate != null) {
         _model.cateList = _model.rsCate!.nameList.toList().cast<String>();
-        setState(() {
-          _model.insertAtIndexInCateList(0, 'ทั้งหมด');
-        });
+        _model.insertAtIndexInCateList(0, 'ทั้งหมด');
+        setState(() {});
       }
     });
   }
@@ -65,12 +64,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -97,6 +92,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                   fontFamily: 'Readex Pro',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -125,18 +121,21 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                             onChanged: (val) async {
                               setState(() => _model.dropDownValue = val);
                               if (_model.dropDownValue == 'ทั้งหมด') {
-                                setState(() {
-                                  _model.isFullList = true;
-                                });
+                                _model.isFullList = true;
+                                setState(() {});
                               } else {
-                                setState(() {
-                                  _model.isFullList = false;
-                                });
+                                _model.isFullList = false;
+                                setState(() {});
                               }
                             },
                             width: 100.0,
                             height: 50.0,
-                            textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
                             hintText: 'หมวดหมู่',
                             icon: Icon(
                               Icons.keyboard_arrow_down_rounded,
@@ -160,15 +159,13 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                       ),
                     FFButtonWidget(
                       onPressed: () async {
-                        setState(() {
-                          _model.isLoading = true;
-                        });
+                        _model.isLoading = true;
+                        setState(() {});
                         _model.path = await actions.exportExcel(
                           _model.dropDownValue,
                         );
-                        setState(() {
-                          _model.isLoading = false;
-                        });
+                        _model.isLoading = false;
+                        setState(() {});
                         if (_model.path == 'No Data') {
                           await showDialog(
                             context: context,
@@ -208,6 +205,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                   fontFamily: 'Inter',
                                   color: Colors.white,
                                   fontSize: 12.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                         elevation: 3.0,
@@ -307,12 +305,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                   Directionality.of(context)),
                                           child: WebViewAware(
                                             child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
+                                              onTap: () =>
+                                                  FocusScope.of(dialogContext)
                                                       .unfocus(),
                                               child:
                                                   ProductTranferDetailViewWidget(
@@ -323,7 +317,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    );
                                   },
                                   child: Material(
                                     color: Colors.transparent,
@@ -365,6 +359,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       'Inter',
                                                                   fontSize:
                                                                       18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -398,6 +394,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         18.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                           ),
@@ -441,6 +439,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                           'Inter',
                                                                       fontSize:
                                                                           16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
@@ -484,6 +484,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                         context)
                                                                     .warning,
                                                             fontSize: 20.0,
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),
@@ -508,10 +509,12 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       .secondaryText,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                 ),
                                                       ),
                                                       Text(
-                                                        '${dateTimeFormat('d/M/y', listViewTranferListRecord.createDate)} ${dateTimeFormat('Hm', listViewTranferListRecord.createDate)}',
+                                                        '${dateTimeFormat("d/M/y", listViewTranferListRecord.createDate)} ${dateTimeFormat("Hm", listViewTranferListRecord.createDate)}',
                                                         maxLines: 1,
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -525,6 +528,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       .secondaryText,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                 ),
                                                       ),
                                                     ],
@@ -628,12 +633,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                   Directionality.of(context)),
                                           child: WebViewAware(
                                             child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
+                                              onTap: () =>
+                                                  FocusScope.of(dialogContext)
                                                       .unfocus(),
                                               child:
                                                   ProductTranferDetailViewWidget(
@@ -644,7 +645,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    );
                                   },
                                   child: Material(
                                     color: Colors.transparent,
@@ -686,6 +687,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       'Inter',
                                                                   fontSize:
                                                                       18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -719,6 +722,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         18.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                           ),
@@ -762,6 +767,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                           'Inter',
                                                                       fontSize:
                                                                           16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
@@ -805,6 +812,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                         context)
                                                                     .warning,
                                                             fontSize: 20.0,
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),
@@ -829,10 +837,12 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       .secondaryText,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                 ),
                                                       ),
                                                       Text(
-                                                        '${dateTimeFormat('d/M/y', listViewTranferListRecord.createDate)} ${dateTimeFormat('Hm', listViewTranferListRecord.createDate)}',
+                                                        '${dateTimeFormat("d/M/y", listViewTranferListRecord.createDate)} ${dateTimeFormat("Hm", listViewTranferListRecord.createDate)}',
                                                         maxLines: 1,
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -846,6 +856,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       .secondaryText,
                                                                   fontSize:
                                                                       12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                 ),
                                                       ),
                                                     ],

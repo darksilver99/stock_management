@@ -28,7 +28,7 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
     super.initState();
     _model = createModel(context, () => ForgetPasswordPageModel());
 
-    _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
   }
 
@@ -41,12 +41,8 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -73,6 +69,7 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                   fontFamily: 'Readex Pro',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -99,8 +96,9 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                           child: Container(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.emailAddressController,
+                              controller: _model.emailAddressTextController,
                               focusNode: _model.emailAddressFocusNode,
+                              autofocus: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'อีเมล',
@@ -110,6 +108,7 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                                       fontFamily: 'Plus Jakarta Sans',
                                       color: Color(0xFF57636C),
                                       fontSize: 14.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                                 enabledBorder: OutlineInputBorder(
@@ -150,10 +149,12 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                                     fontFamily: 'Plus Jakarta Sans',
                                     color: Color(0xFF101213),
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                   ),
                               keyboardType: TextInputType.emailAddress,
-                              validator: _model.emailAddressControllerValidator
+                              validator: _model
+                                  .emailAddressTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -170,7 +171,7 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                                   return;
                                 }
                                 if (_model
-                                    .emailAddressController.text.isEmpty) {
+                                    .emailAddressTextController.text.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -181,7 +182,7 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                                   return;
                                 }
                                 await authManager.resetPassword(
-                                  email: _model.emailAddressController.text,
+                                  email: _model.emailAddressTextController.text,
                                   context: context,
                                 );
                                 await showDialog(
@@ -190,7 +191,7 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                                     return WebViewAware(
                                       child: AlertDialog(
                                         title: Text(
-                                            'ระบบได้ส่งลิงก์ตั้งรหัสผ่านใหม่ไปยัง ${_model.emailAddressController.text} แล้ว กรุณาตรวจสอบกล่องข้อความหรือข้อความขยะ'),
+                                            'ระบบได้ส่งลิงก์ตั้งรหัสผ่านใหม่ไปยัง ${_model.emailAddressTextController.text} แล้ว กรุณาตรวจสอบกล่องข้อความหรือข้อความขยะ'),
                                         actions: [
                                           TextButton(
                                             onPressed: () => Navigator.pop(
@@ -219,6 +220,7 @@ class _ForgetPasswordPageWidgetState extends State<ForgetPasswordPageWidget> {
                                       fontFamily: 'Plus Jakarta Sans',
                                       color: Colors.white,
                                       fontSize: 16.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                                 elevation: 3.0,

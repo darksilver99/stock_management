@@ -45,8 +45,6 @@ class _ProductTranferDetailViewWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -73,13 +71,14 @@ class _ProductTranferDetailViewWidgetState
                         children: [
                           Expanded(
                             child: Text(
-                              '${widget.productTranferDocument?.productName}',
+                              '${widget!.productTranferDocument?.productName}',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Inter',
                                     fontSize: 24.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -116,12 +115,13 @@ class _ProductTranferDetailViewWidgetState
                     children: [
                       Expanded(
                         child: Text(
-                          '${widget.productTranferDocument?.type} จำนวน ${widget.productTranferDocument?.totalAmount?.toString()} หน่วย',
+                          '${widget!.productTranferDocument?.type} จำนวน ${widget!.productTranferDocument?.totalAmount?.toString()} หน่วย',
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     fontSize: 22.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                         ),
@@ -133,7 +133,7 @@ class _ProductTranferDetailViewWidgetState
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                   child: StreamBuilder<ProductListRecord>(
                     stream: ProductListRecord.getDocument(
-                        widget.productTranferDocument!.productRef!),
+                        widget!.productTranferDocument!.productRef!),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -149,13 +149,15 @@ class _ProductTranferDetailViewWidgetState
                           ),
                         );
                       }
+
                       final rowProductListRecord = snapshot.data!;
+
                       return Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Expanded(
                             child: Text(
-                              '(คงเหลือ ${widget.productTranferDocument?.totalRemain?.toString()})',
+                              '(คงเหลือ ${widget!.productTranferDocument?.totalRemain?.toString()})',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -164,6 +166,7 @@ class _ProductTranferDetailViewWidgetState
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -190,11 +193,12 @@ class _ProductTranferDetailViewWidgetState
                                   .override(
                                     fontFamily: 'Inter',
                                     fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                             Text(
                               formatNumber(
-                                widget.productTranferDocument!.totalPriceStart,
+                                widget!.productTranferDocument!.totalPriceStart,
                                 formatType: FormatType.decimal,
                                 decimalType: DecimalType.automatic,
                               ),
@@ -204,6 +208,7 @@ class _ProductTranferDetailViewWidgetState
                                     fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -221,11 +226,12 @@ class _ProductTranferDetailViewWidgetState
                                   .override(
                                     fontFamily: 'Inter',
                                     fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                             Text(
                               formatNumber(
-                                widget.productTranferDocument!.totalPriceSell,
+                                widget!.productTranferDocument!.totalPriceSell,
                                 formatType: FormatType.decimal,
                                 decimalType: DecimalType.automatic,
                               ),
@@ -235,6 +241,7 @@ class _ProductTranferDetailViewWidgetState
                                     fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -264,10 +271,15 @@ class _ProductTranferDetailViewWidgetState
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               'หมายเหตุ ${valueOrDefault<String>(
-                                widget.productTranferDocument?.remark,
+                                widget!.productTranferDocument?.remark,
                                 '-',
                               )}',
-                              style: FlutterFlowTheme.of(context).bodyMedium,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
                             ),
                           ),
                         ),
@@ -281,11 +293,12 @@ class _ProductTranferDetailViewWidgetState
                   children: [
                     Expanded(
                       child: Text(
-                        'วันที่${widget.productTranferDocument?.type} ${dateTimeFormat('d/M/y', widget.productTranferDocument?.createDate)} ${dateTimeFormat('Hm', widget.productTranferDocument?.createDate)}',
+                        'วันที่${widget!.productTranferDocument?.type} ${dateTimeFormat("d/M/y", widget!.productTranferDocument?.createDate)} ${dateTimeFormat("Hm", widget!.productTranferDocument?.createDate)}',
                         textAlign: TextAlign.end,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               color: FlutterFlowTheme.of(context).secondaryText,
+                              letterSpacing: 0.0,
                             ),
                       ),
                     ),

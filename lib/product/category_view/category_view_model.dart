@@ -30,8 +30,6 @@ class CategoryViewModel extends FlutterFlowModel<CategoryViewWidget> {
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CategoryListRecord? rsCate;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
     textControllerValidator = _textControllerValidator;
@@ -42,8 +40,4 @@ class CategoryViewModel extends FlutterFlowModel<CategoryViewWidget> {
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

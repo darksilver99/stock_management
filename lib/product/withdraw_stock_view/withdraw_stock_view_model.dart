@@ -18,9 +18,10 @@ class WithdrawStockViewModel extends FlutterFlowModel<WithdrawStockViewWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for TextFieldAmount widget.
   FocusNode? textFieldAmountFocusNode;
-  TextEditingController? textFieldAmountController;
-  String? Function(BuildContext, String?)? textFieldAmountControllerValidator;
-  String? _textFieldAmountControllerValidator(
+  TextEditingController? textFieldAmountTextController;
+  String? Function(BuildContext, String?)?
+      textFieldAmountTextControllerValidator;
+  String? _textFieldAmountTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -31,28 +32,24 @@ class WithdrawStockViewModel extends FlutterFlowModel<WithdrawStockViewWidget> {
 
   // State field(s) for TextFieldDetail widget.
   FocusNode? textFieldDetailFocusNode;
-  TextEditingController? textFieldDetailController;
-  String? Function(BuildContext, String?)? textFieldDetailControllerValidator;
+  TextEditingController? textFieldDetailTextController;
+  String? Function(BuildContext, String?)?
+      textFieldDetailTextControllerValidator;
   // Stores action output result for [Backend Call - Read Document] action in Button widget.
   ProductListRecord? rsProduct;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
-    textFieldAmountControllerValidator = _textFieldAmountControllerValidator;
+    textFieldAmountTextControllerValidator =
+        _textFieldAmountTextControllerValidator;
   }
 
   @override
   void dispose() {
     textFieldAmountFocusNode?.dispose();
-    textFieldAmountController?.dispose();
+    textFieldAmountTextController?.dispose();
 
     textFieldDetailFocusNode?.dispose();
-    textFieldDetailController?.dispose();
+    textFieldDetailTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

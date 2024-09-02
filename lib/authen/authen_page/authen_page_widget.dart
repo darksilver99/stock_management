@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -26,60 +27,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'columnOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: Offset(0.0, 60.0),
-          end: Offset(0.0, 0.0),
-        ),
-        TiltEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: Offset(-0.349, 0),
-          end: Offset(0, 0),
-        ),
-      ],
-    ),
-    'columnOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: Offset(0.0, 60.0),
-          end: Offset(0.0, 0.0),
-        ),
-        TiltEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: Offset(-0.349, 0),
-          end: Offset(0, 0),
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -88,25 +36,79 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.create = false;
-      });
+      _model.create = false;
+      setState(() {});
     });
 
-    _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
-    _model.passwordController ??= TextEditingController();
+    _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
 
-    _model.emailAddressCreateController ??= TextEditingController();
+    _model.emailAddressCreateTextController ??= TextEditingController();
     _model.emailAddressCreateFocusNode ??= FocusNode();
 
-    _model.passwordCreateController ??= TextEditingController();
+    _model.passwordCreateTextController ??= TextEditingController();
     _model.passwordCreateFocusNode ??= FocusNode();
 
-    _model.passwordConfirmController ??= TextEditingController();
+    _model.passwordConfirmTextController ??= TextEditingController();
     _model.passwordConfirmFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'columnOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+          TiltEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: Offset(-0.349, 0),
+            end: Offset(0, 0),
+          ),
+        ],
+      ),
+      'columnOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+          TiltEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: Offset(-0.349, 0),
+            end: Offset(0, 0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -118,12 +120,8 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -184,6 +182,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                         .override(
                                           fontFamily: 'Inter',
                                           fontSize: 22.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                   ),
@@ -219,9 +218,8 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            setState(() {
-                                              _model.create = false;
-                                            });
+                                            _model.create = false;
+                                            setState(() {});
                                           },
                                           child: Text(
                                             'เข้าสู่ระบบ',
@@ -235,6 +233,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                               context)
                                                           .primaryText
                                                       : Color(0xFFA8A8A8),
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
@@ -251,9 +250,8 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            setState(() {
-                                              _model.create = true;
-                                            });
+                                            _model.create = true;
+                                            setState(() {});
                                           },
                                           child: Text(
                                             'ลงทะเบียน',
@@ -267,6 +265,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                               context)
                                                           .primaryText
                                                       : Color(0xFFA8A8A8),
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
@@ -297,9 +296,10 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
-                                                      .emailAddressController,
+                                                      .emailAddressTextController,
                                                   focusNode: _model
                                                       .emailAddressFocusNode,
+                                                  autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     labelText: 'อีเมล',
@@ -312,6 +312,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                           color:
                                                               Color(0xFF57636C),
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -373,13 +374,14 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                         color:
                                                             Color(0xFF101213),
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
                                                   keyboardType: TextInputType
                                                       .emailAddress,
                                                   validator: _model
-                                                      .emailAddressControllerValidator
+                                                      .emailAddressTextControllerValidator
                                                       .asValidator(context),
                                                 ),
                                               ),
@@ -391,10 +393,11 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                               child: Container(
                                                 width: double.infinity,
                                                 child: TextFormField(
-                                                  controller:
-                                                      _model.passwordController,
+                                                  controller: _model
+                                                      .passwordTextController,
                                                   focusNode:
                                                       _model.passwordFocusNode,
+                                                  autofocus: false,
                                                   obscureText: !_model
                                                       .passwordVisibility,
                                                   decoration: InputDecoration(
@@ -408,6 +411,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                           color:
                                                               Color(0xFF57636C),
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -489,11 +493,12 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                         color:
                                                             Color(0xFF101213),
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
                                                   validator: _model
-                                                      .passwordControllerValidator
+                                                      .passwordTextControllerValidator
                                                       .asValidator(context),
                                                 ),
                                               ),
@@ -523,9 +528,10 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                             .signInWithEmail(
                                                       context,
                                                       _model
-                                                          .emailAddressController
+                                                          .emailAddressTextController
                                                           .text,
-                                                      _model.passwordController
+                                                      _model
+                                                          .passwordTextController
                                                           .text,
                                                     );
                                                     if (user == null) {
@@ -557,6 +563,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                               'Plus Jakarta Sans',
                                                           color: Colors.white,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -606,6 +613,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                           color:
                                                               Color(0xFF101213),
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -650,9 +658,10 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
-                                                      .emailAddressCreateController,
+                                                      .emailAddressCreateTextController,
                                                   focusNode: _model
                                                       .emailAddressCreateFocusNode,
+                                                  autofocus: false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     labelText: 'อีเมล',
@@ -665,6 +674,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                           color:
                                                               Color(0xFF101213),
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -726,13 +736,14 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                         color:
                                                             Color(0xFF101213),
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
                                                   keyboardType: TextInputType
                                                       .emailAddress,
                                                   validator: _model
-                                                      .emailAddressCreateControllerValidator
+                                                      .emailAddressCreateTextControllerValidator
                                                       .asValidator(context),
                                                 ),
                                               ),
@@ -745,9 +756,10 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
-                                                      .passwordCreateController,
+                                                      .passwordCreateTextController,
                                                   focusNode: _model
                                                       .passwordCreateFocusNode,
+                                                  autofocus: false,
                                                   obscureText: !_model
                                                       .passwordCreateVisibility,
                                                   decoration: InputDecoration(
@@ -761,6 +773,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                           color:
                                                               Color(0xFF101213),
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -842,11 +855,12 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                         color:
                                                             Color(0xFF101213),
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
                                                   validator: _model
-                                                      .passwordCreateControllerValidator
+                                                      .passwordCreateTextControllerValidator
                                                       .asValidator(context),
                                                 ),
                                               ),
@@ -859,9 +873,10 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
-                                                      .passwordConfirmController,
+                                                      .passwordConfirmTextController,
                                                   focusNode: _model
                                                       .passwordConfirmFocusNode,
+                                                  autofocus: false,
                                                   obscureText: !_model
                                                       .passwordConfirmVisibility,
                                                   decoration: InputDecoration(
@@ -875,6 +890,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                           color:
                                                               Color(0xFF101213),
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -956,12 +972,13 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                         color:
                                                             Color(0xFF101213),
                                                         fontSize: 14.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
                                                   minLines: 1,
                                                   validator: _model
-                                                      .passwordConfirmControllerValidator
+                                                      .passwordConfirmTextControllerValidator
                                                       .asValidator(context),
                                                 ),
                                               ),
@@ -1000,6 +1017,13 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                                 .checkboxValue =
                                                             newValue!);
                                                       },
+                                                      side: BorderSide(
+                                                        width: 2,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                      ),
                                                       activeColor:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1043,6 +1067,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                             fontFamily: 'Inter',
                                                             color: Color(
                                                                 0xFF1C15EF),
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .normal,
@@ -1078,10 +1103,10 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                       GoRouter.of(context)
                                                           .prepareAuthEvent();
                                                       if (_model
-                                                              .passwordCreateController
+                                                              .passwordCreateTextController
                                                               .text !=
                                                           _model
-                                                              .passwordConfirmController
+                                                              .passwordConfirmTextController
                                                               .text) {
                                                         ScaffoldMessenger.of(
                                                                 context)
@@ -1099,10 +1124,10 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                           .createAccountWithEmail(
                                                         context,
                                                         _model
-                                                            .emailAddressCreateController
+                                                            .emailAddressCreateTextController
                                                             .text,
                                                         _model
-                                                            .passwordCreateController
+                                                            .passwordCreateTextController
                                                             .text,
                                                       );
                                                       if (user == null) {
@@ -1170,6 +1195,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                               'Plus Jakarta Sans',
                                                           color: Colors.white,
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
