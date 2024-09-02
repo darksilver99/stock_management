@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/product/deposit_stock_view/deposit_stock_view_widget.dart';
 import '/product/product_detail_view/product_detail_view_widget.dart';
 import '/product/withdraw_stock_view/withdraw_stock_view_widget.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'product_list_page_widget.dart' show ProductListPageWidget;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,7 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryProductListRecordPage(
+          parent: parent,
           queryBuilder: (_) => listViewPagingQuery1 ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions1,
@@ -119,6 +121,7 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryProductListRecordPage(
+          parent: parent,
           queryBuilder: (_) => listViewPagingQuery2 ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions2,

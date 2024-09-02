@@ -65,6 +65,8 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -222,21 +224,22 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                     PagedListView<DocumentSnapshot<Object?>?,
                         TranferListRecord>.separated(
                       pagingController: _model.setListViewController1(
-                        TranferListRecord.collection()
-                            .where(
-                              'create_by',
-                              isEqualTo: currentUserReference,
-                            )
-                            .where(
-                              'status',
-                              isEqualTo: 1,
-                            )
-                            .where(
-                              'product_cate',
-                              isEqualTo: _model.dropDownValue,
-                            )
-                            .orderBy('create_date', descending: true),
-                      ),
+                          TranferListRecord.collection(
+                                  FFAppState().customerData.customerRef)
+                              .where(
+                                'create_by',
+                                isEqualTo: currentUserReference,
+                              )
+                              .where(
+                                'status',
+                                isEqualTo: 1,
+                              )
+                              .where(
+                                'product_cate',
+                                isEqualTo: _model.dropDownValue,
+                              )
+                              .orderBy('create_date', descending: true),
+                          parent: FFAppState().customerData.customerRef),
                       padding: EdgeInsets.fromLTRB(
                         0,
                         8.0,
@@ -498,7 +501,12 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                           ),
                                                     ),
                                                     Text(
-                                                      '${dateTimeFormat("d/M/y", listViewTranferListRecord.createDate)} ${dateTimeFormat("Hm", listViewTranferListRecord.createDate)}',
+                                                      valueOrDefault<String>(
+                                                        functions.dateTimeTh(
+                                                            listViewTranferListRecord
+                                                                .createDate),
+                                                        '-',
+                                                      ),
                                                       maxLines: 1,
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -538,17 +546,18 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                     PagedListView<DocumentSnapshot<Object?>?,
                         TranferListRecord>.separated(
                       pagingController: _model.setListViewController2(
-                        TranferListRecord.collection()
-                            .where(
-                              'create_by',
-                              isEqualTo: currentUserReference,
-                            )
-                            .where(
-                              'status',
-                              isEqualTo: 1,
-                            )
-                            .orderBy('create_date', descending: true),
-                      ),
+                          TranferListRecord.collection(
+                                  FFAppState().customerData.customerRef)
+                              .where(
+                                'create_by',
+                                isEqualTo: currentUserReference,
+                              )
+                              .where(
+                                'status',
+                                isEqualTo: 1,
+                              )
+                              .orderBy('create_date', descending: true),
+                          parent: FFAppState().customerData.customerRef),
                       padding: EdgeInsets.fromLTRB(
                         0,
                         8.0,

@@ -95,6 +95,7 @@ class ProductTranferPageModel
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryTranferListRecordPage(
+          parent: parent,
           queryBuilder: (_) => listViewPagingQuery1 ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions1,
@@ -127,6 +128,7 @@ class ProductTranferPageModel
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryTranferListRecordPage(
+          parent: parent,
           queryBuilder: (_) => listViewPagingQuery2 ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions2,
