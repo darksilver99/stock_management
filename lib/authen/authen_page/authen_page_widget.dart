@@ -1141,7 +1141,6 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                               createUsersRecordData(
                                                             createdTime:
                                                                 getCurrentTimestamp,
-                                                            isFirstTime: true,
                                                           ));
 
                                                       _navigate = () =>

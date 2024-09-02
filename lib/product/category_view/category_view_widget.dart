@@ -46,6 +46,8 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 1.0),
       child: Padding(
@@ -170,6 +172,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                               return;
                             }
                             _model.rsCate = await queryCategoryListRecordOnce(
+                              parent: FFAppState().customerData.customerRef,
                               queryBuilder: (categoryListRecord) =>
                                   categoryListRecord.where(
                                 'create_by',
@@ -190,7 +193,9 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                                 });
                               }
                             } else {
-                              await CategoryListRecord.collection.doc().set({
+                              await CategoryListRecord.createDoc(
+                                      FFAppState().customerData.customerRef!)
+                                  .set({
                                 ...createCategoryListRecordData(
                                   createDate: getCurrentTimestamp,
                                   createBy: currentUserReference,

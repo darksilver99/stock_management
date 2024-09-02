@@ -1102,6 +1102,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               } else {
                                 _model.isDuplicate =
                                     await queryProductListRecordOnce(
+                                  parent: FFAppState().customerData.customerRef,
                                   queryBuilder: (productListRecord) =>
                                       productListRecord
                                           .where(
@@ -1138,7 +1139,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                   );
                                 } else {
                                   var productListRecordReference =
-                                      ProductListRecord.collection.doc();
+                                      ProductListRecord.createDoc(FFAppState()
+                                          .customerData
+                                          .customerRef!);
                                   await productListRecordReference
                                       .set(createProductListRecordData(
                                     createDate: getCurrentTimestamp,
@@ -1196,100 +1199,63 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                           ),
                                           productListRecordReference);
 
-                                  await TranferListRecord.collection
-                                      .doc()
+                                  await TranferListRecord.createDoc(FFAppState()
+                                          .customerData
+                                          .customerRef!)
                                       .set(createTranferListRecordData(
-                                        createDate: getCurrentTimestamp,
-                                        createBy: currentUserReference,
-                                        status: 1,
-                                        type: 'รับ',
-                                        totalAmount: int.tryParse(_model
-                                            .textFieldProductStockTextController
+                                    createDate: getCurrentTimestamp,
+                                    createBy: currentUserReference,
+                                    status: 1,
+                                    type: 'รับ',
+                                    totalAmount: int.tryParse(_model
+                                        .textFieldProductStockTextController
+                                        .text),
+                                    totalPriceStart: functions.sumPrice(
+                                        double.parse(_model
+                                            .textFieldProductStartPriceTextController
                                             .text),
-                                        totalPriceStart: functions.sumPrice(
-                                            double.parse(_model
-                                                .textFieldProductStartPriceTextController
-                                                .text),
-                                            int.parse(_model
-                                                .textFieldProductStockTextController
-                                                .text)),
-                                        totalPriceSell: functions.sumPrice(
-                                            double.parse(_model
-                                                .textFieldProductSellPriceTextController
-                                                .text),
-                                            int.parse(_model
-                                                .textFieldProductStockTextController
-                                                .text)),
-                                        productRef:
-                                            _model.insertedProduct?.reference,
-                                        productName: _model
-                                            .textFieldProductNameTextController
-                                            .text,
-                                        productId: _model
-                                            .textFieldProductCodeTextController
-                                            .text,
-                                        remark: 'เพิ่มสินค้าใหม่',
-                                        productCate: _model.dropDownValue,
-                                        totalRemain: int.tryParse(_model
+                                        int.parse(_model
                                             .textFieldProductStockTextController
+                                            .text)),
+                                    totalPriceSell: functions.sumPrice(
+                                        double.parse(_model
+                                            .textFieldProductSellPriceTextController
                                             .text),
-                                      ));
-                                  if (valueOrDefault<bool>(
-                                      currentUserDocument?.isFirstTime,
-                                      false)) {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return WebViewAware(
-                                          child: AlertDialog(
-                                            title: Text(
-                                                'บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                            content: Text(
-                                                'พิเศษบัญชีของท่านได้รับสิทธิ์ใช้ฟรี 90 วัน! หลังจากนั้นจะมีค่าบริการายเดือน ${formatNumber(
-                                              functions.removeLastTwoZeroInt(
-                                                  FFAppState().price),
-                                              formatType: FormatType.decimal,
-                                              decimalType:
-                                                  DecimalType.automatic,
-                                            )} บาท/เดือน'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: Text('ตกลง'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-
-                                    await currentUserReference!
-                                        .update(createUsersRecordData(
-                                      isFirstTime: false,
-                                      expireDate: functions.getNextDay(90),
-                                    ));
-                                  } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return WebViewAware(
-                                          child: AlertDialog(
-                                            title: Text(
-                                                'บันทึกข้อมูลเรียบร้อยแล้ว'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: Text('ตกลง'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }
-
+                                        int.parse(_model
+                                            .textFieldProductStockTextController
+                                            .text)),
+                                    productRef:
+                                        _model.insertedProduct?.reference,
+                                    productName: _model
+                                        .textFieldProductNameTextController
+                                        .text,
+                                    productId: _model
+                                        .textFieldProductCodeTextController
+                                        .text,
+                                    remark: 'เพิ่มสินค้าใหม่',
+                                    productCate: _model.dropDownValue,
+                                    totalRemain: int.tryParse(_model
+                                        .textFieldProductStockTextController
+                                        .text),
+                                  ));
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return WebViewAware(
+                                        child: AlertDialog(
+                                          title:
+                                              Text('บันทึกข้อมูลเรียบร้อยแล้ว'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('ตกลง'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
                                   await actions.pushReplacementNamed(
                                     context,
                                     'HomePage',

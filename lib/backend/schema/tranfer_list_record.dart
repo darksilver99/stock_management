@@ -81,6 +81,8 @@ class TranferListRecord extends FirestoreRecord {
   int get totalRemain => _totalRemain ?? 0;
   bool hasTotalRemain() => _totalRemain != null;
 
+  DocumentReference get parentReference => reference.parent.parent!;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -97,8 +99,13 @@ class TranferListRecord extends FirestoreRecord {
     _totalRemain = castToType<int>(snapshotData['total_remain']);
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('tranfer_list');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('tranfer_list')
+          : FirebaseFirestore.instance.collectionGroup('tranfer_list');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('tranfer_list').doc(id);
 
   static Stream<TranferListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => TranferListRecord.fromSnapshot(s));

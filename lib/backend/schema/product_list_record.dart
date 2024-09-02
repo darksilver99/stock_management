@@ -86,6 +86,8 @@ class ProductListRecord extends FirestoreRecord {
   List<String> get searchData => _searchData ?? const [];
   bool hasSearchData() => _searchData != null;
 
+  DocumentReference get parentReference => reference.parent.parent!;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -103,8 +105,13 @@ class ProductListRecord extends FirestoreRecord {
     _searchData = getDataList(snapshotData['search_data']);
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('product_list');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('product_list')
+          : FirebaseFirestore.instance.collectionGroup('product_list');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('product_list').doc(id);
 
   static Stream<ProductListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => ProductListRecord.fromSnapshot(s));

@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'help_page_widget.dart' show HelpPageWidget;
+import 'issue_page_widget.dart' show IssuePageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
-class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
+class IssuePageModel extends FlutterFlowModel<IssuePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -68,18 +68,8 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
     return null;
   }
 
-  // State field(s) for contactEmail widget.
-  FocusNode? contactEmailFocusNode;
-  TextEditingController? contactEmailTextController;
-  String? Function(BuildContext, String?)? contactEmailTextControllerValidator;
-  String? _contactEmailTextControllerValidator(
-      BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    return null;
-  }
+  // Stores action output result for [Custom Action - getDeviceDetail] action in Button widget.
+  String? deviceData;
 
   @override
   void initState(BuildContext context) {
@@ -87,7 +77,6 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
     detailTextControllerValidator = _detailTextControllerValidator;
     contactNameTextControllerValidator = _contactNameTextControllerValidator;
     contactPhoneTextControllerValidator = _contactPhoneTextControllerValidator;
-    contactEmailTextControllerValidator = _contactEmailTextControllerValidator;
   }
 
   @override
@@ -103,8 +92,5 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
 
     contactPhoneFocusNode?.dispose();
     contactPhoneTextController?.dispose();
-
-    contactEmailFocusNode?.dispose();
-    contactEmailTextController?.dispose();
   }
 }
