@@ -43,54 +43,51 @@ class _WebViewPageWidgetState extends State<WebViewPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.chevron_left_rounded,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              context.pop();
-            },
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).primary,
+        automaticallyImplyLeading: false,
+        leading: FlutterFlowIconButton(
+          borderColor: Colors.transparent,
+          borderRadius: 30.0,
+          borderWidth: 1.0,
+          buttonSize: 60.0,
+          icon: Icon(
+            Icons.chevron_left_rounded,
+            color: Colors.white,
+            size: 30.0,
           ),
-          title: Text(
-            valueOrDefault<String>(
-              widget!.title,
-              '-',
-            ),
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Readex Pro',
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  letterSpacing: 0.0,
-                ),
-          ),
-          actions: [],
-          centerTitle: true,
-          elevation: 2.0,
+          onPressed: () async {
+            context.pop();
+          },
         ),
-        body: SafeArea(
-          top: true,
-          child: FlutterFlowWebView(
-            content: widget!.url!,
-            bypass: false,
-            width: MediaQuery.sizeOf(context).width * 1.0,
-            height: MediaQuery.sizeOf(context).height * 1.0,
-            verticalScroll: false,
-            horizontalScroll: false,
+        title: Text(
+          valueOrDefault<String>(
+            widget!.title,
+            '-',
           ),
+          style: FlutterFlowTheme.of(context).headlineMedium.override(
+                fontFamily: 'Readex Pro',
+                color: Colors.white,
+                fontSize: 22.0,
+                letterSpacing: 0.0,
+              ),
+        ),
+        actions: [],
+        centerTitle: true,
+        elevation: 2.0,
+      ),
+      body: SafeArea(
+        top: true,
+        child: FlutterFlowWebView(
+          content: widget!.url!,
+          bypass: false,
+          width: MediaQuery.sizeOf(context).width * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
+          verticalScroll: false,
+          horizontalScroll: false,
         ),
       ),
     );

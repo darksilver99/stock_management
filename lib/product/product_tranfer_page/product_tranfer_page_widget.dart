@@ -64,292 +64,315 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.chevron_left_rounded,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              context.pop();
-            },
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).primary,
+        automaticallyImplyLeading: false,
+        leading: FlutterFlowIconButton(
+          borderColor: Colors.transparent,
+          borderRadius: 30.0,
+          borderWidth: 1.0,
+          buttonSize: 60.0,
+          icon: Icon(
+            Icons.chevron_left_rounded,
+            color: Colors.white,
+            size: 30.0,
           ),
-          title: Text(
-            'รายการรับ-จ่ายสินค้า',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Readex Pro',
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  letterSpacing: 0.0,
-                ),
-          ),
-          actions: [],
-          centerTitle: true,
-          elevation: 2.0,
+          onPressed: () async {
+            context.pop();
+          },
         ),
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    if (_model.cateList.isNotEmpty)
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 1.0, 8.0, 0.0),
-                          child: FlutterFlowDropDown<String>(
-                            controller: _model.dropDownValueController ??=
-                                FormFieldController<String>(null),
-                            options: _model.cateList,
-                            onChanged: (val) async {
-                              setState(() => _model.dropDownValue = val);
-                              if (_model.dropDownValue == 'ทั้งหมด') {
-                                _model.isFullList = true;
-                                setState(() {});
-                              } else {
-                                _model.isFullList = false;
-                                setState(() {});
-                              }
-                            },
-                            width: 100.0,
-                            height: 50.0,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                            hintText: 'หมวดหมู่',
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                            fillColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            elevation: 2.0,
-                            borderColor: FlutterFlowTheme.of(context).alternate,
-                            borderWidth: 2.0,
-                            borderRadius: 8.0,
-                            margin: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 4.0, 16.0, 4.0),
-                            hidesUnderline: true,
-                            isOverButton: true,
-                            isSearchable: false,
-                            isMultiSelect: false,
+        title: Text(
+          'รายการรับ-จ่ายสินค้า',
+          style: FlutterFlowTheme.of(context).headlineMedium.override(
+                fontFamily: 'Readex Pro',
+                color: Colors.white,
+                fontSize: 22.0,
+                letterSpacing: 0.0,
+              ),
+        ),
+        actions: [],
+        centerTitle: true,
+        elevation: 2.0,
+      ),
+      body: SafeArea(
+        top: true,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (_model.cateList.isNotEmpty)
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 8.0, 0.0),
+                        child: FlutterFlowDropDown<String>(
+                          controller: _model.dropDownValueController ??=
+                              FormFieldController<String>(null),
+                          options: _model.cateList,
+                          onChanged: (val) async {
+                            setState(() => _model.dropDownValue = val);
+                            if (_model.dropDownValue == 'ทั้งหมด') {
+                              _model.isFullList = true;
+                              setState(() {});
+                            } else {
+                              _model.isFullList = false;
+                              setState(() {});
+                            }
+                          },
+                          width: 100.0,
+                          height: 50.0,
+                          textStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                          hintText: 'หมวดหมู่',
+                          icon: Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 24.0,
                           ),
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          elevation: 2.0,
+                          borderColor: FlutterFlowTheme.of(context).alternate,
+                          borderWidth: 2.0,
+                          borderRadius: 8.0,
+                          margin: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 4.0, 16.0, 4.0),
+                          hidesUnderline: true,
+                          isOverButton: true,
+                          isSearchable: false,
+                          isMultiSelect: false,
                         ),
-                      ),
-                    FFButtonWidget(
-                      onPressed: () async {
-                        _model.isLoading = true;
-                        setState(() {});
-                        _model.path = await actions.exportExcel(
-                          _model.dropDownValue,
-                        );
-                        _model.isLoading = false;
-                        setState(() {});
-                        if (_model.path == 'No Data') {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return WebViewAware(
-                                child: AlertDialog(
-                                  title: Text('ไม่มีข้อมูล'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('ตกลง'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          await actions.shareFile(
-                            _model.path,
-                          );
-                        }
-
-                        setState(() {});
-                      },
-                      text: 'Export&Share',
-                      options: FFButtonOptions(
-                        height: 48.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).success,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter',
-                                  color: Colors.white,
-                                  fontSize: 12.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                        elevation: 3.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Stack(
-                  children: [
-                    if (!_model.isFullList)
-                      PagedListView<DocumentSnapshot<Object?>?,
-                          TranferListRecord>.separated(
-                        pagingController: _model.setListViewController1(
-                          TranferListRecord.collection()
-                              .where(
-                                'create_by',
-                                isEqualTo: currentUserReference,
-                              )
-                              .where(
-                                'status',
-                                isEqualTo: 1,
-                              )
-                              .where(
-                                'product_cate',
-                                isEqualTo: _model.dropDownValue,
-                              )
-                              .orderBy('create_date', descending: true),
-                        ),
-                        padding: EdgeInsets.fromLTRB(
-                          0,
-                          8.0,
-                          0,
-                          16.0,
-                        ),
-                        shrinkWrap: true,
-                        reverse: false,
-                        scrollDirection: Axis.vertical,
-                        separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                        builderDelegate:
-                            PagedChildBuilderDelegate<TranferListRecord>(
-                          // Customize what your widget looks like when it's loading the first page.
-                          firstPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      _model.isLoading = true;
+                      setState(() {});
+                      _model.path = await actions.exportExcel(
+                        _model.dropDownValue,
+                      );
+                      _model.isLoading = false;
+                      setState(() {});
+                      if (_model.path == 'No Data') {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('ไม่มีข้อมูล'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('ตกลง'),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                          // Customize what your widget looks like when it's loading another page.
-                          newPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                            ),
-                          ),
+                            );
+                          },
+                        );
+                      } else {
+                        await actions.shareFile(
+                          _model.path,
+                        );
+                      }
 
-                          itemBuilder: (context, _, listViewIndex) {
-                            final listViewTranferListRecord = _model
-                                .listViewPagingController1!
-                                .itemList![listViewIndex];
-                            return Builder(
-                              builder: (context) => Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: GestureDetector(
-                                              onTap: () =>
-                                                  FocusScope.of(dialogContext)
-                                                      .unfocus(),
-                                              child:
-                                                  ProductTranferDetailViewWidget(
-                                                productTranferDocument:
-                                                    listViewTranferListRecord,
-                                              ),
-                                            ),
+                      setState(() {});
+                    },
+                    text: 'Export&Share',
+                    options: FFButtonOptions(
+                      height: 48.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).success,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Inter',
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Stack(
+                children: [
+                  if (!_model.isFullList)
+                    PagedListView<DocumentSnapshot<Object?>?,
+                        TranferListRecord>.separated(
+                      pagingController: _model.setListViewController1(
+                        TranferListRecord.collection()
+                            .where(
+                              'create_by',
+                              isEqualTo: currentUserReference,
+                            )
+                            .where(
+                              'status',
+                              isEqualTo: 1,
+                            )
+                            .where(
+                              'product_cate',
+                              isEqualTo: _model.dropDownValue,
+                            )
+                            .orderBy('create_date', descending: true),
+                      ),
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        8.0,
+                        0,
+                        16.0,
+                      ),
+                      shrinkWrap: true,
+                      reverse: false,
+                      scrollDirection: Axis.vertical,
+                      separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                      builderDelegate:
+                          PagedChildBuilderDelegate<TranferListRecord>(
+                        // Customize what your widget looks like when it's loading the first page.
+                        firstPageProgressIndicatorBuilder: (_) => Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Customize what your widget looks like when it's loading another page.
+                        newPageProgressIndicatorBuilder: (_) => Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        itemBuilder: (context, _, listViewIndex) {
+                          final listViewTranferListRecord = _model
+                              .listViewPagingController1!
+                              .itemList![listViewIndex];
+                          return Builder(
+                            builder: (context) => Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        child: WebViewAware(
+                                          child: ProductTranferDetailViewWidget(
+                                            productTranferDocument:
+                                                listViewTranferListRecord,
                                           ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 3.0,
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Expanded(
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Material(
+                                  color: Colors.transparent,
+                                  elevation: 3.0,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'รหัสสินค้า ${listViewTranferListRecord.productId}',
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontSize: 18.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      64.0,
+                                                                      0.0),
                                                           child: Text(
-                                                            'รหัสสินค้า ${listViewTranferListRecord.productId}',
+                                                            listViewTranferListRecord
+                                                                .productName,
                                                             maxLines: 1,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -361,30 +384,40 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       18.0,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
                                                                 ),
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Row(
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Expanded(
+                                                    child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
                                                       children: [
-                                                        Expanded(
+                                                        Flexible(
                                                           child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
-                                                                        64.0,
+                                                                        8.0,
                                                                         0.0),
                                                             child: Text(
-                                                              listViewTranferListRecord
-                                                                  .productName,
+                                                              '${listViewTranferListRecord.type} ${formatNumber(
+                                                                listViewTranferListRecord
+                                                                    .totalAmount,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .automatic,
+                                                              )} หน่วย',
                                                               maxLines: 1,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
@@ -393,291 +426,264 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                     fontFamily:
                                                                         'Inter',
                                                                     fontSize:
-                                                                        18.0,
+                                                                        16.0,
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                   ),
                                                             ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    Expanded(
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Flexible(
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                '${listViewTranferListRecord.type} ${formatNumber(
-                                                                  listViewTranferListRecord
-                                                                      .totalAmount,
-                                                                  formatType:
-                                                                      FormatType
-                                                                          .decimal,
-                                                                  decimalType:
-                                                                      DecimalType
-                                                                          .automatic,
-                                                                )} หน่วย',
-                                                                maxLines: 1,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Text(
-                                                      listViewTranferListRecord
-                                                          .type,
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(1.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Text(
+                                                    listViewTranferListRecord
+                                                        .type,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: listViewTranferListRecord.type ==
+                                                                  'รับ'
+                                                              ? FlutterFlowTheme
+                                                                      .of(
+                                                                          context)
+                                                                  .success
+                                                              : FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .warning,
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      'วันที่อัพเดทล่าสุด ',
+                                                      maxLines: 1,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Inter',
-                                                            color: listViewTranferListRecord.type ==
-                                                                    'รับ'
-                                                                ? FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .success
-                                                                : FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .warning,
-                                                            fontSize: 20.0,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            fontSize: 12.0,
                                                             letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
                                                           ),
                                                     ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        'วันที่อัพเดทล่าสุด ',
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        '${dateTimeFormat("d/M/y", listViewTranferListRecord.createDate)} ${dateTimeFormat("Hm", listViewTranferListRecord.createDate)}',
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                                    Text(
+                                                      '${dateTimeFormat("d/M/y", listViewTranferListRecord.createDate)} ${dateTimeFormat("Hm", listViewTranferListRecord.createDate)}',
+                                                      maxLines: 1,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
-                                            Icon(
-                                              Icons.navigate_next_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          Icon(
+                                            Icons.navigate_next_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
-                    if (_model.isFullList)
-                      PagedListView<DocumentSnapshot<Object?>?,
-                          TranferListRecord>.separated(
-                        pagingController: _model.setListViewController2(
-                          TranferListRecord.collection()
-                              .where(
-                                'create_by',
-                                isEqualTo: currentUserReference,
-                              )
-                              .where(
-                                'status',
-                                isEqualTo: 1,
-                              )
-                              .orderBy('create_date', descending: true),
-                        ),
-                        padding: EdgeInsets.fromLTRB(
-                          0,
-                          8.0,
-                          0,
-                          16.0,
-                        ),
-                        reverse: false,
-                        scrollDirection: Axis.vertical,
-                        separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                        builderDelegate:
-                            PagedChildBuilderDelegate<TranferListRecord>(
-                          // Customize what your widget looks like when it's loading the first page.
-                          firstPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                    ),
+                  if (_model.isFullList)
+                    PagedListView<DocumentSnapshot<Object?>?,
+                        TranferListRecord>.separated(
+                      pagingController: _model.setListViewController2(
+                        TranferListRecord.collection()
+                            .where(
+                              'create_by',
+                              isEqualTo: currentUserReference,
+                            )
+                            .where(
+                              'status',
+                              isEqualTo: 1,
+                            )
+                            .orderBy('create_date', descending: true),
+                      ),
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        8.0,
+                        0,
+                        16.0,
+                      ),
+                      reverse: false,
+                      scrollDirection: Axis.vertical,
+                      separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                      builderDelegate:
+                          PagedChildBuilderDelegate<TranferListRecord>(
+                        // Customize what your widget looks like when it's loading the first page.
+                        firstPageProgressIndicatorBuilder: (_) => Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
                               ),
                             ),
                           ),
-                          // Customize what your widget looks like when it's loading another page.
-                          newPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                        ),
+                        // Customize what your widget looks like when it's loading another page.
+                        newPageProgressIndicatorBuilder: (_) => Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
                               ),
                             ),
                           ),
+                        ),
 
-                          itemBuilder: (context, _, listViewIndex) {
-                            final listViewTranferListRecord = _model
-                                .listViewPagingController2!
-                                .itemList![listViewIndex];
-                            return Builder(
-                              builder: (context) => Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: GestureDetector(
-                                              onTap: () =>
-                                                  FocusScope.of(dialogContext)
-                                                      .unfocus(),
-                                              child:
-                                                  ProductTranferDetailViewWidget(
-                                                productTranferDocument:
-                                                    listViewTranferListRecord,
-                                              ),
-                                            ),
+                        itemBuilder: (context, _, listViewIndex) {
+                          final listViewTranferListRecord = _model
+                              .listViewPagingController2!
+                              .itemList![listViewIndex];
+                          return Builder(
+                            builder: (context) => Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        child: WebViewAware(
+                                          child: ProductTranferDetailViewWidget(
+                                            productTranferDocument:
+                                                listViewTranferListRecord,
                                           ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 3.0,
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Expanded(
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Material(
+                                  color: Colors.transparent,
+                                  elevation: 3.0,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          'รหัสสินค้า ${listViewTranferListRecord.productId}',
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontSize: 18.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      64.0,
+                                                                      0.0),
                                                           child: Text(
-                                                            'รหัสสินค้า ${listViewTranferListRecord.productId}',
+                                                            listViewTranferListRecord
+                                                                .productName,
                                                             maxLines: 1,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -689,30 +695,40 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                       18.0,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
                                                                 ),
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Row(
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Expanded(
+                                                    child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
                                                       children: [
-                                                        Expanded(
+                                                        Flexible(
                                                           child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
-                                                                        64.0,
+                                                                        8.0,
                                                                         0.0),
                                                             child: Text(
-                                                              listViewTranferListRecord
-                                                                  .productName,
+                                                              '${listViewTranferListRecord.type} ${formatNumber(
+                                                                listViewTranferListRecord
+                                                                    .totalAmount,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .automatic,
+                                                              )} หน่วย',
                                                               maxLines: 1,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
@@ -721,184 +737,130 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                                                                     fontFamily:
                                                                         'Inter',
                                                                     fontSize:
-                                                                        18.0,
+                                                                        16.0,
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
                                                                   ),
                                                             ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    Expanded(
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Flexible(
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                '${listViewTranferListRecord.type} ${formatNumber(
-                                                                  listViewTranferListRecord
-                                                                      .totalAmount,
-                                                                  formatType:
-                                                                      FormatType
-                                                                          .decimal,
-                                                                  decimalType:
-                                                                      DecimalType
-                                                                          .automatic,
-                                                                )} หน่วย',
-                                                                maxLines: 1,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Text(
-                                                      listViewTranferListRecord
-                                                          .type,
+                                          ),
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(1.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Text(
+                                                    listViewTranferListRecord
+                                                        .type,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: listViewTranferListRecord.type ==
+                                                                  'รับ'
+                                                              ? FlutterFlowTheme
+                                                                      .of(
+                                                                          context)
+                                                                  .success
+                                                              : FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .warning,
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      'วันที่อัพเดทล่าสุด ',
+                                                      maxLines: 1,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Inter',
-                                                            color: listViewTranferListRecord.type ==
-                                                                    'รับ'
-                                                                ? FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .success
-                                                                : FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .warning,
-                                                            fontSize: 20.0,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            fontSize: 12.0,
                                                             letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
                                                           ),
                                                     ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        'วันที่อัพเดทล่าสุด ',
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        '${dateTimeFormat("d/M/y", listViewTranferListRecord.createDate)} ${dateTimeFormat("Hm", listViewTranferListRecord.createDate)}',
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                                    Text(
+                                                      '${dateTimeFormat("d/M/y", listViewTranferListRecord.createDate)} ${dateTimeFormat("Hm", listViewTranferListRecord.createDate)}',
+                                                      maxLines: 1,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
-                                            Icon(
-                                              Icons.navigate_next_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          Icon(
+                                            Icons.navigate_next_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
-                    if (_model.isLoading)
-                      Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Lottie.asset(
-                          'assets/lottie_animations/Animation_-_1709005578891.json',
-                          width: 150.0,
-                          height: 130.0,
-                          fit: BoxFit.cover,
-                          animate: true,
-                        ),
+                    ),
+                  if (_model.isLoading)
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Lottie.asset(
+                        'assets/lottie_animations/Animation_-_1709005578891.json',
+                        width: 150.0,
+                        height: 130.0,
+                        fit: BoxFit.cover,
+                        animate: true,
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

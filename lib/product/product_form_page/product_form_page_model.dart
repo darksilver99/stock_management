@@ -43,7 +43,6 @@ class ProductFormPageModel extends FlutterFlowModel<ProductFormPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // Stores action output result for [Firestore Query - Query a collection] action in ProductFormPage widget.
   CategoryListRecord? rsCate;
