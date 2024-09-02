@@ -29,12 +29,11 @@ class DepositStockViewModel extends FlutterFlowModel<DepositStockViewWidget> {
 
   // State field(s) for TextFieldDetail widget.
   FocusNode? textFieldDetailFocusNode;
-  TextEditingController? textFieldDetailController;
-  String? Function(BuildContext, String?)? textFieldDetailControllerValidator;
+  TextEditingController? textFieldDetailTextController;
+  String? Function(BuildContext, String?)?
+      textFieldDetailTextControllerValidator;
   // Stores action output result for [Backend Call - Read Document] action in Button widget.
   ProductListRecord? rsProduct;
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
@@ -47,10 +46,6 @@ class DepositStockViewModel extends FlutterFlowModel<DepositStockViewWidget> {
     textController1?.dispose();
 
     textFieldDetailFocusNode?.dispose();
-    textFieldDetailController?.dispose();
+    textFieldDetailTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

@@ -31,19 +31,19 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
     super.initState();
     _model = createModel(context, () => HelpPageModel());
 
-    _model.topicController ??= TextEditingController();
+    _model.topicTextController ??= TextEditingController();
     _model.topicFocusNode ??= FocusNode();
 
-    _model.detailController ??= TextEditingController();
+    _model.detailTextController ??= TextEditingController();
     _model.detailFocusNode ??= FocusNode();
 
-    _model.contactNameController ??= TextEditingController();
+    _model.contactNameTextController ??= TextEditingController();
     _model.contactNameFocusNode ??= FocusNode();
 
-    _model.contactPhoneController ??= TextEditingController();
+    _model.contactPhoneTextController ??= TextEditingController();
     _model.contactPhoneFocusNode ??= FocusNode();
 
-    _model.contactEmailController ??=
+    _model.contactEmailTextController ??=
         TextEditingController(text: currentUserEmail);
     _model.contactEmailFocusNode ??= FocusNode();
   }
@@ -57,12 +57,8 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -89,6 +85,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                   fontFamily: 'Readex Pro',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -153,6 +150,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                             .override(
                                               fontFamily: 'Inter',
                                               fontSize: 16.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
                                             ),
                                       ),
@@ -164,15 +162,24 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.topicController,
+                                  controller: _model.topicTextController,
                                   focusNode: _model.topicFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'หัวข้อ',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
@@ -206,9 +213,13 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.topicControllerValidator
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  validator: _model.topicTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -216,15 +227,24 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.detailController,
+                                  controller: _model.detailTextController,
                                   focusNode: _model.detailFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'รายละเอียด',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
@@ -258,10 +278,15 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
                                   maxLines: 5,
-                                  validator: _model.detailControllerValidator
+                                  validator: _model
+                                      .detailTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -269,15 +294,24 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.contactNameController,
+                                  controller: _model.contactNameTextController,
                                   focusNode: _model.contactNameFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'ชื่อผู้แจ้ง',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
@@ -311,10 +345,14 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
                                   validator: _model
-                                      .contactNameControllerValidator
+                                      .contactNameTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -322,15 +360,24 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.contactPhoneController,
+                                  controller: _model.contactPhoneTextController,
                                   focusNode: _model.contactPhoneFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'เบอร์โทรศัพท์',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
@@ -364,11 +411,15 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
                                   keyboardType: TextInputType.phone,
                                   validator: _model
-                                      .contactPhoneControllerValidator
+                                      .contactPhoneTextControllerValidator
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
@@ -380,15 +431,24 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.contactEmailController,
+                                  controller: _model.contactEmailTextController,
                                   focusNode: _model.contactEmailFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'E-mail',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
@@ -422,11 +482,15 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
                                   keyboardType: TextInputType.emailAddress,
                                   validator: _model
-                                      .contactEmailControllerValidator
+                                      .contactEmailTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -447,14 +511,16 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                           createDate: getCurrentTimestamp,
                                           createBy: currentUserReference,
                                           status: 0,
-                                          topic: _model.topicController.text,
-                                          detail: _model.detailController.text,
-                                          contactName:
-                                              _model.contactNameController.text,
+                                          topic:
+                                              _model.topicTextController.text,
+                                          detail:
+                                              _model.detailTextController.text,
+                                          contactName: _model
+                                              .contactNameTextController.text,
                                           contactPhone: _model
-                                              .contactPhoneController.text,
+                                              .contactPhoneTextController.text,
                                           contactEmail: _model
-                                              .contactEmailController.text,
+                                              .contactEmailTextController.text,
                                         ));
                                     await showDialog(
                                       context: context,
@@ -492,6 +558,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                         .override(
                                           fontFamily: 'Inter',
                                           color: Colors.white,
+                                          letterSpacing: 0.0,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(

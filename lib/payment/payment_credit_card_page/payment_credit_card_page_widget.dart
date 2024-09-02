@@ -48,9 +48,7 @@ class _PaymentCreditCardPageWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -77,6 +75,7 @@ class _PaymentCreditCardPageWidgetState
                   fontFamily: 'Readex Pro',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -117,6 +116,7 @@ class _PaymentCreditCardPageWidgetState
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 20.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -125,6 +125,7 @@ class _PaymentCreditCardPageWidgetState
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 18.0,
+                              letterSpacing: 0.0,
                             ),
                       ),
                       Text(
@@ -132,6 +133,7 @@ class _PaymentCreditCardPageWidgetState
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 18.0,
+                              letterSpacing: 0.0,
                             ),
                       ),
                       Text(
@@ -139,6 +141,7 @@ class _PaymentCreditCardPageWidgetState
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 18.0,
+                              letterSpacing: 0.0,
                             ),
                       ),
                       Padding(
@@ -160,6 +163,7 @@ class _PaymentCreditCardPageWidgetState
                                     fontFamily: 'Inter',
                                     color: Color(0xFFB5B5B5),
                                     fontSize: 24.0,
+                                    letterSpacing: 0.0,
                                     decoration: TextDecoration.lineThrough,
                                   ),
                             ),
@@ -175,7 +179,7 @@ class _PaymentCreditCardPageWidgetState
                           children: [
                             Expanded(
                               child: Text(
-                                'พิเศษสำหรับคุณเพียง ${functions.removeLastTwoZero()} บาท/เดือน',
+                                'พิเศษสำหรับคุณเพียง ${functions.removeLastTwoZero(FFAppState().price)} บาท/เดือน',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -183,6 +187,7 @@ class _PaymentCreditCardPageWidgetState
                                       fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context).error,
                                       fontSize: 28.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
@@ -211,7 +216,8 @@ class _PaymentCreditCardPageWidgetState
                                 .set(createPaymentHistoryListRecordData(
                               createDate: getCurrentTimestamp,
                               createBy: currentUserReference,
-                              amount: functions.removeLastTwoZeroInt(),
+                              amount: functions
+                                  .removeLastTwoZeroInt(FFAppState().price),
                               status: 0,
                               paymentType: 'creditCard',
                               paymentOrder: random_data.randomString(
@@ -227,7 +233,8 @@ class _PaymentCreditCardPageWidgetState
                                     createPaymentHistoryListRecordData(
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
-                                      amount: functions.removeLastTwoZeroInt(),
+                                      amount: functions.removeLastTwoZeroInt(
+                                          FFAppState().price),
                                       status: 0,
                                       paymentType: 'creditCard',
                                       paymentOrder: random_data.randomString(
@@ -310,6 +317,7 @@ class _PaymentCreditCardPageWidgetState
                                   fontFamily: 'Inter',
                                   color: Colors.white,
                                   fontSize: 22.0,
+                                  letterSpacing: 0.0,
                                 ),
                             elevation: 3.0,
                             borderSide: BorderSide(

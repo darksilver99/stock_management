@@ -45,67 +45,67 @@ class FFAppState extends ChangeNotifier {
 
   String _test = '';
   String get test => _test;
-  set test(String _value) {
-    _test = _value;
+  set test(String value) {
+    _test = value;
   }
 
   String _appVersion = '';
   String get appVersion => _appVersion;
-  set appVersion(String _value) {
-    _appVersion = _value;
+  set appVersion(String value) {
+    _appVersion = value;
   }
 
   int _appBuildVersion = 0;
   int get appBuildVersion => _appBuildVersion;
-  set appBuildVersion(int _value) {
-    _appBuildVersion = _value;
-    prefs.setInt('ff_appBuildVersion', _value);
+  set appBuildVersion(int value) {
+    _appBuildVersion = value;
+    prefs.setInt('ff_appBuildVersion', value);
   }
 
   bool _isTesting = false;
   bool get isTesting => _isTesting;
-  set isTesting(bool _value) {
-    _isTesting = _value;
-    prefs.setBool('ff_isTesting', _value);
+  set isTesting(bool value) {
+    _isTesting = value;
+    prefs.setBool('ff_isTesting', value);
   }
 
   String _androidStoreLink = '';
   String get androidStoreLink => _androidStoreLink;
-  set androidStoreLink(String _value) {
-    _androidStoreLink = _value;
-    prefs.setString('ff_androidStoreLink', _value);
+  set androidStoreLink(String value) {
+    _androidStoreLink = value;
+    prefs.setString('ff_androidStoreLink', value);
   }
 
   String _iosStoreLink = '';
   String get iosStoreLink => _iosStoreLink;
-  set iosStoreLink(String _value) {
-    _iosStoreLink = _value;
-    prefs.setString('ff_iosStoreLink', _value);
+  set iosStoreLink(String value) {
+    _iosStoreLink = value;
+    prefs.setString('ff_iosStoreLink', value);
   }
 
   int _storeBuildVersion = 0;
   int get storeBuildVersion => _storeBuildVersion;
-  set storeBuildVersion(int _value) {
-    _storeBuildVersion = _value;
+  set storeBuildVersion(int value) {
+    _storeBuildVersion = value;
   }
 
   bool _isEnableAd = false;
   bool get isEnableAd => _isEnableAd;
-  set isEnableAd(bool _value) {
-    _isEnableAd = _value;
-    prefs.setBool('ff_isEnableAd', _value);
+  set isEnableAd(bool value) {
+    _isEnableAd = value;
+    prefs.setBool('ff_isEnableAd', value);
   }
 
   int _price = 0;
   int get price => _price;
-  set price(int _value) {
-    _price = _value;
+  set price(int value) {
+    _price = value;
   }
 
   int _fullPrice = 0;
   int get fullPrice => _fullPrice;
-  set fullPrice(int _value) {
-    _fullPrice = _value;
+  set fullPrice(int value) {
+    _fullPrice = value;
   }
 }
 

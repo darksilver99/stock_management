@@ -68,9 +68,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           await actions.closeApp();
         }
       }
-      setState(() {
-        _model.isLoading = false;
-      });
+      _model.isLoading = false;
+      setState(() {});
     });
   }
 
@@ -86,9 +85,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -110,6 +107,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -117,7 +115,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     Text(
                       FFAppState().appVersion,
                       maxLines: 1,
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            letterSpacing: 0.0,
+                          ),
                     ),
                   ],
                 ),
@@ -197,6 +198,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontSize: 24.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
@@ -266,6 +268,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontSize: 20.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
@@ -327,6 +330,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontSize: 20.0,
+                                                          letterSpacing: 0.0,
                                                         ),
                                               ),
                                             ],
@@ -428,6 +432,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                         ),
                                               ),
                                             ],

@@ -60,14 +60,11 @@ class ProductTranferPageModel
   Query? listViewPagingQuery2;
   List<StreamSubscription?> listViewStreamSubscriptions2 = [];
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     listViewStreamSubscriptions1.forEach((s) => s?.cancel());
     listViewPagingController1?.dispose();
 
@@ -75,10 +72,7 @@ class ProductTranferPageModel
     listViewPagingController2?.dispose();
   }
 
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
-
+  /// Additional helper methods.
   PagingController<DocumentSnapshot?, TranferListRecord> setListViewController1(
     Query query, {
     DocumentReference<Object?>? parent,

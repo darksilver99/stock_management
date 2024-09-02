@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'authen_page_widget.dart' show AuthenPageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -24,9 +25,10 @@ class AuthenPageModel extends FlutterFlowModel<AuthenPageWidget> {
   final formKey2 = GlobalKey<FormState>();
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
-  TextEditingController? emailAddressController;
-  String? Function(BuildContext, String?)? emailAddressControllerValidator;
-  String? _emailAddressControllerValidator(BuildContext context, String? val) {
+  TextEditingController? emailAddressTextController;
+  String? Function(BuildContext, String?)? emailAddressTextControllerValidator;
+  String? _emailAddressTextControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -36,10 +38,10 @@ class AuthenPageModel extends FlutterFlowModel<AuthenPageWidget> {
 
   // State field(s) for password widget.
   FocusNode? passwordFocusNode;
-  TextEditingController? passwordController;
+  TextEditingController? passwordTextController;
   late bool passwordVisibility;
-  String? Function(BuildContext, String?)? passwordControllerValidator;
-  String? _passwordControllerValidator(BuildContext context, String? val) {
+  String? Function(BuildContext, String?)? passwordTextControllerValidator;
+  String? _passwordTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -49,10 +51,10 @@ class AuthenPageModel extends FlutterFlowModel<AuthenPageWidget> {
 
   // State field(s) for emailAddress_Create widget.
   FocusNode? emailAddressCreateFocusNode;
-  TextEditingController? emailAddressCreateController;
+  TextEditingController? emailAddressCreateTextController;
   String? Function(BuildContext, String?)?
-      emailAddressCreateControllerValidator;
-  String? _emailAddressCreateControllerValidator(
+      emailAddressCreateTextControllerValidator;
+  String? _emailAddressCreateTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -63,10 +65,11 @@ class AuthenPageModel extends FlutterFlowModel<AuthenPageWidget> {
 
   // State field(s) for password_Create widget.
   FocusNode? passwordCreateFocusNode;
-  TextEditingController? passwordCreateController;
+  TextEditingController? passwordCreateTextController;
   late bool passwordCreateVisibility;
-  String? Function(BuildContext, String?)? passwordCreateControllerValidator;
-  String? _passwordCreateControllerValidator(
+  String? Function(BuildContext, String?)?
+      passwordCreateTextControllerValidator;
+  String? _passwordCreateTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -77,10 +80,11 @@ class AuthenPageModel extends FlutterFlowModel<AuthenPageWidget> {
 
   // State field(s) for passwordConfirm widget.
   FocusNode? passwordConfirmFocusNode;
-  TextEditingController? passwordConfirmController;
+  TextEditingController? passwordConfirmTextController;
   late bool passwordConfirmVisibility;
-  String? Function(BuildContext, String?)? passwordConfirmControllerValidator;
-  String? _passwordConfirmControllerValidator(
+  String? Function(BuildContext, String?)?
+      passwordConfirmTextControllerValidator;
+  String? _passwordConfirmTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -92,41 +96,36 @@ class AuthenPageModel extends FlutterFlowModel<AuthenPageWidget> {
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
-    emailAddressControllerValidator = _emailAddressControllerValidator;
+    emailAddressTextControllerValidator = _emailAddressTextControllerValidator;
     passwordVisibility = false;
-    passwordControllerValidator = _passwordControllerValidator;
-    emailAddressCreateControllerValidator =
-        _emailAddressCreateControllerValidator;
+    passwordTextControllerValidator = _passwordTextControllerValidator;
+    emailAddressCreateTextControllerValidator =
+        _emailAddressCreateTextControllerValidator;
     passwordCreateVisibility = false;
-    passwordCreateControllerValidator = _passwordCreateControllerValidator;
+    passwordCreateTextControllerValidator =
+        _passwordCreateTextControllerValidator;
     passwordConfirmVisibility = false;
-    passwordConfirmControllerValidator = _passwordConfirmControllerValidator;
+    passwordConfirmTextControllerValidator =
+        _passwordConfirmTextControllerValidator;
   }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     emailAddressFocusNode?.dispose();
-    emailAddressController?.dispose();
+    emailAddressTextController?.dispose();
 
     passwordFocusNode?.dispose();
-    passwordController?.dispose();
+    passwordTextController?.dispose();
 
     emailAddressCreateFocusNode?.dispose();
-    emailAddressCreateController?.dispose();
+    emailAddressCreateTextController?.dispose();
 
     passwordCreateFocusNode?.dispose();
-    passwordCreateController?.dispose();
+    passwordCreateTextController?.dispose();
 
     passwordConfirmFocusNode?.dispose();
-    passwordConfirmController?.dispose();
+    passwordConfirmTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

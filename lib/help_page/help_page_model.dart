@@ -20,9 +20,9 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for topic widget.
   FocusNode? topicFocusNode;
-  TextEditingController? topicController;
-  String? Function(BuildContext, String?)? topicControllerValidator;
-  String? _topicControllerValidator(BuildContext context, String? val) {
+  TextEditingController? topicTextController;
+  String? Function(BuildContext, String?)? topicTextControllerValidator;
+  String? _topicTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -32,9 +32,9 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
 
   // State field(s) for detail widget.
   FocusNode? detailFocusNode;
-  TextEditingController? detailController;
-  String? Function(BuildContext, String?)? detailControllerValidator;
-  String? _detailControllerValidator(BuildContext context, String? val) {
+  TextEditingController? detailTextController;
+  String? Function(BuildContext, String?)? detailTextControllerValidator;
+  String? _detailTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -44,9 +44,10 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
 
   // State field(s) for contactName widget.
   FocusNode? contactNameFocusNode;
-  TextEditingController? contactNameController;
-  String? Function(BuildContext, String?)? contactNameControllerValidator;
-  String? _contactNameControllerValidator(BuildContext context, String? val) {
+  TextEditingController? contactNameTextController;
+  String? Function(BuildContext, String?)? contactNameTextControllerValidator;
+  String? _contactNameTextControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -56,9 +57,10 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
 
   // State field(s) for contactPhone widget.
   FocusNode? contactPhoneFocusNode;
-  TextEditingController? contactPhoneController;
-  String? Function(BuildContext, String?)? contactPhoneControllerValidator;
-  String? _contactPhoneControllerValidator(BuildContext context, String? val) {
+  TextEditingController? contactPhoneTextController;
+  String? Function(BuildContext, String?)? contactPhoneTextControllerValidator;
+  String? _contactPhoneTextControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -68,9 +70,10 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
 
   // State field(s) for contactEmail widget.
   FocusNode? contactEmailFocusNode;
-  TextEditingController? contactEmailController;
-  String? Function(BuildContext, String?)? contactEmailControllerValidator;
-  String? _contactEmailControllerValidator(BuildContext context, String? val) {
+  TextEditingController? contactEmailTextController;
+  String? Function(BuildContext, String?)? contactEmailTextControllerValidator;
+  String? _contactEmailTextControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -78,37 +81,30 @@ class HelpPageModel extends FlutterFlowModel<HelpPageWidget> {
     return null;
   }
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
-    topicControllerValidator = _topicControllerValidator;
-    detailControllerValidator = _detailControllerValidator;
-    contactNameControllerValidator = _contactNameControllerValidator;
-    contactPhoneControllerValidator = _contactPhoneControllerValidator;
-    contactEmailControllerValidator = _contactEmailControllerValidator;
+    topicTextControllerValidator = _topicTextControllerValidator;
+    detailTextControllerValidator = _detailTextControllerValidator;
+    contactNameTextControllerValidator = _contactNameTextControllerValidator;
+    contactPhoneTextControllerValidator = _contactPhoneTextControllerValidator;
+    contactEmailTextControllerValidator = _contactEmailTextControllerValidator;
   }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     topicFocusNode?.dispose();
-    topicController?.dispose();
+    topicTextController?.dispose();
 
     detailFocusNode?.dispose();
-    detailController?.dispose();
+    detailTextController?.dispose();
 
     contactNameFocusNode?.dispose();
-    contactNameController?.dispose();
+    contactNameTextController?.dispose();
 
     contactPhoneFocusNode?.dispose();
-    contactPhoneController?.dispose();
+    contactPhoneTextController?.dispose();
 
     contactEmailFocusNode?.dispose();
-    contactEmailController?.dispose();
+    contactEmailTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }
