@@ -101,7 +101,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                         crossAxisSpacing: 10.0,
                         mainAxisSpacing: 10.0,
-                        itemCount: 4,
+                        itemCount: 5,
                         itemBuilder: (context, index) {
                           return [
                             () => InkWell(
@@ -216,6 +216,66 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ),
                                             Text(
                                               'รายการรับ-จ่ายสินค้า',
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            () => InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed('PromotionPage');
+                                  },
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    elevation: 3.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 160.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/images/online-payment_12705805.png',
+                                                height: 54.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Text(
+                                              'ตรวจสอบ/ต่อ อายุการใช้งาน',
                                               textAlign: TextAlign.center,
                                               style:
                                                   FlutterFlowTheme.of(context)
