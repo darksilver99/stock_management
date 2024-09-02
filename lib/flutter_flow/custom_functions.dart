@@ -55,3 +55,13 @@ String? dateTh(DateTime? date) {
   final buddhistYear = date.year + 543;
   return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
+
+String? dateTimeTh(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+
+  final DateFormat formatter = DateFormat('d MMMM yyyy HH:mm:ss', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
+}

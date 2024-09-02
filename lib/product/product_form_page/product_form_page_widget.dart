@@ -1092,7 +1092,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                       child: AlertDialog(
                                         title: Text('รหัสสินค้าซ้ำ'),
                                         content: Text(
-                                            'ชื่อสินค้า : ${_model.isDuplicate?.name}หมวด : ${_model.isDuplicate?.category}'),
+                                            'ชื่อสินค้า : ${_model.isDuplicate?.name} หมวด : ${_model.isDuplicate?.category}'),
                                         actions: [
                                           TextButton(
                                             onPressed: () => Navigator.pop(

@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -293,7 +294,7 @@ class _ProductTranferDetailViewWidgetState
                   children: [
                     Expanded(
                       child: Text(
-                        'วันที่${widget!.productTranferDocument?.type} ${dateTimeFormat("d/M/y", widget!.productTranferDocument?.createDate)} ${dateTimeFormat("Hm", widget!.productTranferDocument?.createDate)}',
+                        'วันที่${widget!.productTranferDocument?.type} ${functions.dateTimeTh(widget!.productTranferDocument?.createDate)}',
                         textAlign: TextAlign.end,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
