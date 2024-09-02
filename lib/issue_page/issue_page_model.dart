@@ -16,7 +16,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class IssuePageModel extends FlutterFlowModel<IssuePageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for topic widget.
   FocusNode? topicFocusNode;
