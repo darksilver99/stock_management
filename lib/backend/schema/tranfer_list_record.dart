@@ -81,6 +81,16 @@ class TranferListRecord extends FirestoreRecord {
   int get totalRemain => _totalRemain ?? 0;
   bool hasTotalRemain() => _totalRemain != null;
 
+  // "current_price_start" field.
+  double? _currentPriceStart;
+  double get currentPriceStart => _currentPriceStart ?? 0.0;
+  bool hasCurrentPriceStart() => _currentPriceStart != null;
+
+  // "current_price_sell" field.
+  double? _currentPriceSell;
+  double get currentPriceSell => _currentPriceSell ?? 0.0;
+  bool hasCurrentPriceSell() => _currentPriceSell != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -97,6 +107,9 @@ class TranferListRecord extends FirestoreRecord {
     _remark = snapshotData['remark'] as String?;
     _productCate = snapshotData['product_cate'] as String?;
     _totalRemain = castToType<int>(snapshotData['total_remain']);
+    _currentPriceStart =
+        castToType<double>(snapshotData['current_price_start']);
+    _currentPriceSell = castToType<double>(snapshotData['current_price_sell']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -152,6 +165,8 @@ Map<String, dynamic> createTranferListRecordData({
   String? remark,
   String? productCate,
   int? totalRemain,
+  double? currentPriceStart,
+  double? currentPriceSell,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -168,6 +183,8 @@ Map<String, dynamic> createTranferListRecordData({
       'remark': remark,
       'product_cate': productCate,
       'total_remain': totalRemain,
+      'current_price_start': currentPriceStart,
+      'current_price_sell': currentPriceSell,
     }.withoutNulls,
   );
 
@@ -191,7 +208,9 @@ class TranferListRecordDocumentEquality implements Equality<TranferListRecord> {
         e1?.productId == e2?.productId &&
         e1?.remark == e2?.remark &&
         e1?.productCate == e2?.productCate &&
-        e1?.totalRemain == e2?.totalRemain;
+        e1?.totalRemain == e2?.totalRemain &&
+        e1?.currentPriceStart == e2?.currentPriceStart &&
+        e1?.currentPriceSell == e2?.currentPriceSell;
   }
 
   @override
@@ -208,7 +227,9 @@ class TranferListRecordDocumentEquality implements Equality<TranferListRecord> {
         e?.productId,
         e?.remark,
         e?.productCate,
-        e?.totalRemain
+        e?.totalRemain,
+        e?.currentPriceStart,
+        e?.currentPriceSell
       ]);
 
   @override

@@ -17,6 +17,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stock_management/auth/firebase_auth/auth_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 
 Future<String> exportExcel(String? category) async {
   // Add your function code here!
@@ -46,15 +47,19 @@ Future<String> exportExcel(String? category) async {
   //getData
   QuerySnapshot<Map<String, dynamic>> rs;
   if (category == "ทั้งหมด" || category == null) {
+    print(
+        "FFAppState().customerData.customerRef!.path : ${FFAppState().customerData.customerRef!.path}");
     rs = await FirebaseFirestore.instance
-        .collection('tranfer_list/$currentUserUid/tranfer_data')
+        .collection(
+            '${FFAppState().customerData.customerRef!.path}/tranfer_list')
         .where('create_by', isEqualTo: currentUserReference)
         .orderBy('product_id', descending: false)
         .orderBy('create_date', descending: false)
         .get();
   } else {
     rs = await FirebaseFirestore.instance
-        .collection('tranfer_list/$currentUserUid/tranfer_data')
+        .collection(
+            '${FFAppState().customerData.customerRef!.path}/tranfer_list')
         .where("product_cate", isEqualTo: category)
         .where('create_by', isEqualTo: currentUserReference)
         .orderBy('product_id', descending: false)
@@ -113,8 +118,16 @@ Future<String> exportExcel(String? category) async {
       "field": "remark",
     },
     {
+      "text": "ราคาต้นทุน",
+      "field": "current_price_start",
+    },
+    {
       "text": "รวมราคาต้นทุน",
       "field": "total_price_start",
+    },
+    {
+      "text": "ราคาขาย",
+      "field": "current_price_sell",
     },
     {
       "text": "รวมราคาขาย",
@@ -143,7 +156,7 @@ Future<String> exportExcel(String? category) async {
       //cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
       if (field == "create_date") {
         cell.value = TextCellValue(
-            '${dateTimeFormat('d/M/y', rs.docs[i][field].toDate())} ${dateTimeFormat('Hm', rs.docs[i][field].toDate())}');
+            '${functions.dateTimeTh(rs.docs[i][field].toDate())}');
       } else {
         cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
         cell.value = TextCellValue(rs.docs[i][field].toString());
