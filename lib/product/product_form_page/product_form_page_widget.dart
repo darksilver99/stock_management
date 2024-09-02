@@ -1197,6 +1197,12 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                   totalRemain: int.tryParse(_model
                                       .textFieldProductStockTextController
                                       .text),
+                                  currentPriceStart: double.tryParse(_model
+                                      .textFieldProductStartPriceTextController
+                                      .text),
+                                  currentPriceSell: double.tryParse(_model
+                                      .textFieldProductSellPriceTextController
+                                      .text),
                                 ));
                                 await showDialog(
                                   context: context,
