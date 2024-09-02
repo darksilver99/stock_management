@@ -244,6 +244,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                 Expanded(
                   child: StreamBuilder<List<CategoryListRecord>>(
                     stream: queryCategoryListRecord(
+                      parent: FFAppState().customerData.customerRef,
                       queryBuilder: (categoryListRecord) =>
                           categoryListRecord.where(
                         'create_by',
