@@ -331,6 +331,10 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                               totalRemain: _model.rsProduct!.stock -
                                   int.parse(_model
                                       .textFieldAmountTextController.text),
+                              currentPriceStart:
+                                  widget!.productDocument?.priceStart,
+                              currentPriceSell:
+                                  widget!.productDocument?.priceSell,
                             ));
                             await showDialog(
                               context: context,

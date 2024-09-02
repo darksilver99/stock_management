@@ -304,6 +304,10 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                               productCate: widget!.productDocument?.category,
                               totalRemain: _model.rsProduct!.stock +
                                   int.parse(_model.textController1.text),
+                              currentPriceStart:
+                                  widget!.productDocument?.priceStart,
+                              currentPriceSell:
+                                  widget!.productDocument?.priceSell,
                             ));
                             await showDialog(
                               context: context,
