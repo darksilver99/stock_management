@@ -355,7 +355,6 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                         onChanged: (val) => setState(
                                             () => _model.dropDownValue = val),
                                         width: double.infinity,
-                                        height: 50.0,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

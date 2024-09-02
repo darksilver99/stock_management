@@ -126,8 +126,6 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                               setState(() {});
                             }
                           },
-                          width: 100.0,
-                          height: 50.0,
                           textStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',

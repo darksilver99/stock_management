@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'deposit_stock_view_model.dart';
 export 'deposit_stock_view_model.dart';
 
@@ -304,6 +305,23 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                               totalRemain: _model.rsProduct!.stock +
                                   int.parse(_model.textController1.text),
                             ));
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return WebViewAware(
+                                  child: AlertDialog(
+                                    title: Text('เติมสินค้าเรียบร้อยแล้ว'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('ตกลง'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
                             Navigator.pop(context, 'success');
 
                             setState(() {});
