@@ -11,25 +11,25 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'help_page_model.dart';
-export 'help_page_model.dart';
+import 'issue_page_model.dart';
+export 'issue_page_model.dart';
 
-class HelpPageWidget extends StatefulWidget {
-  const HelpPageWidget({super.key});
+class IssuePageWidget extends StatefulWidget {
+  const IssuePageWidget({super.key});
 
   @override
-  State<HelpPageWidget> createState() => _HelpPageWidgetState();
+  State<IssuePageWidget> createState() => _IssuePageWidgetState();
 }
 
-class _HelpPageWidgetState extends State<HelpPageWidget> {
-  late HelpPageModel _model;
+class _IssuePageWidgetState extends State<IssuePageWidget> {
+  late IssuePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HelpPageModel());
+    _model = createModel(context, () => IssuePageModel());
 
     _model.topicTextController ??= TextEditingController();
     _model.topicFocusNode ??= FocusNode();
@@ -42,10 +42,6 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
 
     _model.contactPhoneTextController ??= TextEditingController();
     _model.contactPhoneFocusNode ??= FocusNode();
-
-    _model.contactEmailTextController ??=
-        TextEditingController(text: currentUserEmail);
-    _model.contactEmailFocusNode ??= FocusNode();
   }
 
   @override
@@ -429,73 +425,6 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
-                                child: TextFormField(
-                                  controller: _model.contactEmailTextController,
-                                  focusNode: _model.contactEmailFocusNode,
-                                  autofocus: false,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'E-mail',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
-                                  keyboardType: TextInputType.emailAddress,
-                                  validator: _model
-                                      .contactEmailTextControllerValidator
-                                      .asValidator(context),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 32.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -504,23 +433,24 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                             .validate()) {
                                       return;
                                     }
+                                    _model.deviceData =
+                                        await actions.getDeviceDetail();
 
-                                    await HelpListRecord.collection
+                                    await IssueListRecord.collection
                                         .doc()
-                                        .set(createHelpListRecordData(
+                                        .set(createIssueListRecordData(
                                           createDate: getCurrentTimestamp,
                                           createBy: currentUserReference,
                                           status: 0,
-                                          topic:
-                                              _model.topicTextController.text,
                                           detail:
                                               _model.detailTextController.text,
                                           contactName: _model
                                               .contactNameTextController.text,
                                           contactPhone: _model
                                               .contactPhoneTextController.text,
-                                          contactEmail: _model
-                                              .contactEmailTextController.text,
+                                          subject:
+                                              _model.topicTextController.text,
+                                          deviceData: _model.deviceData,
                                         ));
                                     await showDialog(
                                       context: context,
@@ -544,6 +474,8 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                       context,
                                       'HomePage',
                                     );
+
+                                    setState(() {});
                                   },
                                   text: 'ส่งข้อมูล',
                                   options: FFButtonOptions(

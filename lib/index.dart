@@ -9,7 +9,7 @@ export '/product/product_list_page/product_list_page_widget.dart'
     show ProductListPageWidget;
 export '/product/product_tranfer_page/product_tranfer_page_widget.dart'
     show ProductTranferPageWidget;
-export '/help_page/help_page_widget.dart' show HelpPageWidget;
-export '/payment/payment_credit_card_page/payment_credit_card_page_widget.dart'
-    show PaymentCreditCardPageWidget;
+export '/issue_page/issue_page_widget.dart' show IssuePageWidget;
+export '/payment/promotion_page/promotion_page_widget.dart'
+    show PromotionPageWidget;
 export '/web_view_page/web_view_page_widget.dart' show WebViewPageWidget;

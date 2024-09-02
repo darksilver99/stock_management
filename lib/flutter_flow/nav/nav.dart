@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -106,8 +107,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ProductFormPage',
           path: '/productFormPage',
           asyncParams: {
-            'productDocument':
-                getDoc(['product_list'], ProductListRecord.fromSnapshot),
+            'productDocument': getDoc(['customer_list', 'product_list'],
+                ProductListRecord.fromSnapshot),
           },
           builder: (context, params) => ProductFormPageWidget(
             productDocument: params.getParam(
@@ -127,14 +128,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ProductTranferPageWidget(),
         ),
         FFRoute(
-          name: 'HelpPage',
-          path: '/helpPage',
-          builder: (context, params) => HelpPageWidget(),
+          name: 'IssuePage',
+          path: '/issuePage',
+          builder: (context, params) => IssuePageWidget(),
         ),
         FFRoute(
-          name: 'PaymentCreditCardPage',
-          path: '/paymentCreditCardPage',
-          builder: (context, params) => PaymentCreditCardPageWidget(),
+          name: 'PromotionPage',
+          path: '/promotionPage',
+          builder: (context, params) => PromotionPageWidget(),
         ),
         FFRoute(
           name: 'WebViewPage',
@@ -268,6 +269,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -286,6 +288,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }

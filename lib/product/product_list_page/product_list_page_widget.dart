@@ -211,7 +211,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                   child: PagedListView<DocumentSnapshot<Object?>?,
                       ProductListRecord>.separated(
                     pagingController: _model.setListViewController1(
-                      ProductListRecord.collection
+                      ProductListRecord.collection()
                           .where(
                             'create_by',
                             isEqualTo: currentUserReference,
@@ -852,7 +852,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                   child: PagedListView<DocumentSnapshot<Object?>?,
                       ProductListRecord>.separated(
                     pagingController: _model.setListViewController2(
-                      ProductListRecord.collection
+                      ProductListRecord.collection()
                           .where(
                             'create_by',
                             isEqualTo: currentUserReference,

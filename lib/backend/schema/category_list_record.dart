@@ -31,14 +31,21 @@ class CategoryListRecord extends FirestoreRecord {
   List<String> get nameList => _nameList ?? const [];
   bool hasNameList() => _nameList != null;
 
+  DocumentReference get parentReference => reference.parent.parent!;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
     _nameList = getDataList(snapshotData['name_list']);
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('category_list');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('category_list')
+          : FirebaseFirestore.instance.collectionGroup('category_list');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('category_list').doc(id);
 
   static Stream<CategoryListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => CategoryListRecord.fromSnapshot(s));

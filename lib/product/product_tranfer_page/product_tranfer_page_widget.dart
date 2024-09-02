@@ -226,7 +226,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                       PagedListView<DocumentSnapshot<Object?>?,
                           TranferListRecord>.separated(
                         pagingController: _model.setListViewController1(
-                          TranferListRecord.collection
+                          TranferListRecord.collection()
                               .where(
                                 'create_by',
                                 isEqualTo: currentUserReference,
@@ -559,7 +559,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                       PagedListView<DocumentSnapshot<Object?>?,
                           TranferListRecord>.separated(
                         pagingController: _model.setListViewController2(
-                          TranferListRecord.collection
+                          TranferListRecord.collection()
                               .where(
                                 'create_by',
                                 isEqualTo: currentUserReference,

@@ -11,6 +11,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 double sumPrice(
@@ -39,4 +40,19 @@ int? removeLastTwoZeroInt(int val) {
   String numberString = val.toString();
 
   return int.parse(numberString.substring(0, numberString.length - 2));
+}
+
+DateTime getEndDayTime(DateTime currentDate) {
+  DateTime endOfDay = DateTime(
+      currentDate.year, currentDate.month, currentDate.day, 23, 59, 59);
+  return endOfDay;
+}
+
+String? dateTh(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+  final DateFormat formatter = DateFormat('d MMMM yyyy', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }

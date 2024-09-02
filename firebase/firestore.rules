@@ -8,35 +8,64 @@ service cloud.firestore {
       allow delete: if request.auth.uid == document;
     }
 
-    match /category_list/{document} {
+    match /customer_list/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
-    match /product_list/{document} {
+    match /customer_list/{parent}/category_list/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
-    match /tranfer_list/{document} {
+    match /{path=**}/category_list/{document} {
+      allow read: if true;
+    }
+
+
+    match /customer_list/{parent}/product_list/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
-    match /help_list/{document} {
+    match /{path=**}/product_list/{document} {
+      allow read: if true;
+    }
+
+
+    match /customer_list/{parent}/tranfer_list/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
-    match /payment_history_list/{document} {
+    match /{path=**}/tranfer_list/{document} {
+      allow read: if true;
+    }
+
+
+    match /config/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /payment_list/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /issue_list/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;

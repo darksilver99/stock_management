@@ -2,7 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
+import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -32,44 +32,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.setAppVersion();
-      if (!FFAppState().isTesting) {
-        if (FFAppState().appBuildVersion < FFAppState().storeBuildVersion) {
-          var confirmDialogResponse = await showDialog<bool>(
-                context: context,
-                builder: (alertDialogContext) {
-                  return WebViewAware(
-                    child: AlertDialog(
-                      title: Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
-                      actions: [
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(alertDialogContext, false),
-                          child: Text('ยกเลิก'),
-                        ),
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(alertDialogContext, true),
-                          child: Text('ตกลง'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ) ??
-              false;
-          if (confirmDialogResponse) {
-            if (isAndroid) {
-              await launchURL(FFAppState().androidStoreLink);
-            } else {
-              await launchURL(FFAppState().iosStoreLink);
-            }
-          }
-          await actions.closeApp();
-        }
-      }
-      _model.isLoading = false;
-      setState(() {});
+      await action_blocks.iniConfig(context);
+      await action_blocks.initCustomer(context);
+      await action_blocks.checkAppVersion(context);
     });
   }
 
@@ -145,12 +110,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if ((currentUserDocument?.expireDate !=
-                                              null) &&
-                                          (currentUserDocument!.expireDate! <
-                                              getCurrentTimestamp)) {
-                                        context
-                                            .pushNamed('PaymentCreditCardPage');
+                                      if (getCurrentTimestamp >
+                                          FFAppState()
+                                              .customerData
+                                              .expireDate!) {
+                                        context.pushNamed('PromotionPage');
                                       } else {
                                         context.pushNamed('ProductListPage');
                                       }
@@ -215,12 +179,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if ((currentUserDocument?.expireDate !=
-                                              null) &&
-                                          (currentUserDocument!.expireDate! <
-                                              getCurrentTimestamp)) {
-                                        context
-                                            .pushNamed('PaymentCreditCardPage');
+                                      if (getCurrentTimestamp >
+                                          FFAppState()
+                                              .customerData
+                                              .expireDate!) {
+                                        context.pushNamed('PromotionPage');
                                       } else {
                                         context.pushNamed('ProductTranferPage');
                                       }
@@ -285,7 +248,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('HelpPage');
+                                      context.pushNamed('IssuePage');
                                     },
                                     child: Material(
                                       color: Colors.transparent,

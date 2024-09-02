@@ -2,7 +2,7 @@
   "indexes": [
     {
       "collectionGroup": "product_list",
-      "queryScope": "COLLECTION",
+      "queryScope": "COLLECTION_GROUP",
       "fields": [
         {
           "fieldPath": "create_by",
@@ -20,7 +20,7 @@
     },
     {
       "collectionGroup": "product_list",
-      "queryScope": "COLLECTION",
+      "queryScope": "COLLECTION_GROUP",
       "fields": [
         {
           "fieldPath": "create_by",
@@ -42,7 +42,7 @@
     },
     {
       "collectionGroup": "tranfer_list",
-      "queryScope": "COLLECTION",
+      "queryScope": "COLLECTION_GROUP",
       "fields": [
         {
           "fieldPath": "create_by",
@@ -64,7 +64,7 @@
     },
     {
       "collectionGroup": "tranfer_list",
-      "queryScope": "COLLECTION",
+      "queryScope": "COLLECTION_GROUP",
       "fields": [
         {
           "fieldPath": "create_by",
@@ -77,6 +77,48 @@
         {
           "fieldPath": "create_date",
           "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "category_list",
+      "fieldPath": "create_by",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "category_list",
+      "fieldPath": "create_by",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "category_list",
+      "fieldPath": "create_by",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "category_list",
+      "fieldPath": "create_by",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
         }
       ]
     }

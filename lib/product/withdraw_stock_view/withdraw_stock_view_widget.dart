@@ -56,6 +56,8 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -304,35 +306,32 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                               ),
                             });
 
-                            await TranferListRecord.collection
-                                .doc()
+                            await TranferListRecord.createDoc(
+                                    FFAppState().customerData.customerRef!)
                                 .set(createTranferListRecordData(
-                                  createDate: getCurrentTimestamp,
-                                  createBy: currentUserReference,
-                                  status: 1,
-                                  type: 'จ่าย',
-                                  totalAmount: int.tryParse(_model
+                              createDate: getCurrentTimestamp,
+                              createBy: currentUserReference,
+                              status: 1,
+                              type: 'จ่าย',
+                              totalAmount: int.tryParse(
+                                  _model.textFieldAmountTextController.text),
+                              totalPriceStart: functions.sumPrice(
+                                  widget!.productDocument!.priceStart,
+                                  int.parse(_model
+                                      .textFieldAmountTextController.text)),
+                              totalPriceSell: functions.sumPrice(
+                                  widget!.productDocument!.priceSell,
+                                  int.parse(_model
+                                      .textFieldAmountTextController.text)),
+                              productRef: widget!.productDocument?.reference,
+                              productName: widget!.productDocument?.name,
+                              productId: widget!.productDocument?.productId,
+                              remark: _model.textFieldDetailTextController.text,
+                              productCate: widget!.productDocument?.category,
+                              totalRemain: _model.rsProduct!.stock -
+                                  int.parse(_model
                                       .textFieldAmountTextController.text),
-                                  totalPriceStart: functions.sumPrice(
-                                      widget!.productDocument!.priceStart,
-                                      int.parse(_model
-                                          .textFieldAmountTextController.text)),
-                                  totalPriceSell: functions.sumPrice(
-                                      widget!.productDocument!.priceSell,
-                                      int.parse(_model
-                                          .textFieldAmountTextController.text)),
-                                  productRef:
-                                      widget!.productDocument?.reference,
-                                  productName: widget!.productDocument?.name,
-                                  productId: widget!.productDocument?.productId,
-                                  remark:
-                                      _model.textFieldDetailTextController.text,
-                                  productCate:
-                                      widget!.productDocument?.category,
-                                  totalRemain: _model.rsProduct!.stock -
-                                      int.parse(_model
-                                          .textFieldAmountTextController.text),
-                                ));
+                            ));
                             Navigator.pop(context, 'success');
                           }
 
