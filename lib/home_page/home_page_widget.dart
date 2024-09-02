@@ -35,6 +35,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       await action_blocks.iniConfig(context);
       await action_blocks.initCustomer(context);
       await action_blocks.checkAppVersion(context);
+      _model.isLoading = false;
+      setState(() {});
     });
   }
 
