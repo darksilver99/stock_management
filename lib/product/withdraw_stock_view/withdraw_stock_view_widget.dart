@@ -332,6 +332,23 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                                   int.parse(_model
                                       .textFieldAmountTextController.text),
                             ));
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return WebViewAware(
+                                  child: AlertDialog(
+                                    title: Text('จ่ายสินค้าเรียบร้อยแล้ว'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('ตกลง'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
                             Navigator.pop(context, 'success');
                           }
 
