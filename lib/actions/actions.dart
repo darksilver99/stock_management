@@ -66,6 +66,23 @@ Future initCustomer(BuildContext context) async {
           subject: currentUserEmail,
         ),
         customerListRecordReference);
+    await showDialog(
+      context: context,
+      builder: (alertDialogContext) {
+        return WebViewAware(
+          child: AlertDialog(
+            title: Text(
+                'พิเศษสำหรับสมาชิกใหม่ทดลองใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text('ตกลง'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
     FFAppState().customerData = CustomerDataStruct(
       subject: insertedCustomer?.subject,
       expireDate: insertedCustomer?.expireDate,
