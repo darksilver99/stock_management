@@ -37,7 +37,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.create = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.emailAddressTextController ??= TextEditingController();
@@ -217,7 +217,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           _model.create = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         child: Text(
                                           'เข้าสู่ระบบ',
@@ -248,7 +248,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           _model.create = true;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         child: Text(
                                           'ลงทะเบียน',
@@ -452,7 +452,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                   contentPadding:
                                                       EdgeInsets.all(24.0),
                                                   suffixIcon: InkWell(
-                                                    onTap: () => setState(
+                                                    onTap: () => safeSetState(
                                                       () => _model
                                                               .passwordVisibility =
                                                           !_model
@@ -803,7 +803,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                   contentPadding:
                                                       EdgeInsets.all(24.0),
                                                   suffixIcon: InkWell(
-                                                    onTap: () => setState(
+                                                    onTap: () => safeSetState(
                                                       () => _model
                                                               .passwordCreateVisibility =
                                                           !_model
@@ -915,7 +915,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                   contentPadding:
                                                       EdgeInsets.all(24.0),
                                                   suffixIcon: InkWell(
-                                                    onTap: () => setState(
+                                                    onTap: () => safeSetState(
                                                       () => _model
                                                               .passwordConfirmVisibility =
                                                           !_model
@@ -983,7 +983,7 @@ class _AuthenPageWidgetState extends State<AuthenPageWidget>
                                                             false,
                                                     onChanged:
                                                         (newValue) async {
-                                                      setState(() =>
+                                                      safeSetState(() =>
                                                           _model.checkboxValue =
                                                               newValue!);
                                                     },

@@ -461,7 +461,7 @@ class _IssuePageWidgetState extends State<IssuePageWidget> {
                                     'HomePage',
                                   );
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: 'ส่งข้อมูล',
                                 options: FFButtonOptions(

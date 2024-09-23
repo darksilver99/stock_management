@@ -59,9 +59,9 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
       ).then((s) => s.firstOrNull);
       if (_model.rsCate != null) {
         _model.cateList = _model.rsCate!.nameList.toList().cast<String>();
-        setState(() {});
+        safeSetState(() {});
         if (widget!.productDocument != null) {
-          setState(() {
+          safeSetState(() {
             _model.textFieldProductCodeTextController?.text =
                 widget!.productDocument!.productId;
             _model.textFieldProductCodeTextController?.selection =
@@ -69,11 +69,11 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                     offset:
                         _model.textFieldProductCodeTextController!.text.length);
           });
-          setState(() {
+          safeSetState(() {
             _model.dropDownValueController?.value =
                 widget!.productDocument!.category;
           });
-          setState(() {
+          safeSetState(() {
             _model.textFieldProductNameTextController?.text =
                 widget!.productDocument!.name;
             _model.textFieldProductNameTextController?.selection =
@@ -81,7 +81,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                     offset:
                         _model.textFieldProductNameTextController!.text.length);
           });
-          setState(() {
+          safeSetState(() {
             _model.textFieldProductStockTextController?.text =
                 widget!.productDocument!.stock.toString();
             _model.textFieldProductStockTextController?.selection =
@@ -89,7 +89,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                     offset: _model
                         .textFieldProductStockTextController!.text.length);
           });
-          setState(() {
+          safeSetState(() {
             _model.textFieldProductStartPriceTextController?.text =
                 widget!.productDocument!.priceStart.toString();
             _model.textFieldProductStartPriceTextController?.selection =
@@ -97,7 +97,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                     offset: _model
                         .textFieldProductStartPriceTextController!.text.length);
           });
-          setState(() {
+          safeSetState(() {
             _model.textFieldProductSellPriceTextController?.text =
                 widget!.productDocument!.priceSell.toString();
             _model.textFieldProductSellPriceTextController?.selection =
@@ -105,7 +105,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                     offset: _model
                         .textFieldProductSellPriceTextController!.text.length);
           });
-          setState(() {
+          safeSetState(() {
             _model.textFieldProductDetailTextController?.text =
                 widget!.productDocument!.detail;
             _model.textFieldProductDetailTextController?.selection =
@@ -116,7 +116,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
           if (widget!.productDocument?.photo != null &&
               widget!.productDocument?.photo != '') {
             _model.image = widget!.productDocument?.photo;
-            setState(() {});
+            safeSetState(() {});
           }
         }
       } else {
@@ -152,7 +152,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
           },
         ).then((value) => safeSetState(() {}));
 
-        setState(() {});
+        safeSetState(() {});
       }
     });
 
@@ -352,7 +352,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                             FormFieldController<String>(null),
                                         options:
                                             columnCategoryListRecord!.nameList,
-                                        onChanged: (val) => setState(
+                                        onChanged: (val) => safeSetState(
                                             () => _model.dropDownValue = val),
                                         width: double.infinity,
                                         textStyle: FlutterFlowTheme.of(context)
@@ -414,7 +414,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                       },
                                     ).then((value) => safeSetState(() {}));
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Text(
                                     'จัดการหมวดหมู่',
@@ -852,7 +852,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                                   .refFromURL(_model.image!)
                                                   .delete();
                                               _model.image = null;
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Icon(
                                               Icons.cancel_rounded,
@@ -879,7 +879,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     _model.isUploading = true;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     final selectedMedia =
                                         await selectMediaWithSourceBottomSheet(
                                       context: context,
@@ -891,7 +891,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                         selectedMedia.every((m) =>
                                             validateFileFormat(
                                                 m.storagePath, context))) {
-                                      setState(
+                                      safeSetState(
                                           () => _model.isDataUploading = true);
                                       var selectedUploadedFiles =
                                           <FFUploadedFile>[];
@@ -926,14 +926,14 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                               selectedMedia.length &&
                                           downloadUrls.length ==
                                               selectedMedia.length) {
-                                        setState(() {
+                                        safeSetState(() {
                                           _model.uploadedLocalFile =
                                               selectedUploadedFiles.first;
                                           _model.uploadedFileUrl =
                                               downloadUrls.first;
                                         });
                                       } else {
-                                        setState(() {});
+                                        safeSetState(() {});
                                         return;
                                       }
                                     }
@@ -941,8 +941,8 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                     if (_model.uploadedFileUrl != null &&
                                         _model.uploadedFileUrl != '') {
                                       _model.image = _model.uploadedFileUrl;
-                                      setState(() {});
-                                      setState(() {
+                                      safeSetState(() {});
+                                      safeSetState(() {
                                         _model.isDataUploading = false;
                                         _model.uploadedLocalFile =
                                             FFUploadedFile(
@@ -951,7 +951,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                                       });
                                     }
                                     _model.isUploading = false;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Container(
                                     width: 80.0,
@@ -1229,7 +1229,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                               }
                             }
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: 'บันทึกข้อมูล',
                           options: FFButtonOptions(

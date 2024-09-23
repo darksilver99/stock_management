@@ -356,7 +356,7 @@ class _WithdrawStockViewWidgetState extends State<WithdrawStockViewWidget> {
                             Navigator.pop(context, 'success');
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: 'ยืนยัน',
                         options: FFButtonOptions(

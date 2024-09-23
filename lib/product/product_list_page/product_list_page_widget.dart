@@ -118,10 +118,10 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                             if (_model.textController.text != null &&
                                 _model.textController.text != '') {
                               _model.isFullList = false;
-                              setState(() {});
+                              safeSetState(() {});
                             } else {
                               _model.isFullList = true;
-                              setState(() {});
+                              safeSetState(() {});
                             }
                           },
                         ),
@@ -177,13 +177,13 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                     if (_model.textController.text != null &&
                                         _model.textController.text != '') {
                                       _model.isFullList = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       _model.isFullList = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Icon(
                                     Icons.clear,
@@ -483,7 +483,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               'ProductListPage');
                                                         }
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Material(
                                                         color:
@@ -612,7 +612,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               'ProductListPage');
                                                         }
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Material(
                                                         color:
@@ -1114,7 +1114,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               'ProductListPage');
                                                         }
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Material(
                                                         color:
@@ -1243,7 +1243,7 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                                               'ProductListPage');
                                                         }
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Material(
                                                         color:

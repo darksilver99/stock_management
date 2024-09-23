@@ -328,7 +328,7 @@ class _DepositStockViewWidgetState extends State<DepositStockViewWidget> {
                             );
                             Navigator.pop(context, 'success');
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: 'ยืนยัน',
                           options: FFButtonOptions(
