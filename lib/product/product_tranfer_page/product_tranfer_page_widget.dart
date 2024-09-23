@@ -51,7 +51,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
       if (_model.rsCate != null) {
         _model.cateList = _model.rsCate!.nameList.toList().cast<String>();
         _model.insertAtIndexInCateList(0, 'ทั้งหมด');
-        setState(() {});
+        safeSetState(() {});
       }
     });
   }
@@ -120,13 +120,13 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                               FormFieldController<String>(null),
                           options: _model.cateList,
                           onChanged: (val) async {
-                            setState(() => _model.dropDownValue = val);
+                            safeSetState(() => _model.dropDownValue = val);
                             if (_model.dropDownValue == 'ทั้งหมด') {
                               _model.isFullList = true;
-                              setState(() {});
+                              safeSetState(() {});
                             } else {
                               _model.isFullList = false;
-                              setState(() {});
+                              safeSetState(() {});
                             }
                           },
                           textStyle:
@@ -158,12 +158,12 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                   FFButtonWidget(
                     onPressed: () async {
                       _model.isLoading = true;
-                      setState(() {});
+                      safeSetState(() {});
                       _model.path = await actions.exportExcel(
                         _model.dropDownValue,
                       );
                       _model.isLoading = false;
-                      setState(() {});
+                      safeSetState(() {});
                       if (_model.path == 'No Data') {
                         await showDialog(
                           context: context,
@@ -188,7 +188,7 @@ class _ProductTranferPageWidgetState extends State<ProductTranferPageWidget> {
                         );
                       }
 
-                      setState(() {});
+                      safeSetState(() {});
                     },
                     text: 'Export&Share',
                     options: FFButtonOptions(

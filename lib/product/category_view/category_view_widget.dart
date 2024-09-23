@@ -208,11 +208,11 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                               });
                             }
 
-                            setState(() {
+                            safeSetState(() {
                               _model.textController?.clear();
                             });
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: 'เพิ่ม',
                           options: FFButtonOptions(
@@ -365,7 +365,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                                           });
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Icon(
                                         Icons.delete_forever,

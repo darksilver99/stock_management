@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  void setThemeMode(ThemeMode mode) => setState(() {
+  void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
       });
 
