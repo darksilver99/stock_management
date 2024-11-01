@@ -464,7 +464,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     Align(
                       alignment: AlignmentDirectional(0.0, 0.0),
                       child: Lottie.asset(
-                        'assets/lottie_animations/Animation_-_1709005578891.json',
+                        'assets/jsons/Animation_-_1709005578891.json',
                         width: 150.0,
                         height: 130.0,
                         fit: BoxFit.cover,
