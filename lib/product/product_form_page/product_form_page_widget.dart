@@ -1346,7 +1346,7 @@ class _ProductFormPageWidgetState extends State<ProductFormPageWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Lottie.asset(
-                        'assets/lottie_animations/Animation_-_1709005578891.json',
+                        'assets/jsons/Animation_-_1709005578891.json',
                         width: 150.0,
                         height: 130.0,
                         fit: BoxFit.cover,
