@@ -21,11 +21,6 @@ class ProductListRecord extends FirestoreRecord {
   DateTime? get createDate => _createDate;
   bool hasCreateDate() => _createDate != null;
 
-  // "create_by" field.
-  DocumentReference? _createBy;
-  DocumentReference? get createBy => _createBy;
-  bool hasCreateBy() => _createBy != null;
-
   // "update_date" field.
   DateTime? _updateDate;
   DateTime? get updateDate => _updateDate;
@@ -90,7 +85,6 @@ class ProductListRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
-    _createBy = snapshotData['create_by'] as DocumentReference?;
     _updateDate = snapshotData['update_date'] as DateTime?;
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _status = castToType<int>(snapshotData['status']);
@@ -146,7 +140,6 @@ class ProductListRecord extends FirestoreRecord {
 
 Map<String, dynamic> createProductListRecordData({
   DateTime? createDate,
-  DocumentReference? createBy,
   DateTime? updateDate,
   DateTime? deleteDate,
   int? status,
@@ -162,7 +155,6 @@ Map<String, dynamic> createProductListRecordData({
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'create_date': createDate,
-      'create_by': createBy,
       'update_date': updateDate,
       'delete_date': deleteDate,
       'status': status,
@@ -187,7 +179,6 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
   bool equals(ProductListRecord? e1, ProductListRecord? e2) {
     const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
-        e1?.createBy == e2?.createBy &&
         e1?.updateDate == e2?.updateDate &&
         e1?.deleteDate == e2?.deleteDate &&
         e1?.status == e2?.status &&
@@ -205,7 +196,6 @@ class ProductListRecordDocumentEquality implements Equality<ProductListRecord> {
   @override
   int hash(ProductListRecord? e) => const ListEquality().hash([
         e?.createDate,
-        e?.createBy,
         e?.updateDate,
         e?.deleteDate,
         e?.status,

@@ -66,3 +66,13 @@ String? dateTimeTh(DateTime? date) {
   final buddhistYear = date.year + 543;
   return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
+
+List<String> getKeywordList(String keyword) {
+  return keyword
+      .replaceAll(",", "") // Remove all commas
+      .split(" ") // Split by spaces
+      .map((word) =>
+          word.trim().toLowerCase()) // Trim each word and convert to lowercase
+      .where((word) => word.isNotEmpty) // Remove any empty strings
+      .toList();
+}

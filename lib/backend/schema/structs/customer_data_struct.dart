@@ -13,10 +13,12 @@ class CustomerDataStruct extends FFFirebaseStruct {
     String? subject,
     DateTime? expireDate,
     DocumentReference? customerRef,
+    List<String>? categoryList,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _subject = subject,
         _expireDate = expireDate,
         _customerRef = customerRef,
+        _categoryList = categoryList,
         super(firestoreUtilData);
 
   // "subject" field.
@@ -40,11 +42,23 @@ class CustomerDataStruct extends FFFirebaseStruct {
 
   bool hasCustomerRef() => _customerRef != null;
 
+  // "category_list" field.
+  List<String>? _categoryList;
+  List<String> get categoryList => _categoryList ?? const [];
+  set categoryList(List<String>? val) => _categoryList = val;
+
+  void updateCategoryList(Function(List<String>) updateFn) {
+    updateFn(_categoryList ??= []);
+  }
+
+  bool hasCategoryList() => _categoryList != null;
+
   static CustomerDataStruct fromMap(Map<String, dynamic> data) =>
       CustomerDataStruct(
         subject: data['subject'] as String?,
         expireDate: data['expire_date'] as DateTime?,
         customerRef: data['customer_ref'] as DocumentReference?,
+        categoryList: getDataList(data['category_list']),
       );
 
   static CustomerDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -55,6 +69,7 @@ class CustomerDataStruct extends FFFirebaseStruct {
         'subject': _subject,
         'expire_date': _expireDate,
         'customer_ref': _customerRef,
+        'category_list': _categoryList,
       }.withoutNulls;
 
   @override
@@ -70,6 +85,11 @@ class CustomerDataStruct extends FFFirebaseStruct {
         'customer_ref': serializeParam(
           _customerRef,
           ParamType.DocumentReference,
+        ),
+        'category_list': serializeParam(
+          _categoryList,
+          ParamType.String,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -91,6 +111,11 @@ class CustomerDataStruct extends FFFirebaseStruct {
           false,
           collectionNamePath: ['customer_list'],
         ),
+        categoryList: deserializeParam<String>(
+          data['category_list'],
+          ParamType.String,
+          true,
+        ),
       );
 
   @override
@@ -98,15 +123,17 @@ class CustomerDataStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is CustomerDataStruct &&
         subject == other.subject &&
         expireDate == other.expireDate &&
-        customerRef == other.customerRef;
+        customerRef == other.customerRef &&
+        listEquality.equals(categoryList, other.categoryList);
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([subject, expireDate, customerRef]);
+  int get hashCode => const ListEquality()
+      .hash([subject, expireDate, customerRef, categoryList]);
 }
 
 CustomerDataStruct createCustomerDataStruct({

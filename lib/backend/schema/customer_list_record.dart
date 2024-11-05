@@ -51,6 +51,11 @@ class CustomerListRecord extends FirestoreRecord {
   String get subject => _subject ?? '';
   bool hasSubject() => _subject != null;
 
+  // "category_list" field.
+  List<String>? _categoryList;
+  List<String> get categoryList => _categoryList ?? const [];
+  bool hasCategoryList() => _categoryList != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -59,6 +64,7 @@ class CustomerListRecord extends FirestoreRecord {
     _status = castToType<int>(snapshotData['status']);
     _expireDate = snapshotData['expire_date'] as DateTime?;
     _subject = snapshotData['subject'] as String?;
+    _categoryList = getDataList(snapshotData['category_list']);
   }
 
   static CollectionReference get collection =>
@@ -125,13 +131,15 @@ class CustomerListRecordDocumentEquality
 
   @override
   bool equals(CustomerListRecord? e1, CustomerListRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
         e1?.updateDate == e2?.updateDate &&
         e1?.updateBy == e2?.updateBy &&
         e1?.status == e2?.status &&
         e1?.expireDate == e2?.expireDate &&
-        e1?.subject == e2?.subject;
+        e1?.subject == e2?.subject &&
+        listEquality.equals(e1?.categoryList, e2?.categoryList);
   }
 
   @override
@@ -142,7 +150,8 @@ class CustomerListRecordDocumentEquality
         e?.updateBy,
         e?.status,
         e?.expireDate,
-        e?.subject
+        e?.subject,
+        e?.categoryList
       ]);
 
   @override
