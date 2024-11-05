@@ -150,7 +150,7 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                                         autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          isDense: false,
+                                          isDense: true,
                                           labelStyle:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium
