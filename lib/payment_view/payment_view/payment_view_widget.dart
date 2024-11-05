@@ -458,7 +458,7 @@ class _PaymentViewWidgetState extends State<PaymentViewWidget> {
                                       );
                                     },
                                   );
-                                  await actions.pushReplacementNamed(
+                                  await actions.pushReplacement(
                                     context,
                                     'HomePage',
                                   );

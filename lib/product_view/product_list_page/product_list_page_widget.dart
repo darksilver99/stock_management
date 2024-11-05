@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/product_view/product_form_view/product_form_view_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -76,11 +77,10 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
             },
           ).then((value) => safeSetState(() {}));
 
-          _model.isLoading = true;
-          safeSetState(() {});
-          await Future.delayed(const Duration(milliseconds: 1000));
-          _model.isLoading = false;
-          safeSetState(() {});
+          await actions.pushReplacement(
+            context,
+            'ProductListPage',
+          );
         },
         backgroundColor: FlutterFlowTheme.of(context).primary,
         icon: Icon(
@@ -270,12 +270,10 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                       if (!_model.isLoading)
                         RefreshIndicator(
                           onRefresh: () async {
-                            _model.isLoading = true;
-                            safeSetState(() {});
-                            await Future.delayed(
-                                const Duration(milliseconds: 1000));
-                            _model.isLoading = false;
-                            safeSetState(() {});
+                            await actions.pushReplacement(
+                              context,
+                              'ProductListPage',
+                            );
                           },
                           child: PagedListView<DocumentSnapshot<Object?>?,
                               ProductListRecord>.separated(
