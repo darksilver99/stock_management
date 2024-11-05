@@ -173,7 +173,15 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
                                           FFAppState().tmpSelectedProductRef =
                                               null;
 
-                                          context.pushNamed('ProductListPage');
+                                          context.pushNamed(
+                                            'ProductListPage',
+                                            queryParameters: {
+                                              'isSelectProduct': serializeParam(
+                                                true,
+                                                ParamType.bool,
+                                              ),
+                                            }.withoutNulls,
+                                          );
 
                                           if (FFAppState()
                                                   .tmpSelectedProductRef !=
@@ -486,6 +494,28 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
                                           );
 
                                           Navigator.pop(context);
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title: 'กรุณาเลือกสินค้า',
+                                                    status: 'error',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
                                         }
                                       },
                                       text: 'บันทึกข้อมูล',
