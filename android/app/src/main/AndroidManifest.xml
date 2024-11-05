@@ -47,7 +47,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="warehousemanagement" android:host="warehousemanagement.com" />
+                <data android:scheme="stockmanagement" android:host="stockmanagement.com" />
             </intent-filter>
 
         </activity>

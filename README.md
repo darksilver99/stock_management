@@ -1,4 +1,4 @@
-# WarehouseManagement
+# StockManagement
 
 A new Flutter project.
 
