@@ -19,6 +19,18 @@ import 'package:provider/provider.dart';
 
 class CategorySettingViewModel
     extends FlutterFlowModel<CategorySettingViewWidget> {
+  ///  Local state fields for this component.
+
+  List<String> tmpCatagoryList = [];
+  void addToTmpCatagoryList(String item) => tmpCatagoryList.add(item);
+  void removeFromTmpCatagoryList(String item) => tmpCatagoryList.remove(item);
+  void removeAtIndexFromTmpCatagoryList(int index) =>
+      tmpCatagoryList.removeAt(index);
+  void insertAtIndexInTmpCatagoryList(int index, String item) =>
+      tmpCatagoryList.insert(index, item);
+  void updateTmpCatagoryListAtIndex(int index, Function(String) updateFn) =>
+      tmpCatagoryList[index] = updateFn(tmpCatagoryList[index]);
+
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for TextField widget.
