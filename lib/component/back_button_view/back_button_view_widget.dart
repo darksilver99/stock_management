@@ -7,7 +7,12 @@ import 'back_button_view_model.dart';
 export 'back_button_view_model.dart';
 
 class BackButtonViewWidget extends StatefulWidget {
-  const BackButtonViewWidget({super.key});
+  const BackButtonViewWidget({
+    super.key,
+    this.title,
+  });
+
+  final String? title;
 
   @override
   State<BackButtonViewWidget> createState() => _BackButtonViewWidgetState();
@@ -45,33 +50,52 @@ class _BackButtonViewWidgetState extends State<BackButtonViewWidget> {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Material(
-              color: Colors.transparent,
-              elevation: 3.0,
-              shape: const CircleBorder(),
-              child: Container(
-                width: 52.0,
-                height: 52.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  shape: BoxShape.circle,
-                ),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.safePop();
-                  },
-                  child: Icon(
-                    Icons.chevron_left_rounded,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 32.0,
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+              child: Material(
+                color: Colors.transparent,
+                elevation: 3.0,
+                shape: const CircleBorder(),
+                child: Container(
+                  width: 52.0,
+                  height: 52.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    shape: BoxShape.circle,
+                  ),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.safePop();
+                    },
+                    child: Icon(
+                      Icons.chevron_left_rounded,
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      size: 32.0,
+                    ),
                   ),
                 ),
               ),
             ),
+            if (widget!.title != null && widget!.title != '')
+              Expanded(
+                child: Text(
+                  valueOrDefault<String>(
+                    widget!.title,
+                    '-',
+                  ),
+                  maxLines: 1,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        fontSize: 22.0,
+                        letterSpacing: 0.0,
+                      ),
+                ),
+              ),
           ],
         ),
       ),

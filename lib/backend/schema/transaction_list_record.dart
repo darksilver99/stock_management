@@ -8,8 +8,8 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class TranferListRecord extends FirestoreRecord {
-  TranferListRecord._(
+class TransactionListRecord extends FirestoreRecord {
+  TransactionListRecord._(
     DocumentReference reference,
     Map<String, dynamic> data,
   ) : super(reference, data) {
@@ -20,11 +20,6 @@ class TranferListRecord extends FirestoreRecord {
   DateTime? _createDate;
   DateTime? get createDate => _createDate;
   bool hasCreateDate() => _createDate != null;
-
-  // "create_by" field.
-  DocumentReference? _createBy;
-  DocumentReference? get createBy => _createBy;
-  bool hasCreateBy() => _createBy != null;
 
   // "status" field.
   int? _status;
@@ -61,20 +56,10 @@ class TranferListRecord extends FirestoreRecord {
   String get productName => _productName ?? '';
   bool hasProductName() => _productName != null;
 
-  // "product_id" field.
-  String? _productId;
-  String get productId => _productId ?? '';
-  bool hasProductId() => _productId != null;
-
   // "remark" field.
   String? _remark;
   String get remark => _remark ?? '';
   bool hasRemark() => _remark != null;
-
-  // "product_cate" field.
-  String? _productCate;
-  String get productCate => _productCate ?? '';
-  bool hasProductCate() => _productCate != null;
 
   // "total_remain" field.
   int? _totalRemain;
@@ -91,11 +76,15 @@ class TranferListRecord extends FirestoreRecord {
   double get currentPriceSell => _currentPriceSell ?? 0.0;
   bool hasCurrentPriceSell() => _currentPriceSell != null;
 
+  // "keyword_list" field.
+  List<String>? _keywordList;
+  List<String> get keywordList => _keywordList ?? const [];
+  bool hasKeywordList() => _keywordList != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
-    _createBy = snapshotData['create_by'] as DocumentReference?;
     _status = castToType<int>(snapshotData['status']);
     _type = snapshotData['type'] as String?;
     _totalAmount = castToType<int>(snapshotData['total_amount']);
@@ -103,57 +92,55 @@ class TranferListRecord extends FirestoreRecord {
     _totalPriceSell = castToType<double>(snapshotData['total_price_sell']);
     _productRef = snapshotData['product_ref'] as DocumentReference?;
     _productName = snapshotData['product_name'] as String?;
-    _productId = snapshotData['product_id'] as String?;
     _remark = snapshotData['remark'] as String?;
-    _productCate = snapshotData['product_cate'] as String?;
     _totalRemain = castToType<int>(snapshotData['total_remain']);
     _currentPriceStart =
         castToType<double>(snapshotData['current_price_start']);
     _currentPriceSell = castToType<double>(snapshotData['current_price_sell']);
+    _keywordList = getDataList(snapshotData['keyword_list']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
-          ? parent.collection('tranfer_list')
-          : FirebaseFirestore.instance.collectionGroup('tranfer_list');
+          ? parent.collection('transaction_list')
+          : FirebaseFirestore.instance.collectionGroup('transaction_list');
 
   static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
-      parent.collection('tranfer_list').doc(id);
+      parent.collection('transaction_list').doc(id);
 
-  static Stream<TranferListRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => TranferListRecord.fromSnapshot(s));
+  static Stream<TransactionListRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => TransactionListRecord.fromSnapshot(s));
 
-  static Future<TranferListRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => TranferListRecord.fromSnapshot(s));
+  static Future<TransactionListRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => TransactionListRecord.fromSnapshot(s));
 
-  static TranferListRecord fromSnapshot(DocumentSnapshot snapshot) =>
-      TranferListRecord._(
+  static TransactionListRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      TransactionListRecord._(
         snapshot.reference,
         mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
 
-  static TranferListRecord getDocumentFromData(
+  static TransactionListRecord getDocumentFromData(
     Map<String, dynamic> data,
     DocumentReference reference,
   ) =>
-      TranferListRecord._(reference, mapFromFirestore(data));
+      TransactionListRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'TranferListRecord(reference: ${reference.path}, data: $snapshotData)';
+      'TransactionListRecord(reference: ${reference.path}, data: $snapshotData)';
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
   bool operator ==(other) =>
-      other is TranferListRecord &&
+      other is TransactionListRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
-Map<String, dynamic> createTranferListRecordData({
+Map<String, dynamic> createTransactionListRecordData({
   DateTime? createDate,
-  DocumentReference? createBy,
   int? status,
   String? type,
   int? totalAmount,
@@ -161,9 +148,7 @@ Map<String, dynamic> createTranferListRecordData({
   double? totalPriceSell,
   DocumentReference? productRef,
   String? productName,
-  String? productId,
   String? remark,
-  String? productCate,
   int? totalRemain,
   double? currentPriceStart,
   double? currentPriceSell,
@@ -171,7 +156,6 @@ Map<String, dynamic> createTranferListRecordData({
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'create_date': createDate,
-      'create_by': createBy,
       'status': status,
       'type': type,
       'total_amount': totalAmount,
@@ -179,9 +163,7 @@ Map<String, dynamic> createTranferListRecordData({
       'total_price_sell': totalPriceSell,
       'product_ref': productRef,
       'product_name': productName,
-      'product_id': productId,
       'remark': remark,
-      'product_cate': productCate,
       'total_remain': totalRemain,
       'current_price_start': currentPriceStart,
       'current_price_sell': currentPriceSell,
@@ -191,13 +173,14 @@ Map<String, dynamic> createTranferListRecordData({
   return firestoreData;
 }
 
-class TranferListRecordDocumentEquality implements Equality<TranferListRecord> {
-  const TranferListRecordDocumentEquality();
+class TransactionListRecordDocumentEquality
+    implements Equality<TransactionListRecord> {
+  const TransactionListRecordDocumentEquality();
 
   @override
-  bool equals(TranferListRecord? e1, TranferListRecord? e2) {
+  bool equals(TransactionListRecord? e1, TransactionListRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
-        e1?.createBy == e2?.createBy &&
         e1?.status == e2?.status &&
         e1?.type == e2?.type &&
         e1?.totalAmount == e2?.totalAmount &&
@@ -205,18 +188,16 @@ class TranferListRecordDocumentEquality implements Equality<TranferListRecord> {
         e1?.totalPriceSell == e2?.totalPriceSell &&
         e1?.productRef == e2?.productRef &&
         e1?.productName == e2?.productName &&
-        e1?.productId == e2?.productId &&
         e1?.remark == e2?.remark &&
-        e1?.productCate == e2?.productCate &&
         e1?.totalRemain == e2?.totalRemain &&
         e1?.currentPriceStart == e2?.currentPriceStart &&
-        e1?.currentPriceSell == e2?.currentPriceSell;
+        e1?.currentPriceSell == e2?.currentPriceSell &&
+        listEquality.equals(e1?.keywordList, e2?.keywordList);
   }
 
   @override
-  int hash(TranferListRecord? e) => const ListEquality().hash([
+  int hash(TransactionListRecord? e) => const ListEquality().hash([
         e?.createDate,
-        e?.createBy,
         e?.status,
         e?.type,
         e?.totalAmount,
@@ -224,14 +205,13 @@ class TranferListRecordDocumentEquality implements Equality<TranferListRecord> {
         e?.totalPriceSell,
         e?.productRef,
         e?.productName,
-        e?.productId,
         e?.remark,
-        e?.productCate,
         e?.totalRemain,
         e?.currentPriceStart,
-        e?.currentPriceSell
+        e?.currentPriceSell,
+        e?.keywordList
       ]);
 
   @override
-  bool isValidKey(Object? o) => o is TranferListRecord;
+  bool isValidKey(Object? o) => o is TransactionListRecord;
 }

@@ -15,18 +15,6 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    match /customer_list/{parent}/category_list/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
-    }
-
-    match /{path=**}/category_list/{document} {
-      allow read: if true;
-    }
-
-
     match /customer_list/{parent}/product_list/{document} {
       allow create: if true;
       allow read: if true;
@@ -35,18 +23,6 @@ service cloud.firestore {
     }
 
     match /{path=**}/product_list/{document} {
-      allow read: if true;
-    }
-
-
-    match /customer_list/{parent}/tranfer_list/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if false;
-      allow delete: if false;
-    }
-
-    match /{path=**}/tranfer_list/{document} {
       allow read: if true;
     }
 
@@ -71,5 +47,17 @@ service cloud.firestore {
       allow write: if false;
       allow delete: if false;
     }
+
+    match /customer_list/{parent}/transaction_list/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/transaction_list/{document} {
+      allow read: if true;
+    }
+
   }
 }

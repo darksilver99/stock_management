@@ -35,7 +35,6 @@ Future iniConfig(BuildContext context) async {
 
 Future initCustomer(BuildContext context) async {
   CustomerListRecord? customerResult;
-  CustomerListRecord? insertedCustomer;
 
   customerResult = await queryCustomerListRecordOnce(
     queryBuilder: (customerListRecord) => customerListRecord.where(
@@ -49,27 +48,17 @@ Future initCustomer(BuildContext context) async {
       subject: customerResult?.subject,
       expireDate: customerResult?.expireDate,
       customerRef: customerResult?.reference,
+      categoryList: customerResult?.categoryList,
     );
   } else {
-    var customerListRecordReference = CustomerListRecord.collection.doc();
-    await customerListRecordReference.set(createCustomerListRecordData(
-      createDate: getCurrentTimestamp,
-      createBy: currentUserReference,
-      status: 1,
-      expireDate: functions.getEndDayTime(
-          functions.getNextDay(FFAppState().configData.freeDay)!),
-      subject: currentUserEmail,
-    ));
-    insertedCustomer = CustomerListRecord.getDocumentFromData(
-        createCustomerListRecordData(
+    await CustomerListRecord.collection.doc().set(createCustomerListRecordData(
           createDate: getCurrentTimestamp,
           createBy: currentUserReference,
           status: 1,
           expireDate: functions.getEndDayTime(
               functions.getNextDay(FFAppState().configData.freeDay)!),
           subject: currentUserEmail,
-        ),
-        customerListRecordReference);
+        ));
     if (!FFAppState().configData.isReview) {
       await showDialog(
         context: context,
