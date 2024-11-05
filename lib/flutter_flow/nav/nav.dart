@@ -120,7 +120,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ProductListPage',
           path: '/productListPage',
-          builder: (context, params) => ProductListPageWidget(),
+          builder: (context, params) => ProductListPageWidget(
+            isSelectProduct: params.getParam(
+              'isSelectProduct',
+              ParamType.bool,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

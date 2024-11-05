@@ -4,6 +4,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/product_view/add_stock_view/add_stock_view_widget.dart';
 import '/walkthroughs/add_product.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -276,7 +277,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .customerData
                                                       .customerRef,
                                                 );
-                                                if (_model.totalProduct! <= 0) {
+                                                if (_model.totalProduct! > 0) {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) {
+                                                      return Dialog(
+                                                        elevation: 0,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                        child: WebViewAware(
+                                                          child:
+                                                              AddStockViewWidget(),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                } else {
                                                   await showDialog(
                                                     context: context,
                                                     builder: (dialogContext) {
@@ -472,8 +496,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context
-                                                .pushNamed('ProductListPage');
+                                            context.pushNamed(
+                                              'ProductListPage',
+                                              queryParameters: {
+                                                'isSelectProduct':
+                                                    serializeParam(
+                                                  false,
+                                                  ParamType.bool,
+                                                ),
+                                              }.withoutNulls,
+                                            );
                                           },
                                           child: Container(
                                             height: 180.0,

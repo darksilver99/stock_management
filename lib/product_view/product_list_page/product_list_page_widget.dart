@@ -19,7 +19,12 @@ import 'product_list_page_model.dart';
 export 'product_list_page_model.dart';
 
 class ProductListPageWidget extends StatefulWidget {
-  const ProductListPageWidget({super.key});
+  const ProductListPageWidget({
+    super.key,
+    bool? isSelectProduct,
+  }) : this.isSelectProduct = isSelectProduct ?? false;
+
+  final bool isSelectProduct;
 
   @override
   State<ProductListPageWidget> createState() => _ProductListPageWidgetState();
@@ -59,48 +64,51 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          await showModalBottomSheet(
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            enableDrag: false,
-            useSafeArea: true,
-            context: context,
-            builder: (context) {
-              return WebViewAware(
-                child: Padding(
-                  padding: MediaQuery.viewInsetsOf(context),
-                  child: ProductFormViewWidget(),
-                ),
+      floatingActionButton: Visibility(
+        visible: !widget!.isSelectProduct,
+        child: FloatingActionButton.extended(
+          onPressed: () async {
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              enableDrag: false,
+              useSafeArea: true,
+              context: context,
+              builder: (context) {
+                return WebViewAware(
+                  child: Padding(
+                    padding: MediaQuery.viewInsetsOf(context),
+                    child: ProductFormViewWidget(),
+                  ),
+                );
+              },
+            ).then((value) => safeSetState(() => _model.isUpdate = value));
+
+            if ((_model.isUpdate != null && _model.isUpdate != '') &&
+                (_model.isUpdate == 'update')) {
+              await actions.pushReplacement(
+                context,
+                'ProductListPage',
               );
-            },
-          ).then((value) => safeSetState(() => _model.isUpdate = value));
+            }
 
-          if ((_model.isUpdate != null && _model.isUpdate != '') &&
-              (_model.isUpdate == 'update')) {
-            await actions.pushReplacement(
-              context,
-              'ProductListPage',
-            );
-          }
-
-          safeSetState(() {});
-        },
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        icon: Icon(
-          Icons.add_business_rounded,
-          size: 32.0,
-        ),
-        elevation: 8.0,
-        label: Text(
-          'เพิ่มสินค้า',
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Inter',
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                fontSize: 22.0,
-                letterSpacing: 0.0,
-              ),
+            safeSetState(() {});
+          },
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          icon: Icon(
+            Icons.add_business_rounded,
+            size: 32.0,
+          ),
+          elevation: 8.0,
+          label: Text(
+            'เพิ่มสินค้า',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Inter',
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  fontSize: 22.0,
+                  letterSpacing: 0.0,
+                ),
+          ),
         ),
       ),
       body: SafeArea(
@@ -409,41 +417,19 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              useSafeArea: true,
-                                              context: context,
-                                              builder: (context) {
-                                                return WebViewAware(
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        ProductFormViewWidget(
-                                                      productDocument:
-                                                          listViewProductListRecord,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() =>
-                                                _model.isUpdate3 = value));
-
-                                            if ((_model.isUpdate3 != null &&
-                                                    _model.isUpdate3 != '') &&
-                                                (_model.isUpdate3 ==
-                                                    'update')) {
-                                              await actions.pushReplacement(
+                                            if (widget!.isSelectProduct) {
+                                              FFAppState()
+                                                      .tmpSelectedProductRef =
+                                                  listViewProductListRecord
+                                                      .reference;
+                                              context.safePop();
+                                            } else {
+                                              await _model.editProductBlock(
                                                 context,
-                                                'ProductListPage',
+                                                productDocument:
+                                                    listViewProductListRecord,
                                               );
                                             }
-
-                                            safeSetState(() {});
                                           },
                                           child: Container(
                                             width: double.infinity,
@@ -708,41 +694,19 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              useSafeArea: true,
-                                              context: context,
-                                              builder: (context) {
-                                                return WebViewAware(
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        ProductFormViewWidget(
-                                                      productDocument:
-                                                          listViewProductListRecord,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => safeSetState(() =>
-                                                _model.isUpdate2 = value));
-
-                                            if ((_model.isUpdate2 != null &&
-                                                    _model.isUpdate2 != '') &&
-                                                (_model.isUpdate2 ==
-                                                    'update')) {
-                                              await actions.pushReplacement(
+                                            if (widget!.isSelectProduct) {
+                                              FFAppState()
+                                                      .tmpSelectedProductRef =
+                                                  listViewProductListRecord
+                                                      .reference;
+                                              context.safePop();
+                                            } else {
+                                              await _model.editProductBlock(
                                                 context,
-                                                'ProductListPage',
+                                                productDocument:
+                                                    listViewProductListRecord,
                                               );
                                             }
-
-                                            safeSetState(() {});
                                           },
                                           child: Container(
                                             width: double.infinity,
