@@ -173,7 +173,7 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
                                           FFAppState().tmpSelectedProductRef =
                                               null;
 
-                                          context.pushNamed(
+                                          await context.pushNamed(
                                             'ProductListPage',
                                             queryParameters: {
                                               'isSelectProduct': serializeParam(
