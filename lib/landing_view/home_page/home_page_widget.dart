@@ -159,7 +159,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                'ความไหวล่าสุด',
+                                                'ความเคลื่อนไหวล่าสุด',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
