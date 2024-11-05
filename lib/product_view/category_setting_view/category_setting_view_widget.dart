@@ -43,6 +43,13 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
     super.initState();
     _model = createModel(context, () => CategorySettingViewModel());
 
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.tmpCatagoryList =
+          FFAppState().customerData.categoryList.toList().cast<String>();
+      safeSetState(() {});
+    });
+
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
@@ -238,19 +245,10 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                                   onPressed: () async {
                                     if (_model.textController.text != null &&
                                         _model.textController.text != '') {
-                                      if (!FFAppState()
-                                          .customerData
-                                          .categoryList
-                                          .contains(
-                                              _model.textController.text)) {
-                                        FFAppState().updateCustomerDataStruct(
-                                          (e) => e
-                                            ..updateCategoryList(
-                                              (e) => e.add(
-                                                  _model.textController.text),
-                                            ),
-                                        );
-                                        FFAppState().update(() {});
+                                      if (!_model.tmpCatagoryList.contains(
+                                          _model.textController.text)) {
+                                        _model.addToTmpCatagoryList(
+                                            _model.textController.text);
 
                                         await FFAppState()
                                             .customerData
@@ -258,12 +256,17 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                                             .update({
                                           ...mapToFirestore(
                                             {
-                                              'category_list': FFAppState()
-                                                  .customerData
-                                                  .categoryList,
+                                              'category_list':
+                                                  _model.tmpCatagoryList,
                                             },
                                           ),
                                         });
+                                        FFAppState().updateCustomerDataStruct(
+                                          (e) => e
+                                            ..categoryList =
+                                                _model.tmpCatagoryList.toList(),
+                                        );
+                                        safeSetState(() {});
                                       }
                                     }
                                   },
@@ -290,9 +293,10 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                               ],
                             ),
                           ),
-                          if (FFAppState().customerData.categoryList.isNotEmpty)
+                          if (_model.tmpCatagoryList.isNotEmpty)
                             Column(
                               mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -309,105 +313,94 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                                     ),
                                   ],
                                 ),
-                                if (FFAppState()
-                                    .customerData
-                                    .categoryList
-                                    .isNotEmpty)
-                                  FlutterFlowChoiceChips(
-                                    options: FFAppState()
-                                        .customerData
-                                        .categoryList
-                                        .map((label) => ChipData(label))
-                                        .toList(),
-                                    onChanged: (val) async {
-                                      safeSetState(() => _model
-                                          .choiceChipsValue = val?.firstOrNull);
-                                      _model.isConfirm =
-                                          await action_blocks.confirmBlock(
-                                        context,
-                                        title: 'ต้องการลบหมวดนี้?',
+                                FlutterFlowChoiceChips(
+                                  options: _model.tmpCatagoryList
+                                      .map((label) => ChipData(label))
+                                      .toList(),
+                                  onChanged: (val) async {
+                                    safeSetState(() => _model.choiceChipsValue =
+                                        val?.firstOrNull);
+                                    _model.isConfirm =
+                                        await action_blocks.confirmBlock(
+                                      context,
+                                      title: 'ต้องการลบหมวดนี้?',
+                                    );
+                                    if (_model.isConfirm!) {
+                                      _model.removeFromTmpCatagoryList(
+                                          _model.choiceChipsValue!);
+
+                                      await FFAppState()
+                                          .customerData
+                                          .customerRef!
+                                          .update({
+                                        ...mapToFirestore(
+                                          {
+                                            'category_list':
+                                                _model.tmpCatagoryList,
+                                          },
+                                        ),
+                                      });
+                                      FFAppState().updateCustomerDataStruct(
+                                        (e) => e
+                                          ..categoryList =
+                                              _model.tmpCatagoryList.toList(),
                                       );
-                                      if (_model.isConfirm!) {
-                                        FFAppState().updateCustomerDataStruct(
-                                          (e) => e
-                                            ..updateCategoryList(
-                                              (e) => e.remove(
-                                                  _model.choiceChipsValue),
-                                            ),
-                                        );
-                                        FFAppState().update(() {});
-
-                                        await FFAppState()
-                                            .customerData
-                                            .customerRef!
-                                            .update({
-                                          ...mapToFirestore(
-                                            {
-                                              'category_list': FFAppState()
-                                                  .customerData
-                                                  .categoryList,
-                                            },
-                                          ),
-                                        });
-                                      }
-
                                       safeSetState(() {});
-                                    },
-                                    selectedChipStyle: ChipStyle(
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .alternate,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 22.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                      iconColor: Color(0x00000000),
-                                      iconSize: 16.0,
-                                      labelPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 8.0, 16.0, 8.0),
-                                      elevation: 0.0,
-                                      borderRadius:
-                                          BorderRadius.circular(100.0),
-                                    ),
-                                    unselectedChipStyle: ChipStyle(
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .alternate,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 22.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                      iconColor: Color(0x00000000),
-                                      iconSize: 16.0,
-                                      labelPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 8.0, 16.0, 8.0),
-                                      elevation: 0.0,
-                                      borderRadius:
-                                          BorderRadius.circular(100.0),
-                                    ),
-                                    chipSpacing: 8.0,
-                                    rowSpacing: 8.0,
-                                    multiselect: false,
-                                    alignment: WrapAlignment.start,
-                                    controller:
-                                        _model.choiceChipsValueController ??=
-                                            FormFieldController<List<String>>(
-                                      [],
-                                    ),
-                                    wrapped: true,
+                                    }
+
+                                    safeSetState(() {});
+                                  },
+                                  selectedChipStyle: ChipStyle(
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 22.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    iconColor: Color(0x00000000),
+                                    iconSize: 16.0,
+                                    labelPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 8.0, 16.0, 8.0),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(100.0),
                                   ),
+                                  unselectedChipStyle: ChipStyle(
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 22.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    iconColor: Color(0x00000000),
+                                    iconSize: 16.0,
+                                    labelPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 8.0, 16.0, 8.0),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(100.0),
+                                  ),
+                                  chipSpacing: 8.0,
+                                  rowSpacing: 8.0,
+                                  multiselect: false,
+                                  alignment: WrapAlignment.start,
+                                  controller:
+                                      _model.choiceChipsValueController ??=
+                                          FormFieldController<List<String>>(
+                                    [],
+                                  ),
+                                  wrapped: true,
+                                ),
                               ],
                             ),
                         ],
