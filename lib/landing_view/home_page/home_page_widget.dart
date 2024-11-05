@@ -99,6 +99,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               0.0, 0.0, 0.0, 16.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 child:
@@ -144,7 +145,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             : null;
 
                                     return Column(
-                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Divider(
                                           thickness: 2.0,
@@ -153,52 +154,75 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
                                         ),
-                                        Text(
-                                          'ความไหวล่าสุด',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'ความไหวล่าสุด',
+                                                textAlign: TextAlign.center,
+                                                style:
                                                     FlutterFlowTheme.of(context)
-                                                        .link,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .link,
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
                                               ),
+                                            ),
+                                          ],
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            '${columnTransactionListRecord?.type} ${columnTransactionListRecord?.productName} ${formatNumber(
-                                              columnTransactionListRecord
-                                                  ?.totalAmount,
-                                              formatType: FormatType.decimal,
-                                              decimalType:
-                                                  DecimalType.automatic,
-                                            )} หน่วย',
-                                            textAlign: TextAlign.center,
-                                            maxLines: 2,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 24.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                '${columnTransactionListRecord?.type} ${columnTransactionListRecord?.productName} ${formatNumber(
+                                                  columnTransactionListRecord
+                                                      ?.totalAmount,
+                                                  formatType:
+                                                      FormatType.decimal,
+                                                  decimalType:
+                                                      DecimalType.automatic,
+                                                )} หน่วย',
+                                                textAlign: TextAlign.center,
+                                                maxLines: 2,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 24.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            'เมื่อ ${functions.dateTimeTh(columnTransactionListRecord?.createDate)}',
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 18.0,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'เมื่อ ${functions.dateTimeTh(columnTransactionListRecord?.createDate)}',
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     );
