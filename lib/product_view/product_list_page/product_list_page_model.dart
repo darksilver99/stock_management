@@ -1,6 +1,7 @@
 import '/authen_view/authen_background_view/authen_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
+import '/component/loading_view/loading_view_widget.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,6 +16,10 @@ import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
 class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
+  ///  Local state fields for this page.
+
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for AuthenBackgroundView component.
@@ -32,11 +37,15 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
 
+  // Model for LoadingView component.
+  late LoadingViewModel loadingViewModel;
+
   @override
   void initState(BuildContext context) {
     authenBackgroundViewModel =
         createModel(context, () => AuthenBackgroundViewModel());
     backButtonViewModel = createModel(context, () => BackButtonViewModel());
+    loadingViewModel = createModel(context, () => LoadingViewModel());
   }
 
   @override
@@ -48,6 +57,8 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
 
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
+
+    loadingViewModel.dispose();
   }
 
   /// Additional helper methods.

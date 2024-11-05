@@ -1,6 +1,7 @@
 import '/authen_view/authen_background_view/authen_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
+import '/component/loading_view/loading_view_widget.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -67,6 +68,12 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
               );
             },
           ).then((value) => safeSetState(() {}));
+
+          _model.isLoading = true;
+          safeSetState(() {});
+          await Future.delayed(const Duration(milliseconds: 1000));
+          _model.isLoading = false;
+          safeSetState(() {});
         },
         backgroundColor: FlutterFlowTheme.of(context).primary,
         icon: Icon(
@@ -251,230 +258,264 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                   ],
                 ),
                 Expanded(
-                  child: PagedListView<DocumentSnapshot<Object?>?,
-                      ProductListRecord>.separated(
-                    pagingController: _model.setListViewController(
-                        ProductListRecord.collection(
-                                FFAppState().customerData.customerRef)
-                            .orderBy('create_date', descending: true),
-                        parent: FFAppState().customerData.customerRef),
-                    padding: EdgeInsets.fromLTRB(
-                      0,
-                      8.0,
-                      0,
-                      180.0,
-                    ),
-                    reverse: false,
-                    scrollDirection: Axis.vertical,
-                    separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                    builderDelegate:
-                        PagedChildBuilderDelegate<ProductListRecord>(
-                      // Customize what your widget looks like when it's loading the first page.
-                      firstPageProgressIndicatorBuilder: (_) => Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
+                  child: Stack(
+                    children: [
+                      if (!_model.isLoading)
+                        RefreshIndicator(
+                          onRefresh: () async {
+                            _model.isLoading = true;
+                            safeSetState(() {});
+                            await Future.delayed(
+                                const Duration(milliseconds: 1000));
+                            _model.isLoading = false;
+                            safeSetState(() {});
+                          },
+                          child: PagedListView<DocumentSnapshot<Object?>?,
+                              ProductListRecord>.separated(
+                            pagingController: _model.setListViewController(
+                                ProductListRecord.collection(
+                                        FFAppState().customerData.customerRef)
+                                    .orderBy('create_date', descending: true),
+                                parent: FFAppState().customerData.customerRef),
+                            padding: EdgeInsets.fromLTRB(
+                              0,
+                              8.0,
+                              0,
+                              180.0,
                             ),
-                          ),
-                        ),
-                      ),
-                      // Customize what your widget looks like when it's loading another page.
-                      newPageProgressIndicatorBuilder: (_) => Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      ),
-                      noItemsFoundIndicatorBuilder: (_) => NoDataViewWidget(),
-                      itemBuilder: (context, _, listViewIndex) {
-                        final listViewProductListRecord = _model
-                            .listViewPagingController!.itemList![listViewIndex];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 8.0, 8.0, 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      listViewProductListRecord.photo,
-                                      width: 80.0,
-                                      height: 80.0,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) =>
-                                              Image.asset(
-                                        'assets/images/error_image.jpg',
-                                        width: 80.0,
-                                        height: 80.0,
-                                        fit: BoxFit.cover,
-                                      ),
+                            reverse: false,
+                            scrollDirection: Axis.vertical,
+                            separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                            builderDelegate:
+                                PagedChildBuilderDelegate<ProductListRecord>(
+                              // Customize what your widget looks like when it's loading the first page.
+                              firstPageProgressIndicatorBuilder: (_) => Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
                                     ),
                                   ),
-                                  Expanded(
+                                ),
+                              ),
+                              // Customize what your widget looks like when it's loading another page.
+                              newPageProgressIndicatorBuilder: (_) => Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              noItemsFoundIndicatorBuilder: (_) =>
+                                  NoDataViewWidget(),
+                              itemBuilder: (context, _, listViewIndex) {
+                                final listViewProductListRecord = _model
+                                    .listViewPagingController!
+                                    .itemList![listViewIndex];
+                                return Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
-                                      child: Column(
+                                          8.0, 8.0, 8.0, 8.0),
+                                      child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: RichText(
-                                                  textScaler:
-                                                      MediaQuery.of(context)
-                                                          .textScaler,
-                                                  text: TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text:
-                                                            '(${listViewProductListRecord.productId}) ',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                      TextSpan(
-                                                        text:
-                                                            listViewProductListRecord
-                                                                .name,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontSize: 18.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                      )
-                                                    ],
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 22.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                  maxLines: 2,
-                                                ),
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.network(
+                                              listViewProductListRecord.photo,
+                                              width: 80.0,
+                                              height: 80.0,
+                                              fit: BoxFit.cover,
+                                              errorBuilder: (context, error,
+                                                      stackTrace) =>
+                                                  Image.asset(
+                                                'assets/images/error_image.jpg',
+                                                width: 80.0,
+                                                height: 80.0,
+                                                fit: BoxFit.cover,
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: RichText(
-                                                  textScaler:
-                                                      MediaQuery.of(context)
-                                                          .textScaler,
-                                                  text: TextSpan(
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
                                                     children: [
-                                                      TextSpan(
-                                                        text: 'คงเหลือ : ',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                      Expanded(
+                                                        child: RichText(
+                                                          textScaler:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .textScaler,
+                                                          text: TextSpan(
+                                                            children: [
+                                                              TextSpan(
+                                                                text:
+                                                                    '(${listViewProductListRecord.productId}) ',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                              TextSpan(
+                                                                text:
+                                                                    listViewProductListRecord
+                                                                        .name,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      fontSize:
+                                                                          18.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              )
+                                                            ],
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
+                                                                  fontSize:
+                                                                      22.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
+                                                          ),
+                                                          maxLines: 2,
+                                                        ),
                                                       ),
-                                                      TextSpan(
-                                                        text: formatNumber(
-                                                          listViewProductListRecord
-                                                              .stock,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                          decimalType:
-                                                              DecimalType
-                                                                  .automatic,
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                        child: RichText(
+                                                          textScaler:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .textScaler,
+                                                          text: TextSpan(
+                                                            children: [
+                                                              TextSpan(
+                                                                text:
+                                                                    'คงเหลือ : ',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                              TextSpan(
+                                                                text:
+                                                                    formatNumber(
+                                                                  listViewProductListRecord
+                                                                      .stock,
+                                                                  formatType:
+                                                                      FormatType
+                                                                          .decimal,
+                                                                  decimalType:
+                                                                      DecimalType
+                                                                          .automatic,
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              )
+                                                            ],
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
                                                                 ),
-                                                      )
-                                                    ],
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          letterSpacing: 0.0,
+                                                          ),
+                                                          maxLines: 1,
                                                         ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  maxLines: 1,
-                                                ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.navigate_next_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 24.0,
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  Icon(
-                                    Icons.navigate_next_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 24.0,
-                                  ),
-                                ],
-                              ),
+                                );
+                              },
                             ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      if (_model.isLoading)
+                        wrapWithModel(
+                          model: _model.loadingViewModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: LoadingViewWidget(),
+                        ),
+                    ],
                   ),
                 ),
               ],
