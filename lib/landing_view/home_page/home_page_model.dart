@@ -4,7 +4,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/product_view/add_stock_view/add_stock_view_widget.dart';
+import '/product_view/manage_stock_view/manage_stock_view_widget.dart';
 import '/walkthroughs/add_product.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -30,6 +30,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   TutorialCoachMark? addProductController;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   int? totalProduct;
+  // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
+  int? totalProduct2;
 
   @override
   void initState(BuildContext context) {}

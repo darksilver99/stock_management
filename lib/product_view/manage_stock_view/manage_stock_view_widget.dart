@@ -15,19 +15,24 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'add_stock_view_model.dart';
-export 'add_stock_view_model.dart';
+import 'manage_stock_view_model.dart';
+export 'manage_stock_view_model.dart';
 
-class AddStockViewWidget extends StatefulWidget {
-  const AddStockViewWidget({super.key});
+class ManageStockViewWidget extends StatefulWidget {
+  const ManageStockViewWidget({
+    super.key,
+    bool? isAdd,
+  }) : this.isAdd = isAdd ?? true;
+
+  final bool isAdd;
 
   @override
-  State<AddStockViewWidget> createState() => _AddStockViewWidgetState();
+  State<ManageStockViewWidget> createState() => _ManageStockViewWidgetState();
 }
 
-class _AddStockViewWidgetState extends State<AddStockViewWidget>
+class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
     with TickerProviderStateMixin {
-  late AddStockViewModel _model;
+  late ManageStockViewModel _model;
 
   final animationsMap = <String, AnimationInfo>{};
 
@@ -40,7 +45,7 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddStockViewModel());
+    _model = createModel(context, () => ManageStockViewModel());
 
     _model.totalTextFieldTextController ??= TextEditingController();
     _model.totalTextFieldFocusNode ??= FocusNode();
@@ -130,7 +135,7 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 8.0),
                               child: Text(
-                                'เพิ่ม Stock',
+                                widget!.isAdd ? 'เพิ่ม Stock' : 'จ่ายสินค้า',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -402,68 +407,179 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
                                           return;
                                         }
                                         if (_model.selectedProduct != null) {
-                                          await _model
-                                              .selectedProduct!.reference
-                                              .update({
-                                            ...mapToFirestore(
-                                              {
-                                                'stock': FieldValue.increment(
+                                          if (widget!.isAdd) {
+                                            await _model
+                                                .selectedProduct!.reference
+                                                .update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'stock': FieldValue.increment(
+                                                      int.parse(_model
+                                                          .totalTextFieldTextController
+                                                          .text)),
+                                                },
+                                              ),
+                                            });
+
+                                            await TransactionListRecord
+                                                    .createDoc(FFAppState()
+                                                        .customerData
+                                                        .customerRef!)
+                                                .set({
+                                              ...createTransactionListRecordData(
+                                                createDate: getCurrentTimestamp,
+                                                status: 1,
+                                                type: 'เพิ่ม Stock',
+                                                totalAmount: int.tryParse(_model
+                                                    .totalTextFieldTextController
+                                                    .text),
+                                                totalPriceStart: functions.sumPrice(
+                                                    _model.selectedProduct!
+                                                        .priceStart,
                                                     int.parse(_model
                                                         .totalTextFieldTextController
                                                         .text)),
-                                              },
-                                            ),
-                                          });
+                                                totalPriceSell: functions.sumPrice(
+                                                    _model.selectedProduct!
+                                                        .priceSell,
+                                                    int.parse(_model
+                                                        .totalTextFieldTextController
+                                                        .text)),
+                                                productRef: _model
+                                                    .selectedProduct?.reference,
+                                                productName: _model
+                                                    .selectedProduct?.name,
+                                                remark: _model
+                                                    .remarkTextFieldTextController
+                                                    .text,
+                                                totalRemain: _model
+                                                        .selectedProduct!
+                                                        .stock +
+                                                    int.parse(_model
+                                                        .totalTextFieldTextController
+                                                        .text),
+                                                currentPriceStart: _model
+                                                    .selectedProduct
+                                                    ?.priceStart,
+                                                currentPriceSell: _model
+                                                    .selectedProduct?.priceSell,
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'keyword_list':
+                                                      functions.getKeywordList(
+                                                          '${_model.selectedProduct?.productId} ${_model.selectedProduct?.name}'),
+                                                },
+                                              ),
+                                            });
+                                          } else {
+                                            if (functions.stringToInt(_model
+                                                    .totalTextFieldTextController
+                                                    .text) >
+                                                _model.selectedProduct!.stock) {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    elevation: 0,
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child: WebViewAware(
+                                                      child:
+                                                          InfoCustomViewWidget(
+                                                        title:
+                                                            'จำนวนสินค้าไม่พอ',
+                                                        status: 'error',
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
 
-                                          await TransactionListRecord.createDoc(
-                                                  FFAppState()
-                                                      .customerData
-                                                      .customerRef!)
-                                              .set({
-                                            ...createTransactionListRecordData(
-                                              createDate: getCurrentTimestamp,
-                                              status: 1,
-                                              type: 'เพิ่ม Stock',
-                                              totalAmount: int.tryParse(_model
-                                                  .totalTextFieldTextController
-                                                  .text),
-                                              totalPriceStart: functions.sumPrice(
-                                                  _model.selectedProduct!
-                                                      .priceStart,
-                                                  int.parse(_model
-                                                      .totalTextFieldTextController
-                                                      .text)),
-                                              totalPriceSell: functions.sumPrice(
-                                                  _model.selectedProduct!
-                                                      .priceSell,
-                                                  int.parse(_model
-                                                      .totalTextFieldTextController
-                                                      .text)),
-                                              productRef: _model
-                                                  .selectedProduct?.reference,
-                                              productName:
-                                                  _model.selectedProduct?.name,
-                                              remark: _model
-                                                  .remarkTextFieldTextController
-                                                  .text,
-                                              totalRemain: _model
-                                                      .selectedProduct!.stock +
-                                                  int.parse(_model
+                                              return;
+                                            } else {
+                                              await _model
+                                                  .selectedProduct!.reference
+                                                  .update({
+                                                ...mapToFirestore(
+                                                  {
+                                                    'stock': FieldValue.increment(
+                                                        -(int.parse(_model
+                                                            .totalTextFieldTextController
+                                                            .text))),
+                                                  },
+                                                ),
+                                              });
+
+                                              await TransactionListRecord
+                                                      .createDoc(FFAppState()
+                                                          .customerData
+                                                          .customerRef!)
+                                                  .set({
+                                                ...createTransactionListRecordData(
+                                                  createDate:
+                                                      getCurrentTimestamp,
+                                                  status: 1,
+                                                  type: 'จ่ายสินค้า',
+                                                  totalAmount: int.tryParse(_model
                                                       .totalTextFieldTextController
                                                       .text),
-                                              currentPriceStart: _model
-                                                  .selectedProduct?.priceStart,
-                                              currentPriceSell: _model
-                                                  .selectedProduct?.priceSell,
-                                            ),
-                                            ...mapToFirestore(
-                                              {
-                                                'keyword_list':
-                                                    functions.getKeywordList(
-                                                        '${_model.selectedProduct?.productId} ${_model.selectedProduct?.name}'),
-                                              },
-                                            ),
-                                          });
+                                                  totalPriceStart:
+                                                      functions.sumPrice(
+                                                          _model
+                                                              .selectedProduct!
+                                                              .priceStart,
+                                                          int.parse(_model
+                                                              .totalTextFieldTextController
+                                                              .text)),
+                                                  totalPriceSell:
+                                                      functions.sumPrice(
+                                                          _model
+                                                              .selectedProduct!
+                                                              .priceSell,
+                                                          int.parse(_model
+                                                              .totalTextFieldTextController
+                                                              .text)),
+                                                  productRef: _model
+                                                      .selectedProduct
+                                                      ?.reference,
+                                                  productName: _model
+                                                      .selectedProduct?.name,
+                                                  remark: _model
+                                                      .remarkTextFieldTextController
+                                                      .text,
+                                                  totalRemain: _model
+                                                          .selectedProduct!
+                                                          .stock -
+                                                      int.parse(_model
+                                                          .totalTextFieldTextController
+                                                          .text),
+                                                  currentPriceStart: _model
+                                                      .selectedProduct
+                                                      ?.priceStart,
+                                                  currentPriceSell: _model
+                                                      .selectedProduct
+                                                      ?.priceSell,
+                                                ),
+                                                ...mapToFirestore(
+                                                  {
+                                                    'keyword_list': functions
+                                                        .getKeywordList(
+                                                            '${_model.selectedProduct?.productId} ${_model.selectedProduct?.name}'),
+                                                  },
+                                                ),
+                                              });
+                                            }
+                                          }
+
                                           await showDialog(
                                             context: context,
                                             builder: (dialogContext) {
@@ -478,8 +594,9 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
                                                         context)),
                                                 child: WebViewAware(
                                                   child: InfoCustomViewWidget(
-                                                    title:
-                                                        'เพิ่ม Stock สินค้าเรียบร้อยแล้ว',
+                                                    title: widget!.isAdd
+                                                        ? 'เพิ่ม Stock สินค้าเรียบร้อยแล้ว'
+                                                        : 'จ่ายสินค้าเรียบร้อยแล้ว',
                                                     status: 'success',
                                                   ),
                                                 ),
