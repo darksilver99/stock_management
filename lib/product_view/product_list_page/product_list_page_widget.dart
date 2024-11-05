@@ -322,12 +322,11 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                           updateCallback: () => safeSetState(() {}),
                           child: LoadingViewWidget(),
                         ),
-                      Builder(
-                        builder: (context) {
-                          if (_model.isSearched) {
-                            return Visibility(
-                              visible: !_model.isLoading,
-                              child: RefreshIndicator(
+                      if (!_model.isLoading)
+                        Builder(
+                          builder: (context) {
+                            if (_model.isSearched) {
+                              return RefreshIndicator(
                                 key: Key('RefreshIndicator_4o19563q'),
                                 onRefresh: () async {
                                   await actions.pushReplacement(
@@ -629,12 +628,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                     },
                                   ),
                                 ),
-                              ),
-                            );
-                          } else {
-                            return Visibility(
-                              visible: !_model.isLoading,
-                              child: RefreshIndicator(
+                              );
+                            } else {
+                              return RefreshIndicator(
                                 key: Key('RefreshIndicator_jodw5etg'),
                                 onRefresh: () async {
                                   await actions.pushReplacement(
@@ -931,11 +927,10 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                     },
                                   ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
+                              );
+                            }
+                          },
+                        ),
                     ],
                   ),
                 ),
