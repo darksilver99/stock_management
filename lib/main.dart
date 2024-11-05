@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
-    userStream = stockManagementFirebaseUserStream()
+    userStream = warehouseManagementFirebaseUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
       });
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'StockManagement',
+      title: 'WarehouseManagement',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

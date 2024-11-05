@@ -1,15 +1,7 @@
 // Export pages
-export '/home_page/home_page_widget.dart' show HomePageWidget;
-export '/authen/authen_page/authen_page_widget.dart' show AuthenPageWidget;
-export '/authen/forget_password_page/forget_password_page_widget.dart'
-    show ForgetPasswordPageWidget;
-export '/product/product_form_page/product_form_page_widget.dart'
-    show ProductFormPageWidget;
-export '/product/product_list_page/product_list_page_widget.dart'
-    show ProductListPageWidget;
-export '/product/product_tranfer_page/product_tranfer_page_widget.dart'
-    show ProductTranferPageWidget;
-export '/issue_page/issue_page_widget.dart' show IssuePageWidget;
-export '/payment/promotion_page/promotion_page_widget.dart'
+export '/payment_view/promotion_page/promotion_page_widget.dart'
     show PromotionPageWidget;
-export '/web_view_page/web_view_page_widget.dart' show WebViewPageWidget;
+export '/authen_view/login_page/login_page_widget.dart' show LoginPageWidget;
+export '/landing_view/home_page/home_page_widget.dart' show HomePageWidget;
+export '/authen_view/register_page/register_page_widget.dart'
+    show RegisterPageWidget;
