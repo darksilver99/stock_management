@@ -352,6 +352,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .link,
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         decoration:
                                                             TextDecoration
@@ -383,6 +384,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                             .labelMedium
                                             .override(
                                               fontFamily: 'Inter',
+                                              fontSize: 22.0,
                                               letterSpacing: 0.0,
                                             ),
                                     searchTextStyle:
