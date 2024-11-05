@@ -10,10 +10,14 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future pushReplacementNamed(
+Future pushReplacement(
   BuildContext context,
-  String? name,
+  String? path,
 ) async {
   // Add your function code here!
-  context.pushReplacementNamed(name!);
+  if (path != null) {
+    context.pushReplacement('/$path');
+  } else {
+    context.pushReplacement('/');
+  }
 }

@@ -1,4 +1,4 @@
-export 'push_replacement_named.dart' show pushReplacementNamed;
+export 'push_replacement.dart' show pushReplacement;
 export 'close_app.dart' show closeApp;
 export 'set_app_version.dart' show setAppVersion;
 export 'export_excel.dart' show exportExcel;
