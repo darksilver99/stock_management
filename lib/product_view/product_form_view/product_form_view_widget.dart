@@ -1435,7 +1435,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                               {
                                                 'search_data':
                                                     functions.getKeywordList(
-                                                        '${_model.productIDTextFieldTextController.text}${_model.categoryDropDownValue}${_model.productNameTextFieldTextController.text} ${_model.startPriceTextFieldTextController.text} ${_model.sellPriceTextFieldTextController.text}'),
+                                                        '${_model.productIDTextFieldTextController.text} ${_model.categoryDropDownValue} ${_model.productNameTextFieldTextController.text} ${_model.startPriceTextFieldTextController.text} ${_model.sellPriceTextFieldTextController.text}'),
                                               },
                                             ),
                                           });
@@ -1471,7 +1471,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                               {
                                                 'search_data':
                                                     functions.getKeywordList(
-                                                        '${_model.productIDTextFieldTextController.text}${_model.categoryDropDownValue}${_model.productNameTextFieldTextController.text} ${_model.startPriceTextFieldTextController.text} ${_model.sellPriceTextFieldTextController.text}'),
+                                                        '${_model.productIDTextFieldTextController.text} ${_model.categoryDropDownValue} ${_model.productNameTextFieldTextController.text} ${_model.startPriceTextFieldTextController.text} ${_model.sellPriceTextFieldTextController.text}'),
                                               },
                                             ),
                                           }, productListRecordReference);
