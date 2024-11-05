@@ -78,7 +78,7 @@ Future<String> exportExcel(String? category) async {
   Sheet sheetObject = excel['Sheet1'];
 
   CellStyle cellStyle = CellStyle(
-    backgroundColorHex: '#1AFF1A',
+    backgroundColorHex: ExcelColor.fromHexString('#1AFF1A'),
     horizontalAlign: HorizontalAlign.Center,
     bold: true,
     leftBorder: exBorder.Border(borderStyle: exBorder.BorderStyle.Thin),
