@@ -2,8 +2,10 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/component/confirm_custom_view/confirm_custom_view_widget.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,6 +29,7 @@ Future iniConfig(BuildContext context) async {
     paymentDetailImage: configResult?.paymentDetailImage,
     promotionDetailImage: configResult?.promotionDetailImage,
     contact: configResult?.contact,
+    isReview: configResult?.isReview,
   );
 }
 
@@ -67,28 +70,28 @@ Future initCustomer(BuildContext context) async {
           subject: currentUserEmail,
         ),
         customerListRecordReference);
-    await showDialog(
-      context: context,
-      builder: (alertDialogContext) {
-        return WebViewAware(
-          child: AlertDialog(
-            title: Text(
-                'พิเศษสำหรับสมาชิกใหม่ทดลองใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text('ตกลง'),
+    if (!FFAppState().configData.isReview) {
+      await showDialog(
+        context: context,
+        builder: (dialogContext) {
+          return Dialog(
+            elevation: 0,
+            insetPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            alignment: AlignmentDirectional(0.0, 0.0)
+                .resolve(Directionality.of(context)),
+            child: WebViewAware(
+              child: InfoCustomViewWidget(
+                title:
+                    'พิเศษสำหรับสมาชิกใหม่ทดลองใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน',
+                status: 'success',
               ),
-            ],
-          ),
-        );
-      },
-    );
-    FFAppState().customerData = CustomerDataStruct(
-      subject: insertedCustomer?.subject,
-      expireDate: insertedCustomer?.expireDate,
-      customerRef: insertedCustomer?.reference,
-    );
+            ),
+          );
+        },
+      );
+    }
+    await action_blocks.iniConfig(context);
   }
 }
 
@@ -97,20 +100,23 @@ Future checkAppVersion(BuildContext context) async {
   if (FFAppState().appBuildVersion < FFAppState().configData.storeVersion) {
     await showDialog(
       context: context,
-      builder: (alertDialogContext) {
-        return WebViewAware(
-          child: AlertDialog(
-            title: Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text('ตกลง'),
-              ),
-            ],
+      builder: (dialogContext) {
+        return Dialog(
+          elevation: 0,
+          insetPadding: EdgeInsets.zero,
+          backgroundColor: Colors.transparent,
+          alignment: AlignmentDirectional(0.0, 0.0)
+              .resolve(Directionality.of(context)),
+          child: WebViewAware(
+            child: InfoCustomViewWidget(
+              title: 'กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง',
+              status: 'info',
+            ),
           ),
         );
       },
     );
+
     if (isAndroid) {
       await launchURL(FFAppState().configData.storeAndroidLink);
     } else {
@@ -118,6 +124,7 @@ Future checkAppVersion(BuildContext context) async {
     }
 
     await actions.closeApp();
+    return;
   }
 }
 
