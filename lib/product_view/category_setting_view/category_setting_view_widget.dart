@@ -266,7 +266,9 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                                             ..categoryList =
                                                 _model.tmpCatagoryList.toList(),
                                         );
-                                        safeSetState(() {});
+                                        safeSetState(() {
+                                          _model.textController?.clear();
+                                        });
                                       }
                                     }
                                   },
