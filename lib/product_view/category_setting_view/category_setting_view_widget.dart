@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -7,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:math';
 import '/actions/actions.dart' as action_blocks;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -248,6 +251,19 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                                             ),
                                         );
                                         FFAppState().update(() {});
+
+                                        await FFAppState()
+                                            .customerData
+                                            .customerRef!
+                                            .update({
+                                          ...mapToFirestore(
+                                            {
+                                              'category_list': FFAppState()
+                                                  .customerData
+                                                  .categoryList,
+                                            },
+                                          ),
+                                        });
                                       }
                                     }
                                   },
@@ -274,96 +290,125 @@ class _CategorySettingViewWidgetState extends State<CategorySettingViewWidget>
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                '(แตะเพื่อลบ)',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                            ],
-                          ),
                           if (FFAppState().customerData.categoryList.isNotEmpty)
-                            FlutterFlowChoiceChips(
-                              options: FFAppState()
-                                  .customerData
-                                  .categoryList
-                                  .map((label) => ChipData(label))
-                                  .toList(),
-                              onChanged: (val) async {
-                                safeSetState(() =>
-                                    _model.choiceChipsValue = val?.firstOrNull);
-                                _model.isConfirm =
-                                    await action_blocks.confirmBlock(
-                                  context,
-                                  title: 'ต้องการลบหมวดนี้?',
-                                );
-                                if (_model.isConfirm!) {
-                                  FFAppState().updateCustomerDataStruct(
-                                    (e) => e
-                                      ..updateCategoryList(
-                                        (e) =>
-                                            e.remove(_model.choiceChipsValue),
-                                      ),
-                                  );
-                                  FFAppState().update(() {});
-                                }
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      '(แตะเพื่อลบ)',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            fontSize: 12.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                if (FFAppState()
+                                    .customerData
+                                    .categoryList
+                                    .isNotEmpty)
+                                  FlutterFlowChoiceChips(
+                                    options: FFAppState()
+                                        .customerData
+                                        .categoryList
+                                        .map((label) => ChipData(label))
+                                        .toList(),
+                                    onChanged: (val) async {
+                                      safeSetState(() => _model
+                                          .choiceChipsValue = val?.firstOrNull);
+                                      _model.isConfirm =
+                                          await action_blocks.confirmBlock(
+                                        context,
+                                        title: 'ต้องการลบหมวดนี้?',
+                                      );
+                                      if (_model.isConfirm!) {
+                                        FFAppState().updateCustomerDataStruct(
+                                          (e) => e
+                                            ..updateCategoryList(
+                                              (e) => e.remove(
+                                                  _model.choiceChipsValue),
+                                            ),
+                                        );
+                                        FFAppState().update(() {});
 
-                                safeSetState(() {});
-                              },
-                              selectedChipStyle: ChipStyle(
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontSize: 22.0,
-                                      letterSpacing: 0.0,
+                                        await FFAppState()
+                                            .customerData
+                                            .customerRef!
+                                            .update({
+                                          ...mapToFirestore(
+                                            {
+                                              'category_list': FFAppState()
+                                                  .customerData
+                                                  .categoryList,
+                                            },
+                                          ),
+                                        });
+                                      }
+
+                                      safeSetState(() {});
+                                    },
+                                    selectedChipStyle: ChipStyle(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .alternate,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            fontSize: 22.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      iconColor: Color(0x00000000),
+                                      iconSize: 16.0,
+                                      labelPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 8.0, 16.0, 8.0),
+                                      elevation: 0.0,
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
                                     ),
-                                iconColor: Color(0x00000000),
-                                iconSize: 16.0,
-                                labelPadding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 8.0, 16.0, 8.0),
-                                elevation: 0.0,
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
-                              unselectedChipStyle: ChipStyle(
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontSize: 22.0,
-                                      letterSpacing: 0.0,
+                                    unselectedChipStyle: ChipStyle(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .alternate,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            fontSize: 22.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      iconColor: Color(0x00000000),
+                                      iconSize: 16.0,
+                                      labelPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 8.0, 16.0, 8.0),
+                                      elevation: 0.0,
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
                                     ),
-                                iconColor: Color(0x00000000),
-                                iconSize: 16.0,
-                                labelPadding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 8.0, 16.0, 8.0),
-                                elevation: 0.0,
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
-                              chipSpacing: 8.0,
-                              rowSpacing: 8.0,
-                              multiselect: false,
-                              alignment: WrapAlignment.start,
-                              controller: _model.choiceChipsValueController ??=
-                                  FormFieldController<List<String>>(
-                                [],
-                              ),
-                              wrapped: true,
+                                    chipSpacing: 8.0,
+                                    rowSpacing: 8.0,
+                                    multiselect: false,
+                                    alignment: WrapAlignment.start,
+                                    controller:
+                                        _model.choiceChipsValueController ??=
+                                            FormFieldController<List<String>>(
+                                      [],
+                                    ),
+                                    wrapped: true,
+                                  ),
+                              ],
                             ),
                         ],
                       ),
