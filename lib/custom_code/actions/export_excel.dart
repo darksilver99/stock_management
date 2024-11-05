@@ -16,7 +16,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:stock_management/auth/firebase_auth/auth_util.dart';
+import 'package:warehouse_management/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 
 Future<String> exportExcel(String? category) async {
