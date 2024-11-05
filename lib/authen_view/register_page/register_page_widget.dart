@@ -73,14 +73,16 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                wrapWithModel(
-                  model: _model.backButtonViewModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: BackButtonViewWidget(),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 64.0, 0.0, 32.0),
+                  child: wrapWithModel(
+                    model: _model.backButtonViewModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: BackButtonViewWidget(),
+                  ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 60.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
