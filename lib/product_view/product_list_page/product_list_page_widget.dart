@@ -249,7 +249,9 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         _model.isSearched = false;
-                                        safeSetState(() {});
+                                        safeSetState(() {
+                                          _model.textController?.clear();
+                                        });
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
