@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "product_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "search_data",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "create_date",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
 }

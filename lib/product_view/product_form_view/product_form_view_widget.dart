@@ -1608,7 +1608,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                       }
                                     }
 
-                                    Navigator.pop(context);
+                                    Navigator.pop(context, 'isUpdate');
                                   } else {
                                     await showDialog(
                                       context: context,
