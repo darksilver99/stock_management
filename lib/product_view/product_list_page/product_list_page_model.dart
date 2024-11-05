@@ -22,6 +22,8 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
 
   bool isLoading = true;
 
+  bool isSearched = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for AuthenBackgroundView component.
@@ -32,15 +34,28 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Model for LoadingView component.
+  late LoadingViewModel loadingViewModel;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, ProductListRecord>?
-      listViewPagingController;
-  Query? listViewPagingQuery;
-  List<StreamSubscription?> listViewStreamSubscriptions = [];
+      listViewPagingController1;
+  Query? listViewPagingQuery1;
+  List<StreamSubscription?> listViewStreamSubscriptions1 = [];
 
-  // Model for LoadingView component.
-  late LoadingViewModel loadingViewModel;
+  // Stores action output result for [Bottom Sheet - ProductFormView] action in Container widget.
+  String? isUpdate3;
+  // State field(s) for ListView widget.
+
+  PagingController<DocumentSnapshot?, ProductListRecord>?
+      listViewPagingController2;
+  Query? listViewPagingQuery2;
+  List<StreamSubscription?> listViewStreamSubscriptions2 = [];
+
+  // Stores action output result for [Bottom Sheet - ProductFormView] action in Container widget.
+  String? isUpdate2;
+  // Stores action output result for [Bottom Sheet - ProductFormView] action in FloatingActionButton widget.
+  String? isUpdate;
 
   @override
   void initState(BuildContext context) {
@@ -57,27 +72,29 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
-    listViewStreamSubscriptions.forEach((s) => s?.cancel());
-    listViewPagingController?.dispose();
-
     loadingViewModel.dispose();
+    listViewStreamSubscriptions1.forEach((s) => s?.cancel());
+    listViewPagingController1?.dispose();
+
+    listViewStreamSubscriptions2.forEach((s) => s?.cancel());
+    listViewPagingController2?.dispose();
   }
 
   /// Additional helper methods.
-  PagingController<DocumentSnapshot?, ProductListRecord> setListViewController(
+  PagingController<DocumentSnapshot?, ProductListRecord> setListViewController1(
     Query query, {
     DocumentReference<Object?>? parent,
   }) {
-    listViewPagingController ??= _createListViewController(query, parent);
-    if (listViewPagingQuery != query) {
-      listViewPagingQuery = query;
-      listViewPagingController?.refresh();
+    listViewPagingController1 ??= _createListViewController1(query, parent);
+    if (listViewPagingQuery1 != query) {
+      listViewPagingQuery1 = query;
+      listViewPagingController1?.refresh();
     }
-    return listViewPagingController!;
+    return listViewPagingController1!;
   }
 
   PagingController<DocumentSnapshot?, ProductListRecord>
-      _createListViewController(
+      _createListViewController1(
     Query query,
     DocumentReference<Object?>? parent,
   ) {
@@ -87,9 +104,42 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
       ..addPageRequestListener(
         (nextPageMarker) => queryProductListRecordPage(
           parent: parent,
-          queryBuilder: (_) => listViewPagingQuery ??= query,
+          queryBuilder: (_) => listViewPagingQuery1 ??= query,
           nextPageMarker: nextPageMarker,
-          streamSubscriptions: listViewStreamSubscriptions,
+          streamSubscriptions: listViewStreamSubscriptions1,
+          controller: controller,
+          pageSize: 15,
+          isStream: true,
+        ),
+      );
+  }
+
+  PagingController<DocumentSnapshot?, ProductListRecord> setListViewController2(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController2 ??= _createListViewController2(query, parent);
+    if (listViewPagingQuery2 != query) {
+      listViewPagingQuery2 = query;
+      listViewPagingController2?.refresh();
+    }
+    return listViewPagingController2!;
+  }
+
+  PagingController<DocumentSnapshot?, ProductListRecord>
+      _createListViewController2(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, ProductListRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryProductListRecordPage(
+          parent: parent,
+          queryBuilder: (_) => listViewPagingQuery2 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions2,
           controller: controller,
           pageSize: 15,
           isStream: true,
