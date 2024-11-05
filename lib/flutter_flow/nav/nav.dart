@@ -80,57 +80,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : AuthenPageWidget(),
+          appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomePageWidget() : AuthenPageWidget(),
-        ),
-        FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'AuthenPage',
-          path: '/authenPage',
-          builder: (context, params) => AuthenPageWidget(),
-        ),
-        FFRoute(
-          name: 'ForgetPasswordPage',
-          path: '/forgetPasswordPage',
-          builder: (context, params) => ForgetPasswordPageWidget(),
-        ),
-        FFRoute(
-          name: 'ProductFormPage',
-          path: '/productFormPage',
-          asyncParams: {
-            'productDocument': getDoc(['customer_list', 'product_list'],
-                ProductListRecord.fromSnapshot),
-          },
-          builder: (context, params) => ProductFormPageWidget(
-            productDocument: params.getParam(
-              'productDocument',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'ProductListPage',
-          path: '/productListPage',
-          builder: (context, params) => ProductListPageWidget(),
-        ),
-        FFRoute(
-          name: 'ProductTranferPage',
-          path: '/productTranferPage',
-          builder: (context, params) => ProductTranferPageWidget(),
-        ),
-        FFRoute(
-          name: 'IssuePage',
-          path: '/issuePage',
-          builder: (context, params) => IssuePageWidget(),
+              appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
         ),
         FFRoute(
           name: 'PromotionPage',
@@ -138,18 +94,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PromotionPageWidget(),
         ),
         FFRoute(
-          name: 'WebViewPage',
-          path: '/webViewPage',
-          builder: (context, params) => WebViewPageWidget(
-            title: params.getParam(
-              'title',
-              ParamType.String,
-            ),
-            url: params.getParam(
-              'url',
-              ParamType.String,
-            ),
-          ),
+          name: 'LoginPage',
+          path: '/loginPage',
+          builder: (context, params) => LoginPageWidget(),
+        ),
+        FFRoute(
+          name: 'HomePage',
+          path: '/homePage',
+          builder: (context, params) => HomePageWidget(),
+        ),
+        FFRoute(
+          name: 'RegisterPage',
+          path: '/registerPage',
+          builder: (context, params) => RegisterPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -322,7 +279,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/authenPage';
+            return '/loginPage';
           }
           return null;
         },

@@ -7,8 +7,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class StockManagementFirebaseUser extends BaseAuthUser {
-  StockManagementFirebaseUser(this.user);
+class WarehouseManagementFirebaseUser extends BaseAuthUser {
+  WarehouseManagementFirebaseUser(this.user);
   User? user;
   bool get loggedIn => user != null;
 
@@ -56,10 +56,10 @@ class StockManagementFirebaseUser extends BaseAuthUser {
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
   static BaseAuthUser fromFirebaseUser(User? user) =>
-      StockManagementFirebaseUser(user);
+      WarehouseManagementFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> stockManagementFirebaseUserStream() =>
+Stream<BaseAuthUser> warehouseManagementFirebaseUserStream() =>
     FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
@@ -67,7 +67,7 @@ Stream<BaseAuthUser> stockManagementFirebaseUserStream() =>
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = StockManagementFirebaseUser(user);
+        currentUser = WarehouseManagementFirebaseUser(user);
         if (!kIsWeb) {
           FirebaseCrashlytics.instance.setUserIdentifier(user?.uid ?? '');
         }
