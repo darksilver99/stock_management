@@ -43,8 +43,6 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
   Query? listViewPagingQuery1;
   List<StreamSubscription?> listViewStreamSubscriptions1 = [];
 
-  // Stores action output result for [Bottom Sheet - ProductFormView] action in Container widget.
-  String? isUpdate3;
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, ProductListRecord>?
@@ -52,8 +50,6 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
   Query? listViewPagingQuery2;
   List<StreamSubscription?> listViewStreamSubscriptions2 = [];
 
-  // Stores action output result for [Bottom Sheet - ProductFormView] action in Container widget.
-  String? isUpdate2;
   // Stores action output result for [Bottom Sheet - ProductFormView] action in FloatingActionButton widget.
   String? isUpdate;
 
@@ -78,6 +74,39 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
 
     listViewStreamSubscriptions2.forEach((s) => s?.cancel());
     listViewPagingController2?.dispose();
+  }
+
+  /// Action blocks.
+  Future editProductBlock(
+    BuildContext context, {
+    required ProductListRecord? productDocument,
+  }) async {
+    String? isUpdate;
+
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      enableDrag: false,
+      useSafeArea: true,
+      context: context,
+      builder: (context) {
+        return WebViewAware(
+          child: Padding(
+            padding: MediaQuery.viewInsetsOf(context),
+            child: ProductFormViewWidget(
+              productDocument: productDocument,
+            ),
+          ),
+        );
+      },
+    ).then((value) => isUpdate = value);
+
+    if ((isUpdate != null && isUpdate != '') && (isUpdate == 'update')) {
+      await actions.pushReplacement(
+        context,
+        'ProductListPage',
+      );
+    }
   }
 
   /// Additional helper methods.

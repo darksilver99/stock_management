@@ -63,6 +63,12 @@ class FFAppState extends ChangeNotifier {
   void updateCustomerDataStruct(Function(CustomerDataStruct) updateFn) {
     updateFn(_customerData);
   }
+
+  DocumentReference? _tmpSelectedProductRef;
+  DocumentReference? get tmpSelectedProductRef => _tmpSelectedProductRef;
+  set tmpSelectedProductRef(DocumentReference? value) {
+    _tmpSelectedProductRef = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
