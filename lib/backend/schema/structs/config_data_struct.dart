@@ -19,6 +19,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
     String? paymentDetailImage,
     String? promotionDetailImage,
     List<String>? contact,
+    bool? isReview,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _storeVersion = storeVersion,
         _storeIosLink = storeIosLink,
@@ -29,6 +30,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _paymentDetailImage = paymentDetailImage,
         _promotionDetailImage = promotionDetailImage,
         _contact = contact,
+        _isReview = isReview,
         super(firestoreUtilData);
 
   // "store_version" field.
@@ -107,6 +109,13 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasContact() => _contact != null;
 
+  // "isReview" field.
+  bool? _isReview;
+  bool get isReview => _isReview ?? false;
+  set isReview(bool? val) => _isReview = val;
+
+  bool hasIsReview() => _isReview != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         storeVersion: castToType<int>(data['store_version']),
@@ -118,6 +127,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         paymentDetailImage: data['payment_detail_image'] as String?,
         promotionDetailImage: data['promotion_detail_image'] as String?,
         contact: getDataList(data['contact']),
+        isReview: data['isReview'] as bool?,
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -134,6 +144,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'payment_detail_image': _paymentDetailImage,
         'promotion_detail_image': _promotionDetailImage,
         'contact': _contact,
+        'isReview': _isReview,
       }.withoutNulls;
 
   @override
@@ -175,6 +186,10 @@ class ConfigDataStruct extends FFFirebaseStruct {
           _contact,
           ParamType.String,
           isList: true,
+        ),
+        'isReview': serializeParam(
+          _isReview,
+          ParamType.bool,
         ),
       }.withoutNulls;
 
@@ -225,6 +240,11 @@ class ConfigDataStruct extends FFFirebaseStruct {
           ParamType.String,
           true,
         ),
+        isReview: deserializeParam(
+          data['isReview'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -242,7 +262,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         listEquality.equals(paymentAlertText, other.paymentAlertText) &&
         paymentDetailImage == other.paymentDetailImage &&
         promotionDetailImage == other.promotionDetailImage &&
-        listEquality.equals(contact, other.contact);
+        listEquality.equals(contact, other.contact) &&
+        isReview == other.isReview;
   }
 
   @override
@@ -255,7 +276,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         paymentAlertText,
         paymentDetailImage,
         promotionDetailImage,
-        contact
+        contact,
+        isReview
       ]);
 }
 
@@ -267,6 +289,7 @@ ConfigDataStruct createConfigDataStruct({
   int? freeDay,
   String? paymentDetailImage,
   String? promotionDetailImage,
+  bool? isReview,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -280,6 +303,7 @@ ConfigDataStruct createConfigDataStruct({
       freeDay: freeDay,
       paymentDetailImage: paymentDetailImage,
       promotionDetailImage: promotionDetailImage,
+      isReview: isReview,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
