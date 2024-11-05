@@ -424,27 +424,21 @@ class _AddStockViewWidgetState extends State<AddStockViewWidget>
                                               createDate: getCurrentTimestamp,
                                               status: 1,
                                               type: 'เพิ่ม Stock',
-                                              totalAmount: _model
-                                                      .selectedProduct!.stock +
-                                                  int.parse(_model
-                                                      .totalTextFieldTextController
-                                                      .text),
+                                              totalAmount: int.tryParse(_model
+                                                  .totalTextFieldTextController
+                                                  .text),
                                               totalPriceStart: functions.sumPrice(
                                                   _model.selectedProduct!
                                                       .priceStart,
-                                                  _model.selectedProduct!
-                                                          .stock +
-                                                      int.parse(_model
-                                                          .totalTextFieldTextController
-                                                          .text)),
+                                                  int.parse(_model
+                                                      .totalTextFieldTextController
+                                                      .text)),
                                               totalPriceSell: functions.sumPrice(
                                                   _model.selectedProduct!
                                                       .priceSell,
-                                                  _model.selectedProduct!
-                                                          .stock +
-                                                      int.parse(_model
-                                                          .totalTextFieldTextController
-                                                          .text)),
+                                                  int.parse(_model
+                                                      .totalTextFieldTextController
+                                                      .text)),
                                               productRef: _model
                                                   .selectedProduct?.reference,
                                               productName:
