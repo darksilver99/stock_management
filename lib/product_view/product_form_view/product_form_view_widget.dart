@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/product_view/category_setting_view/category_setting_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -299,60 +300,128 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 16.0),
-                              child: FlutterFlowDropDown<String>(
-                                controller:
-                                    _model.categoryDropDownValueController ??=
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Builder(
+                                          builder: (context) => InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    elevation: 0,
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child: WebViewAware(
+                                                      child:
+                                                          CategorySettingViewWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+
+                                              safeSetState(() {});
+                                            },
+                                            child: Text(
+                                              'จัดการหมวดหมู่',
+                                              textAlign: TextAlign.end,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .link,
+                                                        letterSpacing: 0.0,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  FlutterFlowDropDown<String>(
+                                    controller: _model
+                                            .categoryDropDownValueController ??=
                                         FormFieldController<String>(
-                                  _model.categoryDropDownValue ??= _model.isEdit
-                                      ? _model.productDocument?.category
-                                      : '',
-                                ),
-                                options: FFAppState().customerData.categoryList,
-                                onChanged: (val) => safeSetState(
-                                    () => _model.categoryDropDownValue = val),
-                                width: double.infinity,
-                                height: 56.0,
-                                searchHintTextStyle:
-                                    FlutterFlowTheme.of(context)
-                                        .labelMedium
+                                      _model.categoryDropDownValue ??=
+                                          _model.isEdit
+                                              ? _model.productDocument?.category
+                                              : '',
+                                    ),
+                                    options:
+                                        FFAppState().customerData.categoryList,
+                                    onChanged: (val) => safeSetState(() =>
+                                        _model.categoryDropDownValue = val),
+                                    width: double.infinity,
+                                    height: 56.0,
+                                    searchHintTextStyle:
+                                        FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                    searchTextStyle:
+                                        FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
-                                searchTextStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
+                                    hintText: 'เลือกหมวดหมู่',
+                                    searchHintText: 'ค้นหาชื่อหมวด',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
                                     ),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      fontSize: 22.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintText: 'เลือกหมวดหมู่',
-                                searchHintText: 'ค้นหาชื่อหมวด',
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                elevation: 2.0,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                borderWidth: 1.0,
-                                borderRadius: 8.0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 12.0, 0.0),
-                                hidesUnderline: true,
-                                isOverButton: false,
-                                isSearchable: true,
-                                isMultiSelect: false,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 1.0,
+                                    borderRadius: 8.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 0.0, 12.0, 0.0),
+                                    hidesUnderline: true,
+                                    isOverButton: false,
+                                    isSearchable: true,
+                                    isMultiSelect: false,
+                                  ),
+                                ],
                               ),
                             ),
                             Padding(
@@ -1098,7 +1167,6 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                           fontFamily: 'Inter',
                                           fontSize: 22.0,
                                           letterSpacing: 0.0,
-                                          lineHeight: 3.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -1143,6 +1211,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                         fontSize: 22.0,
                                         letterSpacing: 0.0,
                                       ),
+                                  maxLines: 3,
                                   keyboardType: TextInputType.multiline,
                                   cursorColor:
                                       FlutterFlowTheme.of(context).primaryText,
