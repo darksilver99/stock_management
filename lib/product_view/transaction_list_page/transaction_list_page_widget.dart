@@ -477,6 +477,16 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                 arrayContains:
                                                     _model.textController.text,
                                               )
+                                              .where(
+                                                'create_date',
+                                                isGreaterThanOrEqualTo:
+                                                    _model.startDate,
+                                              )
+                                              .where(
+                                                'create_date',
+                                                isLessThanOrEqualTo:
+                                                    _model.endDate,
+                                              )
                                               .orderBy('create_date',
                                                   descending: true),
                                           parent: FFAppState()
@@ -822,6 +832,16 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                   FFAppState()
                                                       .customerData
                                                       .customerRef)
+                                              .where(
+                                                'create_date',
+                                                isGreaterThanOrEqualTo:
+                                                    _model.startDate,
+                                              )
+                                              .where(
+                                                'create_date',
+                                                isLessThanOrEqualTo:
+                                                    _model.endDate,
+                                              )
                                               .orderBy('create_date',
                                                   descending: true),
                                           parent: FFAppState()
