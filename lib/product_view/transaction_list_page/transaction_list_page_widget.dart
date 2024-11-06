@@ -371,6 +371,14 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             _model.isSearched = false;
+                                            _model.isLoading = false;
+                                            _model.startDate =
+                                                functions.getFirstDayOfMonth(
+                                                    getCurrentTimestamp);
+                                            _model.endDate =
+                                                functions.getLastDayOfMonth(
+                                                    getCurrentTimestamp);
+                                            safeSetState(() {});
                                             safeSetState(() {
                                               _model.textController?.clear();
                                             });
