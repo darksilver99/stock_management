@@ -1,5 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/authen_view/authen_background_view/authen_background_view_widget.dart';
+import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -17,8 +17,8 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class SettingPageModel extends FlutterFlowModel<SettingPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Model for AuthenBackgroundView component.
-  late AuthenBackgroundViewModel authenBackgroundViewModel;
+  // Model for MainBackgroundView component.
+  late MainBackgroundViewModel mainBackgroundViewModel;
   // Stores action output result for [Action Block - confirmBlock] action in Text widget.
   bool? isConfirm2;
   // Stores action output result for [Action Block - confirmBlock] action in Column widget.
@@ -26,12 +26,12 @@ class SettingPageModel extends FlutterFlowModel<SettingPageWidget> {
 
   @override
   void initState(BuildContext context) {
-    authenBackgroundViewModel =
-        createModel(context, () => AuthenBackgroundViewModel());
+    mainBackgroundViewModel =
+        createModel(context, () => MainBackgroundViewModel());
   }
 
   @override
   void dispose() {
-    authenBackgroundViewModel.dispose();
+    mainBackgroundViewModel.dispose();
   }
 }

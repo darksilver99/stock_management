@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -28,16 +29,22 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   TutorialCoachMark? addProductController;
+  // Model for MainBackgroundView component.
+  late MainBackgroundViewModel mainBackgroundViewModel;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   int? totalProduct;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   int? totalProduct2;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    mainBackgroundViewModel =
+        createModel(context, () => MainBackgroundViewModel());
+  }
 
   @override
   void dispose() {
     addProductController?.finish();
+    mainBackgroundViewModel.dispose();
   }
 }

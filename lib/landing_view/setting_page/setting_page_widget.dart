@@ -1,5 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/authen_view/authen_background_view/authen_background_view_widget.dart';
+import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -52,9 +52,9 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
         child: Stack(
           children: [
             wrapWithModel(
-              model: _model.authenBackgroundViewModel,
+              model: _model.mainBackgroundViewModel,
               updateCallback: () => safeSetState(() {}),
-              child: AuthenBackgroundViewWidget(),
+              child: MainBackgroundViewWidget(),
             ),
             SingleChildScrollView(
               child: Column(
