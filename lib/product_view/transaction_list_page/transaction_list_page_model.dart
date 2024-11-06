@@ -2,9 +2,11 @@ import '/backend/backend.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/product_view/product_form_view/product_form_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -25,10 +27,20 @@ class TransactionListPageModel
 
   bool isSearched = false;
 
+  DateTime? startDate;
+
+  DateTime? endDate;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for BackButtonView component.
   late BackButtonViewModel backButtonViewModel;
+  // State field(s) for DropDown widget.
+  String? dropDownValue1;
+  FormFieldController<String>? dropDownValueController1;
+  // State field(s) for DropDown widget.
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValueController2;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

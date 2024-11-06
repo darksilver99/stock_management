@@ -69,6 +69,60 @@ class FFAppState extends ChangeNotifier {
   set tmpSelectedProductRef(DocumentReference? value) {
     _tmpSelectedProductRef = value;
   }
+
+  List<MonthDataStruct> _monthList = [
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"1\",\"name\":\"มกราคม\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"2\",\"name\":\"กุมภาพันธ์\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"3\",\"name\":\"มีนาคม\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"4\",\"name\":\"เมษายน\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"5\",\"name\":\"พฤษภาคม\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"6\",\"name\":\"มิถุนายน\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"7\",\"name\":\"กรกฎาคม\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"8\",\"name\":\"สิงหาคม\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"9\",\"name\":\"กันยายน\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"10\",\"name\":\"ตุลาคม\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"11\",\"name\":\"พฤศจิกายน\"}')),
+    MonthDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"12\",\"name\":\"ธันวาคม\"}'))
+  ];
+  List<MonthDataStruct> get monthList => _monthList;
+  set monthList(List<MonthDataStruct> value) {
+    _monthList = value;
+  }
+
+  void addToMonthList(MonthDataStruct value) {
+    monthList.add(value);
+  }
+
+  void removeFromMonthList(MonthDataStruct value) {
+    monthList.remove(value);
+  }
+
+  void removeAtIndexFromMonthList(int index) {
+    monthList.removeAt(index);
+  }
+
+  void updateMonthListAtIndex(
+    int index,
+    MonthDataStruct Function(MonthDataStruct) updateFn,
+  ) {
+    monthList[index] = updateFn(_monthList[index]);
+  }
+
+  void insertAtIndexInMonthList(int index, MonthDataStruct value) {
+    monthList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
