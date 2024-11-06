@@ -19,7 +19,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:stock_management/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 
-Future<String> exportExcel(String? category) async {
+Future<String> exportExcel(
+  DateTime startDate,
+  DateTime endDate,
+) async {
   // Add your function code here!
   bool isGranted = false;
   if (Platform.isAndroid) {
@@ -46,21 +49,14 @@ Future<String> exportExcel(String? category) async {
 
   //getData
   QuerySnapshot<Map<String, dynamic>> rs;
-  if (category == "ทั้งหมด" || category == null) {
-    print(
-        "FFAppState().customerData.customerRef!.path : ${FFAppState().customerData.customerRef!.path}");
-    rs = await FirebaseFirestore.instance
-        .collection(
-            '${FFAppState().customerData.customerRef!.path}/transaction_list')
-        .orderBy('create_date', descending: true)
-        .get();
-  } else {
-    rs = await FirebaseFirestore.instance
-        .collection(
-            '${FFAppState().customerData.customerRef!.path}/transaction_list')
-        .orderBy('create_date', descending: true)
-        .get();
-  }
+
+  rs = await FirebaseFirestore.instance
+      .collection(
+          '${FFAppState().customerData.customerRef!.path}/transaction_list')
+      .where("create_date", isGreaterThanOrEqualTo: startDate)
+      .where("create_date", isLessThanOrEqualTo: endDate)
+      .orderBy('create_date', descending: true)
+      .get();
 
   print("rsrsrs");
   print(rs.size);
