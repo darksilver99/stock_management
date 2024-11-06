@@ -126,6 +126,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.bool,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'TransactionListPage',
+          path: '/transactionListPage',
+          builder: (context, params) => TransactionListPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

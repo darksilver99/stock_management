@@ -10,9 +10,11 @@ class BackButtonViewWidget extends StatefulWidget {
   const BackButtonViewWidget({
     super.key,
     this.title,
-  });
+    Color? color,
+  }) : this.color = color ?? Colors.white;
 
   final String? title;
+  final Color color;
 
   @override
   State<BackButtonViewWidget> createState() => _BackButtonViewWidgetState();
@@ -90,7 +92,7 @@ class _BackButtonViewWidgetState extends State<BackButtonViewWidget> {
                   maxLines: 1,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Inter',
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: widget!.color,
                         fontSize: 22.0,
                         letterSpacing: 0.0,
                       ),

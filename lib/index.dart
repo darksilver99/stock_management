@@ -9,3 +9,5 @@ export '/landing_view/setting_page/setting_page_widget.dart'
     show SettingPageWidget;
 export '/product_view/product_list_page/product_list_page_widget.dart'
     show ProductListPageWidget;
+export '/product_view/transaction_list_page/transaction_list_page_widget.dart'
+    show TransactionListPageWidget;
