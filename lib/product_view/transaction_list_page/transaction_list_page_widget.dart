@@ -695,6 +695,20 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                                           .override(
                                                                             fontFamily:
                                                                                 'Inter',
+                                                                            color:
+                                                                                () {
+                                                                              if (listViewTransactionListRecord.type == 'เพิ่ม Stock') {
+                                                                                return FlutterFlowTheme.of(context).link;
+                                                                              } else if (listViewTransactionListRecord.type == 'จ่ายสินค้า') {
+                                                                                return FlutterFlowTheme.of(context).error;
+                                                                              } else if (listViewTransactionListRecord.type == 'แก้ไขสินค้า') {
+                                                                                return FlutterFlowTheme.of(context).tertiary;
+                                                                              } else if (listViewTransactionListRecord.type == 'เพิ่มสินค้าใหม่') {
+                                                                                return FlutterFlowTheme.of(context).primary;
+                                                                              } else {
+                                                                                return Color(0x00000000);
+                                                                              }
+                                                                            }(),
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
@@ -1043,6 +1057,20 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                                           .override(
                                                                             fontFamily:
                                                                                 'Inter',
+                                                                            color:
+                                                                                () {
+                                                                              if (listViewTransactionListRecord.type == 'เพิ่ม Stock') {
+                                                                                return FlutterFlowTheme.of(context).link;
+                                                                              } else if (listViewTransactionListRecord.type == 'จ่ายสินค้า') {
+                                                                                return FlutterFlowTheme.of(context).error;
+                                                                              } else if (listViewTransactionListRecord.type == 'แก้ไขสินค้า') {
+                                                                                return FlutterFlowTheme.of(context).tertiary;
+                                                                              } else if (listViewTransactionListRecord.type == 'เพิ่มสินค้าใหม่') {
+                                                                                return FlutterFlowTheme.of(context).primary;
+                                                                              } else {
+                                                                                return Color(0x00000000);
+                                                                              }
+                                                                            }(),
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
