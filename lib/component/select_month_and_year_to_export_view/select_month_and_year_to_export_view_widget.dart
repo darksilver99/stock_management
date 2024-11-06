@@ -250,7 +250,9 @@ class _SelectMonthAndYearToExportViewWidgetState
                               0.0, 0.0, 0.0, 8.0),
                           child: FlutterFlowDropDown<String>(
                             controller: _model.dropDownValueController3 ??=
-                                FormFieldController<String>(null),
+                                FormFieldController<String>(
+                              _model.dropDownValue3 ??= 'จ่ายสินค้า',
+                            ),
                             options: [
                               'จ่ายสินค้า',
                               'เพิ่ม Stock',
