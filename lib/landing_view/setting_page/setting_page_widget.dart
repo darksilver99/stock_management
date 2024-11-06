@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/authen_view/main_background_view/main_background_view_widget.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/component/select_month_and_year_to_export_view/select_month_and_year_to_export_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/other_view/issue_view/issue_view_widget.dart';
 import '/other_view/suggest_view/suggest_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -295,7 +297,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              'รายงานสรุปความเคลื่อนไหว',
+                                              'สรุปความเคลื่อนไหว',
                                               maxLines: 1,
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -330,47 +332,89 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                 ),
                               ),
                             ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 16.0, 16.0, 16.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'รายงานรายการสินค้า',
-                                          maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                fontSize: 20.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                        ),
+                            Builder(
+                              builder: (context) => InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  _model.path =
+                                      await actions.exportProductExcel();
+                                  if (_model.path == 'No Data') {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: WebViewAware(
+                                            child: InfoCustomViewWidget(
+                                              title: 'ไม่มีข้อมูล',
+                                              status: 'info',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    await actions.shareFile(
+                                      _model.path,
+                                    );
+                                  }
+
+                                  safeSetState(() {});
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 16.0, 16.0, 16.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'สรุปรายการสินค้า',
+                                              maxLines: 1,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.navigate_next_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ],
                                       ),
-                                      Icon(
-                                        Icons.navigate_next_rounded,
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 1.0,
+                                      decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
+                                            .alternate,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 1.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                             InkWell(
                               splashColor: Colors.transparent,

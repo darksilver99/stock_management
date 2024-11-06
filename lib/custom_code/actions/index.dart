@@ -1,5 +1,6 @@
 export 'push_replacement.dart' show pushReplacement;
 export 'close_app.dart' show closeApp;
+export 'export_product_excel.dart' show exportProductExcel;
 export 'set_app_version.dart' show setAppVersion;
 export 'export_excel.dart' show exportExcel;
 export 'share_file.dart' show shareFile;
