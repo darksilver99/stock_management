@@ -96,3 +96,11 @@ List<String> getYearFromCurrent(int len) {
   }
   return yearList;
 }
+
+DateTime getDateByMonthAndYear(
+  String month,
+  String year,
+) {
+  DateTime currentDate = DateTime.now();
+  return DateTime((int.parse(year) - 543), int.parse(month), currentDate.day);
+}

@@ -124,9 +124,25 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                             ),
                                             options:
                                                 functions.getYearFromCurrent(4),
-                                            onChanged: (val) => safeSetState(
-                                                () => _model.dropDownValue1 =
-                                                    val),
+                                            onChanged: (val) async {
+                                              safeSetState(() =>
+                                                  _model.dropDownValue1 = val);
+                                              _model.startDate = functions
+                                                  .getFirstDayOfMonth(functions
+                                                      .getDateByMonthAndYear(
+                                                          _model
+                                                              .dropDownValue2!,
+                                                          _model
+                                                              .dropDownValue1!));
+                                              _model.endDate = functions
+                                                  .getLastDayOfMonth(functions
+                                                      .getDateByMonthAndYear(
+                                                          _model
+                                                              .dropDownValue2!,
+                                                          _model
+                                                              .dropDownValue1!));
+                                              safeSetState(() {});
+                                            },
                                             width: double.infinity,
                                             height: 50.0,
                                             textStyle:
@@ -187,9 +203,25 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                 .monthList
                                                 .map((e) => e.name)
                                                 .toList(),
-                                            onChanged: (val) => safeSetState(
-                                                () => _model.dropDownValue2 =
-                                                    val),
+                                            onChanged: (val) async {
+                                              safeSetState(() =>
+                                                  _model.dropDownValue2 = val);
+                                              _model.startDate = functions
+                                                  .getFirstDayOfMonth(functions
+                                                      .getDateByMonthAndYear(
+                                                          _model
+                                                              .dropDownValue2!,
+                                                          _model
+                                                              .dropDownValue1!));
+                                              _model.endDate = functions
+                                                  .getLastDayOfMonth(functions
+                                                      .getDateByMonthAndYear(
+                                                          _model
+                                                              .dropDownValue2!,
+                                                          _model
+                                                              .dropDownValue1!));
+                                              safeSetState(() {});
+                                            },
                                             width: double.infinity,
                                             height: 50.0,
                                             textStyle:
