@@ -1166,13 +1166,6 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                                Icon(
-                                                  Icons.navigate_next_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  size: 24.0,
-                                                ),
                                               ],
                                             ),
                                           ),
