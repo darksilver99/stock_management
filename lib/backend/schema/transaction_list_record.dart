@@ -81,6 +81,11 @@ class TransactionListRecord extends FirestoreRecord {
   List<String> get keywordList => _keywordList ?? const [];
   bool hasKeywordList() => _keywordList != null;
 
+  // "product_id" field.
+  String? _productId;
+  String get productId => _productId ?? '';
+  bool hasProductId() => _productId != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -98,6 +103,7 @@ class TransactionListRecord extends FirestoreRecord {
         castToType<double>(snapshotData['current_price_start']);
     _currentPriceSell = castToType<double>(snapshotData['current_price_sell']);
     _keywordList = getDataList(snapshotData['keyword_list']);
+    _productId = snapshotData['product_id'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -152,6 +158,7 @@ Map<String, dynamic> createTransactionListRecordData({
   int? totalRemain,
   double? currentPriceStart,
   double? currentPriceSell,
+  String? productId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -167,6 +174,7 @@ Map<String, dynamic> createTransactionListRecordData({
       'total_remain': totalRemain,
       'current_price_start': currentPriceStart,
       'current_price_sell': currentPriceSell,
+      'product_id': productId,
     }.withoutNulls,
   );
 
@@ -192,7 +200,8 @@ class TransactionListRecordDocumentEquality
         e1?.totalRemain == e2?.totalRemain &&
         e1?.currentPriceStart == e2?.currentPriceStart &&
         e1?.currentPriceSell == e2?.currentPriceSell &&
-        listEquality.equals(e1?.keywordList, e2?.keywordList);
+        listEquality.equals(e1?.keywordList, e2?.keywordList) &&
+        e1?.productId == e2?.productId;
   }
 
   @override
@@ -209,7 +218,8 @@ class TransactionListRecordDocumentEquality
         e?.totalRemain,
         e?.currentPriceStart,
         e?.currentPriceSell,
-        e?.keywordList
+        e?.keywordList,
+        e?.productId
       ]);
 
   @override

@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -285,7 +286,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                 onRefresh: () async {
                                   await actions.pushReplacement(
                                     context,
-                                    'ProductListPage',
+                                    'TransactionListPage',
                                   );
                                 },
                                 child: PagedListView<DocumentSnapshot<Object?>?,
@@ -296,6 +297,11 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                   FFAppState()
                                                       .customerData
                                                       .customerRef)
+                                              .where(
+                                                'keyword_list',
+                                                arrayContains:
+                                                    _model.textController.text,
+                                              )
                                               .orderBy('create_date',
                                                   descending: true),
                                           parent: FFAppState()
@@ -400,7 +406,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                                   children: [
                                                                     TextSpan(
                                                                       text:
-                                                                          '(${listViewTransactionListRecord.type}) ',
+                                                                          '(${listViewTransactionListRecord.productId}) ',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -442,6 +448,61 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                                       ),
                                                                 ),
                                                                 maxLines: 2,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: RichText(
+                                                                textScaler: MediaQuery.of(
+                                                                        context)
+                                                                    .textScaler,
+                                                                text: TextSpan(
+                                                                  children: [
+                                                                    TextSpan(
+                                                                      text:
+                                                                          'ประเภท : ',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                    TextSpan(
+                                                                      text: listViewTransactionListRecord
+                                                                          .type,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                    )
+                                                                  ],
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                                maxLines: 1,
                                                               ),
                                                             ),
                                                           ],
@@ -514,6 +575,41 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                             ),
                                                           ],
                                                         ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  functions.dateTimeTh(
+                                                                      listViewTransactionListRecord
+                                                                          .createDate),
+                                                                  '-',
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .end,
+                                                                maxLines: 1,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
@@ -540,7 +636,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                 onRefresh: () async {
                                   await actions.pushReplacement(
                                     context,
-                                    'ProductListPage',
+                                    'TransactionListPage',
                                   );
                                 },
                                 child: PagedListView<DocumentSnapshot<Object?>?,
@@ -655,7 +751,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                                   children: [
                                                                     TextSpan(
                                                                       text:
-                                                                          '(${listViewTransactionListRecord.type}) ',
+                                                                          '(${listViewTransactionListRecord.productId}) ',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -697,6 +793,61 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                                       ),
                                                                 ),
                                                                 maxLines: 2,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: RichText(
+                                                                textScaler: MediaQuery.of(
+                                                                        context)
+                                                                    .textScaler,
+                                                                text: TextSpan(
+                                                                  children: [
+                                                                    TextSpan(
+                                                                      text:
+                                                                          'ประเภท : ',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                    TextSpan(
+                                                                      text: listViewTransactionListRecord
+                                                                          .type,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                    )
+                                                                  ],
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                                maxLines: 1,
                                                               ),
                                                             ),
                                                           ],
@@ -759,6 +910,41 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                                       ),
                                                                 ),
                                                                 maxLines: 1,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  functions.dateTimeTh(
+                                                                      listViewTransactionListRecord
+                                                                          .createDate),
+                                                                  '-',
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .end,
+                                                                maxLines: 1,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
                                                               ),
                                                             ),
                                                           ],

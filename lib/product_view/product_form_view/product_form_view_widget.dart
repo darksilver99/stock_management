@@ -1312,6 +1312,8 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                             currentPriceSell: double.tryParse(_model
                                                 .sellPriceTextFieldTextController
                                                 .text),
+                                            productId: _model
+                                                .productDocument?.productId,
                                           ),
                                           ...mapToFirestore(
                                             {
@@ -1520,6 +1522,9 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                                   _model
                                                       .sellPriceTextFieldTextController
                                                       .text),
+                                              productId: _model
+                                                  .productIDTextFieldTextController
+                                                  .text,
                                             ),
                                             ...mapToFirestore(
                                               {
