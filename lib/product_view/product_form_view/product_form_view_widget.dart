@@ -215,6 +215,79 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
+                            if (_model.isEdit)
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Builder(
+                                      builder: (context) => InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          _model.isConfirm3 =
+                                              await action_blocks.confirmBlock(
+                                            context,
+                                            title: 'ลบสินค้ารายการนี้?',
+                                            detail:
+                                                'หากลบแล้วจะไม่สามารถเรียกคืนข้อมูลได้',
+                                          );
+                                          if (_model.isConfirm3!) {
+                                            await _model
+                                                .productDocument!.reference
+                                                .delete();
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: WebViewAware(
+                                                    child: InfoCustomViewWidget(
+                                                      title:
+                                                          'ลบข้อมูลสินค้าเรียบร้อยแล้ว',
+                                                      status: 'success',
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+
+                                            Navigator.pop(context, 'update');
+                                          }
+
+                                          safeSetState(() {});
+                                        },
+                                        child: Text(
+                                          'ลบสินค้า',
+                                          textAlign: TextAlign.end,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                letterSpacing: 0.0,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 16.0),

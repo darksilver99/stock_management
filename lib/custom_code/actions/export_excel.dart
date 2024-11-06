@@ -84,7 +84,7 @@ Future<String> exportExcel(
   var cell =
       sheetObject.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0));
   cell.value = TextCellValue(
-      'รายงานสรุปความเคลื่อนไหว ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}');
+      'รายการความเคลื่อนไหว ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}');
   cell.cellStyle = CellStyle(fontSize: 22, bold: true);
 
   // Add headers
@@ -176,7 +176,7 @@ Future<String> exportExcel(
   Directory dir = await getApplicationDocumentsDirectory();
   //Directory dir = Directory('/storage/emulated/0/Download');
   List<int>? fileBytes = excel.save();
-  var path = File('${dir.path}/รายงานสรุปความเคลื่อนไหว.xlsx')
+  var path = File('${dir.path}/รายการความเคลื่อนไหว.xlsx')
     ..createSync(recursive: true)
     ..writeAsBytesSync(fileBytes!);
 

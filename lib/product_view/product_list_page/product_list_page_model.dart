@@ -1,6 +1,8 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -9,6 +11,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/product_view/product_form_view/product_form_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'product_list_page_widget.dart' show ProductListPageWidget;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -50,6 +54,8 @@ class ProductListPageModel extends FlutterFlowModel<ProductListPageWidget> {
   Query? listViewPagingQuery2;
   List<StreamSubscription?> listViewStreamSubscriptions2 = [];
 
+  // Stores action output result for [Firestore Query - Query a collection] action in FloatingActionButton widget.
+  int? totalProduct;
   // Stores action output result for [Bottom Sheet - ProductFormView] action in FloatingActionButton widget.
   String? isUpdate;
 

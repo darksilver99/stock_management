@@ -48,12 +48,8 @@ Future<String> exportProductExcel() async {
   QuerySnapshot<Map<String, dynamic>> rs;
 
   rs = await FirebaseFirestore.instance
-      .collection(
-          '${FFAppState().customerData.customerRef!.path}/transaction_list')
-      .where("create_date", isGreaterThanOrEqualTo: startDate)
-      .where("create_date", isLessThanOrEqualTo: endDate)
-      .where("type", isEqualTo: type)
-      .orderBy('create_date', descending: true)
+      .collection('${FFAppState().customerData.customerRef!.path}/product_list')
+      .orderBy('product_id', descending: false)
       .get();
 
   print("rsrsrs");
@@ -79,8 +75,7 @@ Future<String> exportProductExcel() async {
   // title
   var cell =
       sheetObject.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0));
-  cell.value = TextCellValue(
-      'รายงานสรุปความเคลื่อนไหว ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}');
+  cell.value = TextCellValue('รายการสินค้าทั้งหมด');
   cell.cellStyle = CellStyle(fontSize: 22, bold: true);
 
   // Add headers
@@ -90,43 +85,27 @@ Future<String> exportProductExcel() async {
       "field": "product_id",
     },
     {
+      "text": "หมวดหมู่",
+      "field": "category",
+    },
+    {
       "text": "ชื่อสินค้า",
       "field": "product_name",
     },
     {
-      "text": "ประเภท",
-      "field": "type",
-    },
-    {
       "text": "จำนวน(หน่วย)",
-      "field": "total_amount",
-    },
-    {
-      "text": "คงเหลือ(หน่วย)",
-      "field": "total_remain",
-    },
-    {
-      "text": "หมายเหตุ",
-      "field": "remark",
+      "field": "stock",
     },
     {
       "text": "ราคาต้นทุน",
-      "field": "current_price_start",
-    },
-    {
-      "text": "รวมราคาต้นทุน",
-      "field": "total_price_start",
+      "field": "price_start",
     },
     {
       "text": "ราคาขาย",
-      "field": "current_price_sell",
+      "field": "price_sell",
     },
     {
-      "text": "รวมราคาขาย",
-      "field": "total_price_sell",
-    },
-    {
-      "text": "วันที่ทำรายการ",
+      "text": "วันที่เพิ่มข้อมูล",
       "field": "create_date",
     }
   ];
@@ -172,7 +151,7 @@ Future<String> exportProductExcel() async {
   Directory dir = await getApplicationDocumentsDirectory();
   //Directory dir = Directory('/storage/emulated/0/Download');
   List<int>? fileBytes = excel.save();
-  var path = File('${dir.path}/รายงานสรุปความเคลื่อนไหว.xlsx')
+  var path = File('${dir.path}/รายการสินค้าทั้งหมด.xlsx')
     ..createSync(recursive: true)
     ..writeAsBytesSync(fileBytes!);
 
