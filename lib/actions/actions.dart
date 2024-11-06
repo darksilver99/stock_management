@@ -49,6 +49,7 @@ Future initCustomer(BuildContext context) async {
       expireDate: customerResult?.expireDate,
       customerRef: customerResult?.reference,
       categoryList: customerResult?.categoryList,
+      maximumProduct: customerResult?.maximumProduct,
     );
   } else {
     await CustomerListRecord.collection.doc().set(createCustomerListRecordData(
@@ -58,6 +59,7 @@ Future initCustomer(BuildContext context) async {
           expireDate: functions.getEndDayTime(
               functions.getNextDay(FFAppState().configData.freeDay)!),
           subject: currentUserEmail,
+          maximumProduct: 30,
         ));
     if (!FFAppState().configData.isReview) {
       await showDialog(
@@ -72,7 +74,7 @@ Future initCustomer(BuildContext context) async {
             child: WebViewAware(
               child: InfoCustomViewWidget(
                 title:
-                    'พิเศษสำหรับสมาชิกใหม่ทดลองใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน',
+                    'พิเศษสำหรับสมาชิกใหม่ทดลองใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน กำหนดสินค้าไม่เกิน 30 รายการ',
                 status: 'success',
               ),
             ),

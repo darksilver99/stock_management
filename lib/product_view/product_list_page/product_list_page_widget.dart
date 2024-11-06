@@ -1,6 +1,8 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -8,6 +10,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/product_view/product_form_view/product_form_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -66,48 +70,78 @@ class _ProductListPageWidgetState extends State<ProductListPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: Visibility(
         visible: !widget!.isSelectProduct,
-        child: FloatingActionButton.extended(
-          onPressed: () async {
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              enableDrag: false,
-              useSafeArea: true,
-              context: context,
-              builder: (context) {
-                return WebViewAware(
-                  child: Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: ProductFormViewWidget(),
-                  ),
-                );
-              },
-            ).then((value) => safeSetState(() => _model.isUpdate = value));
-
-            if ((_model.isUpdate != null && _model.isUpdate != '') &&
-                (_model.isUpdate == 'update')) {
-              await actions.pushReplacement(
-                context,
-                'ProductListPage',
+        child: Builder(
+          builder: (context) => FloatingActionButton.extended(
+            onPressed: () async {
+              _model.totalProduct = await queryProductListRecordCount(
+                parent: FFAppState().customerData.customerRef,
               );
-            }
+              if (_model.totalProduct! >=
+                  FFAppState().customerData.maximumProduct) {
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      elevation: 0,
+                      insetPadding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      alignment: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      child: WebViewAware(
+                        child: InfoCustomViewWidget(
+                          title:
+                              'บัญชีของท่านกำหนดสินค้าไม่เกิน ${FFAppState().customerData.maximumProduct.toString()} รายการ',
+                          detail:
+                              'ดูรายละเอียดเพิ่มเติมได้ที่เมนู ตั้งค่า>ต่ออายุการใช้งาน',
+                          status: 'error',
+                        ),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  useSafeArea: true,
+                  context: context,
+                  builder: (context) {
+                    return WebViewAware(
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: ProductFormViewWidget(),
+                      ),
+                    );
+                  },
+                ).then((value) => safeSetState(() => _model.isUpdate = value));
 
-            safeSetState(() {});
-          },
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          icon: Icon(
-            Icons.add_business_rounded,
-            size: 32.0,
-          ),
-          elevation: 8.0,
-          label: Text(
-            'เพิ่มสินค้า',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Inter',
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  fontSize: 22.0,
-                  letterSpacing: 0.0,
-                ),
+                if ((_model.isUpdate != null && _model.isUpdate != '') &&
+                    (_model.isUpdate == 'update')) {
+                  await actions.pushReplacement(
+                    context,
+                    'ProductListPage',
+                  );
+                }
+              }
+
+              safeSetState(() {});
+            },
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            icon: Icon(
+              Icons.add_business_rounded,
+              size: 32.0,
+            ),
+            elevation: 8.0,
+            label: Text(
+              'เพิ่มสินค้า',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Inter',
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    fontSize: 22.0,
+                    letterSpacing: 0.0,
+                  ),
+            ),
           ),
         ),
       ),

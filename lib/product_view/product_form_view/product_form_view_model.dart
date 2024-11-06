@@ -48,6 +48,8 @@ class ProductFormViewModel extends FlutterFlowModel<ProductFormViewWidget> {
   final formKey = GlobalKey<FormState>();
   // Stores action output result for [Backend Call - Read Document] action in ProductFormView widget.
   ProductListRecord? productDocument;
+  // Stores action output result for [Action Block - confirmBlock] action in Text widget.
+  bool? isConfirm3;
   // State field(s) for productIDTextField widget.
   FocusNode? productIDTextFieldFocusNode;
   TextEditingController? productIDTextFieldTextController;

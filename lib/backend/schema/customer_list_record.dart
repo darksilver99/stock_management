@@ -56,6 +56,11 @@ class CustomerListRecord extends FirestoreRecord {
   List<String> get categoryList => _categoryList ?? const [];
   bool hasCategoryList() => _categoryList != null;
 
+  // "maximum_product" field.
+  int? _maximumProduct;
+  int get maximumProduct => _maximumProduct ?? 0;
+  bool hasMaximumProduct() => _maximumProduct != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -65,6 +70,7 @@ class CustomerListRecord extends FirestoreRecord {
     _expireDate = snapshotData['expire_date'] as DateTime?;
     _subject = snapshotData['subject'] as String?;
     _categoryList = getDataList(snapshotData['category_list']);
+    _maximumProduct = castToType<int>(snapshotData['maximum_product']);
   }
 
   static CollectionReference get collection =>
@@ -109,6 +115,7 @@ Map<String, dynamic> createCustomerListRecordData({
   int? status,
   DateTime? expireDate,
   String? subject,
+  int? maximumProduct,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -119,6 +126,7 @@ Map<String, dynamic> createCustomerListRecordData({
       'status': status,
       'expire_date': expireDate,
       'subject': subject,
+      'maximum_product': maximumProduct,
     }.withoutNulls,
   );
 
@@ -139,7 +147,8 @@ class CustomerListRecordDocumentEquality
         e1?.status == e2?.status &&
         e1?.expireDate == e2?.expireDate &&
         e1?.subject == e2?.subject &&
-        listEquality.equals(e1?.categoryList, e2?.categoryList);
+        listEquality.equals(e1?.categoryList, e2?.categoryList) &&
+        e1?.maximumProduct == e2?.maximumProduct;
   }
 
   @override
@@ -151,7 +160,8 @@ class CustomerListRecordDocumentEquality
         e?.status,
         e?.expireDate,
         e?.subject,
-        e?.categoryList
+        e?.categoryList,
+        e?.maximumProduct
       ]);
 
   @override
