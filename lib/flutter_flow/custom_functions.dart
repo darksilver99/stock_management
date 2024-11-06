@@ -76,3 +76,24 @@ List<String> getKeywordList(String keyword) {
       .where((word) => word.isNotEmpty) // Remove any empty strings
       .toList();
 }
+
+DateTime getFirstDayOfMonth(DateTime date) {
+  DateTime firstDayOfCurrentMonth = DateTime(date.year, date.month, 1);
+  return firstDayOfCurrentMonth;
+}
+
+DateTime getLastDayOfMonth(DateTime date) {
+  DateTime firstDayOfNextMonth = DateTime(date.year, date.month + 1, 1);
+  DateTime lastDayOfCurrentMonth =
+      firstDayOfNextMonth.subtract(Duration(seconds: 1));
+  return lastDayOfCurrentMonth;
+}
+
+List<String> getYearFromCurrent(int len) {
+  List<String> yearList = [];
+  int currentYear = DateTime.now().year + 543;
+  for (var i = currentYear - len; i <= currentYear; i++) {
+    yearList.add(i.toString());
+  }
+  return yearList;
+}
