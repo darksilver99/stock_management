@@ -245,6 +245,48 @@ class _SelectMonthAndYearToExportViewWidgetState
                             isMultiSelect: false,
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: FlutterFlowDropDown<String>(
+                            controller: _model.dropDownValueController3 ??=
+                                FormFieldController<String>(null),
+                            options: [
+                              'จ่ายสินค้า',
+                              'เพิ่ม Stock',
+                              'เพิ่มสินค้าใหม่',
+                              'แก้ไขสินค้า'
+                            ],
+                            onChanged: (val) =>
+                                safeSetState(() => _model.dropDownValue3 = val),
+                            width: double.infinity,
+                            height: 56.0,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintText: 'เลือกประเภท',
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
+                            ),
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            elevation: 2.0,
+                            borderColor: FlutterFlowTheme.of(context).alternate,
+                            borderWidth: 2.0,
+                            borderRadius: 100.0,
+                            margin: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 4.0, 16.0, 4.0),
+                            hidesUnderline: true,
+                            isOverButton: true,
+                            isSearchable: false,
+                            isMultiSelect: false,
+                          ),
+                        ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -256,6 +298,7 @@ class _SelectMonthAndYearToExportViewWidgetState
                                     _model.path = await actions.exportExcel(
                                       _model.startDate!,
                                       _model.endDate!,
+                                      _model.dropDownValue3!,
                                     );
                                     if (_model.path == 'No Data') {
                                       await showDialog(

@@ -22,6 +22,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 Future<String> exportExcel(
   DateTime startDate,
   DateTime endDate,
+  String type,
 ) async {
   // Add your function code here!
   bool isGranted = false;
@@ -55,6 +56,7 @@ Future<String> exportExcel(
           '${FFAppState().customerData.customerRef!.path}/transaction_list')
       .where("create_date", isGreaterThanOrEqualTo: startDate)
       .where("create_date", isLessThanOrEqualTo: endDate)
+      .where("type", isEqualTo: type)
       .orderBy('create_date', descending: true)
       .get();
 
@@ -77,6 +79,13 @@ Future<String> exportExcel(
     topBorder: exBorder.Border(borderStyle: exBorder.BorderStyle.Thin),
     bottomBorder: exBorder.Border(borderStyle: exBorder.BorderStyle.Thin),
   );
+
+  // title
+  var cell =
+      sheetObject.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0));
+  cell.value = TextCellValue(
+      'รายงานสรุปความเคลื่อนไหว ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}');
+  cell.cellStyle = CellStyle(fontSize: 22, bold: true);
 
   // Add headers
   List<Map<String, dynamic>> header = [
@@ -128,7 +137,7 @@ Future<String> exportExcel(
 
   for (var i = 0; i < header.length; i++) {
     var cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
+        .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 1));
     cell.value = TextCellValue(header[i]["text"]);
     cell.cellStyle = cellStyle;
     sheetObject.setColumnAutoFit(i);
@@ -139,7 +148,7 @@ Future<String> exportExcel(
     for (int j = 0; j < header.length; j++) {
       var field = header[j]["field"];
       var cell = sheetObject
-          .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 1));
+          .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
       if (field == "create_date") {
         cell
           ..value = TextCellValue(
@@ -153,10 +162,21 @@ Future<String> exportExcel(
     }
   }
 
+  // Auto-size columns
+  for (int col = 0; col < header.length; col++) {
+    sheetObject.setColumnWidth(col, 30);
+    if (col == 0 || col == 3) {
+      sheetObject.setColumnWidth(col, 15);
+    }
+
+    //sheetObject.setDefaultColumnWidth(30);
+    //sheetObject.setColumnAutoFit(col);
+  }
+
   Directory dir = await getApplicationDocumentsDirectory();
   //Directory dir = Directory('/storage/emulated/0/Download');
   List<int>? fileBytes = excel.save();
-  var path = File('${dir.path}/รายงานรับจ่าย.xlsx')
+  var path = File('${dir.path}/รายงานสรุปความเคลื่อนไหว.xlsx')
     ..createSync(recursive: true)
     ..writeAsBytesSync(fileBytes!);
 
