@@ -13,6 +13,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "transaction_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword_list",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "create_date",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ]
 }

@@ -463,6 +463,8 @@ class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
                                                     ?.priceStart,
                                                 currentPriceSell: _model
                                                     .selectedProduct?.priceSell,
+                                                productId: _model
+                                                    .selectedProduct?.productId,
                                               ),
                                               ...mapToFirestore(
                                                 {
@@ -568,6 +570,9 @@ class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
                                                   currentPriceSell: _model
                                                       .selectedProduct
                                                       ?.priceSell,
+                                                  productId: _model
+                                                      .selectedProduct
+                                                      ?.productId,
                                                 ),
                                                 ...mapToFirestore(
                                                   {
