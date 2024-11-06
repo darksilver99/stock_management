@@ -82,7 +82,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                     updateCallback: () => safeSetState(() {}),
                     child: BackButtonViewWidget(
                       title: 'ความเคลื่อนไหว',
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: FlutterFlowTheme.of(context).primaryBackground,
                     ),
                   ),
                 ),
@@ -823,13 +823,6 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                       ],
                                                     ),
                                                   ),
-                                                ),
-                                                Icon(
-                                                  Icons.navigate_next_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  size: 24.0,
                                                 ),
                                               ],
                                             ),
