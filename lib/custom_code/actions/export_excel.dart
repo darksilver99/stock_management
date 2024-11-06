@@ -51,19 +51,14 @@ Future<String> exportExcel(String? category) async {
         "FFAppState().customerData.customerRef!.path : ${FFAppState().customerData.customerRef!.path}");
     rs = await FirebaseFirestore.instance
         .collection(
-            '${FFAppState().customerData.customerRef!.path}/tranfer_list')
-        .where('create_by', isEqualTo: currentUserReference)
-        .orderBy('product_id', descending: false)
-        .orderBy('create_date', descending: false)
+            '${FFAppState().customerData.customerRef!.path}/transaction_list')
+        .orderBy('create_date', descending: true)
         .get();
   } else {
     rs = await FirebaseFirestore.instance
         .collection(
-            '${FFAppState().customerData.customerRef!.path}/tranfer_list')
-        .where("product_cate", isEqualTo: category)
-        .where('create_by', isEqualTo: currentUserReference)
-        .orderBy('product_id', descending: false)
-        .orderBy('create_date', descending: false)
+            '${FFAppState().customerData.customerRef!.path}/transaction_list')
+        .orderBy('create_date', descending: true)
         .get();
   }
 
@@ -98,11 +93,7 @@ Future<String> exportExcel(String? category) async {
       "field": "product_name",
     },
     {
-      "text": "หมวดหมู่",
-      "field": "product_cate",
-    },
-    {
-      "text": "รับ-จ่าย",
+      "text": "ประเภท",
       "field": "type",
     },
     {
@@ -153,13 +144,15 @@ Future<String> exportExcel(String? category) async {
       var field = header[j]["field"];
       var cell = sheetObject
           .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 1));
-      //cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
       if (field == "create_date") {
-        cell.value = TextCellValue(
-            '${functions.dateTimeTh(rs.docs[i][field].toDate())}');
+        cell
+          ..value = TextCellValue(
+              '${functions.dateTimeTh(rs.docs[i][field].toDate())}')
+          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
       } else {
-        cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
-        cell.value = TextCellValue(rs.docs[i][field].toString());
+        cell
+          ..value = TextCellValue(rs.docs[i][field].toString())
+          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
       }
     }
   }
