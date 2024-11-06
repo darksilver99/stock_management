@@ -49,12 +49,12 @@ class _WalkthroughViewWidgetState extends State<WalkthroughViewWidget> {
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
                 child: Text(
                   valueOrDefault<String>(
                     widget!.detail,
@@ -63,12 +63,13 @@ class _WalkthroughViewWidgetState extends State<WalkthroughViewWidget> {
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Inter',
+                        fontSize: 22.0,
                         letterSpacing: 0.0,
                       ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
