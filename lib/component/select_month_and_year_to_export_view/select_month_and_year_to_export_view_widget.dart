@@ -254,7 +254,8 @@ class _SelectMonthAndYearToExportViewWidgetState
                                 builder: (context) => FFButtonWidget(
                                   onPressed: () async {
                                     _model.path = await actions.exportExcel(
-                                      DateTime.fromMicrosecondsSinceEpoch(0),
+                                      _model.startDate!,
+                                      _model.endDate!,
                                     );
                                     if (_model.path == 'No Data') {
                                       await showDialog(
