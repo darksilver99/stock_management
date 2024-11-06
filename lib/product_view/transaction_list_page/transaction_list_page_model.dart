@@ -1,3 +1,4 @@
+import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
@@ -33,6 +34,8 @@ class TransactionListPageModel
 
   ///  State fields for stateful widgets in this page.
 
+  // Model for MainBackgroundView component.
+  late MainBackgroundViewModel mainBackgroundViewModel;
   // Model for BackButtonView component.
   late BackButtonViewModel backButtonViewModel;
   // State field(s) for DropDown widget.
@@ -63,12 +66,15 @@ class TransactionListPageModel
 
   @override
   void initState(BuildContext context) {
+    mainBackgroundViewModel =
+        createModel(context, () => MainBackgroundViewModel());
     backButtonViewModel = createModel(context, () => BackButtonViewModel());
     loadingViewModel = createModel(context, () => LoadingViewModel());
   }
 
   @override
   void dispose() {
+    mainBackgroundViewModel.dispose();
     backButtonViewModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();

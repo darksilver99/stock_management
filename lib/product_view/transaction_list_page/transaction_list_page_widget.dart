@@ -1,3 +1,4 @@
+import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
@@ -66,6 +67,11 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
         top: true,
         child: Stack(
           children: [
+            wrapWithModel(
+              model: _model.mainBackgroundViewModel,
+              updateCallback: () => safeSetState(() {}),
+              child: MainBackgroundViewWidget(),
+            ),
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
