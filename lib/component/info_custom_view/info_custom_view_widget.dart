@@ -180,8 +180,7 @@ class _InfoCustomViewWidgetState extends State<InfoCustomViewWidget>
                                     0.0, 0.0, 0.0, 16.0),
                                 child: Icon(
                                   Icons.info_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
+                                  color: Color(0xFFBFBFBF),
                                   size: 64.0,
                                 ).animateOnPageLoad(
                                     animationsMap['iconOnPageLoadAnimation3']!),
