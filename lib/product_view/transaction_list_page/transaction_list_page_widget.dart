@@ -570,7 +570,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                             16.0, 0.0, 16.0, 0.0),
                                         child: Container(
                                           width: double.infinity,
-                                          height: 120.0,
+                                          height: 130.0,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
@@ -935,7 +935,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                             16.0, 0.0, 16.0, 0.0),
                                         child: Container(
                                           width: double.infinity,
-                                          height: 120.0,
+                                          height: 130.0,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
