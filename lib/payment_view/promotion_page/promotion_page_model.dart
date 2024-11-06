@@ -1,5 +1,5 @@
+import '/component/back_button_view/back_button_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,9 +15,18 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
 class PromotionPageModel extends FlutterFlowModel<PromotionPageWidget> {
-  @override
-  void initState(BuildContext context) {}
+  ///  State fields for stateful widgets in this page.
+
+  // Model for BackButtonView component.
+  late BackButtonViewModel backButtonViewModel;
 
   @override
-  void dispose() {}
+  void initState(BuildContext context) {
+    backButtonViewModel = createModel(context, () => BackButtonViewModel());
+  }
+
+  @override
+  void dispose() {
+    backButtonViewModel.dispose();
+  }
 }
