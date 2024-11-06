@@ -1487,7 +1487,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                             ...createTransactionListRecordData(
                                               createDate: getCurrentTimestamp,
                                               status: 1,
-                                              type: 'นำเข้า',
+                                              type: 'เพิ่มสินค้าใหม่',
                                               totalAmount: int.tryParse(_model
                                                   .totalTextFieldTextController
                                                   .text),

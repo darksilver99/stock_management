@@ -33,6 +33,9 @@ class SelectMonthAndYearToExportViewModel
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
+  // State field(s) for DropDown widget.
+  String? dropDownValue3;
+  FormFieldController<String>? dropDownValueController3;
   // Stores action output result for [Custom Action - exportExcel] action in Button widget.
   String? path;
 
