@@ -153,11 +153,17 @@ Future<String> exportExcel(
         cell
           ..value = TextCellValue(
               '${functions.dateTimeTh(rs.docs[i][field].toDate())}')
-          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
       } else {
-        cell
-          ..value = TextCellValue(rs.docs[i][field].toString())
-          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+        try {
+          cell
+            ..value = TextCellValue(rs.docs[i][field].toString())
+            ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+        } catch (e) {
+          cell
+            ..value = TextCellValue("")
+            ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+        }
       }
     }
   }

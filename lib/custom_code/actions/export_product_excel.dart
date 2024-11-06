@@ -90,7 +90,7 @@ Future<String> exportProductExcel() async {
     },
     {
       "text": "ชื่อสินค้า",
-      "field": "product_name",
+      "field": "name",
     },
     {
       "text": "จำนวน(หน่วย)",
@@ -103,6 +103,10 @@ Future<String> exportProductExcel() async {
     {
       "text": "ราคาขาย",
       "field": "price_sell",
+    },
+    {
+      "text": "รายละเอียด",
+      "field": "detail",
     },
     {
       "text": "วันที่เพิ่มข้อมูล",
@@ -128,11 +132,17 @@ Future<String> exportProductExcel() async {
         cell
           ..value = TextCellValue(
               '${functions.dateTimeTh(rs.docs[i][field].toDate())}')
-          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
       } else {
-        cell
-          ..value = TextCellValue(rs.docs[i][field].toString())
-          ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+        try {
+          cell
+            ..value = TextCellValue(rs.docs[i][field].toString())
+            ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+        } catch (e) {
+          cell
+            ..value = TextCellValue("")
+            ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+        }
       }
     }
   }
