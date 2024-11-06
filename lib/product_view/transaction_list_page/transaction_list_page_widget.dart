@@ -141,7 +141,6 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                               .dropDownValue2!,
                                                           _model
                                                               .dropDownValue1!));
-                                              safeSetState(() {});
                                             },
                                             width: double.infinity,
                                             height: 50.0,
@@ -220,7 +219,6 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                               .dropDownValue2!,
                                                           _model
                                                               .dropDownValue1!));
-                                              safeSetState(() {});
                                             },
                                             width: double.infinity,
                                             height: 50.0,
@@ -379,6 +377,19 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                                 functions.getLastDayOfMonth(
                                                     getCurrentTimestamp);
                                             safeSetState(() {});
+                                            safeSetState(() {
+                                              _model.dropDownValueController1
+                                                      ?.value =
+                                                  ((DateTime.now().year + 543)
+                                                      .toString());
+                                            });
+                                            safeSetState(() {
+                                              _model.dropDownValueController2
+                                                      ?.value =
+                                                  (DateTime.now()
+                                                      .month
+                                                      .toString());
+                                            });
                                             safeSetState(() {
                                               _model.textController?.clear();
                                             });
