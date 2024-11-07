@@ -126,6 +126,7 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                         final _datePickedDate =
                                             await showDatePicker(
                                           context: context,
+                                          locale: Locale('th'),
                                           initialDate: (_model.startDate ??
                                               DateTime.now()),
                                           firstDate: DateTime(1900),
