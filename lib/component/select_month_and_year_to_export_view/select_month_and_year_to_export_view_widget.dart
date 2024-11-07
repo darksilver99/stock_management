@@ -164,10 +164,20 @@ class _SelectMonthAndYearToExportViewWidgetState
                                                   .checkboxValue1 = newValue!);
                                               if (newValue!) {
                                                 _model.isToday = true;
-                                                safeSetState(() {});
+                                                safeSetState(() {
+                                                  _model.checkboxValue1 = true;
+                                                });
+                                                safeSetState(() {
+                                                  _model.checkboxValue2 = false;
+                                                });
                                               } else {
                                                 _model.isToday = false;
-                                                safeSetState(() {});
+                                                safeSetState(() {
+                                                  _model.checkboxValue1 = false;
+                                                });
+                                                safeSetState(() {
+                                                  _model.checkboxValue2 = true;
+                                                });
                                               }
                                             },
                                             side: BorderSide(
@@ -237,10 +247,20 @@ class _SelectMonthAndYearToExportViewWidgetState
                                                   .checkboxValue2 = newValue!);
                                               if (newValue!) {
                                                 _model.isToday = false;
-                                                safeSetState(() {});
+                                                safeSetState(() {
+                                                  _model.checkboxValue1 = false;
+                                                });
+                                                safeSetState(() {
+                                                  _model.checkboxValue2 = true;
+                                                });
                                               } else {
                                                 _model.isToday = true;
-                                                safeSetState(() {});
+                                                safeSetState(() {
+                                                  _model.checkboxValue1 = true;
+                                                });
+                                                safeSetState(() {
+                                                  _model.checkboxValue2 = false;
+                                                });
                                               }
                                             },
                                             side: BorderSide(
