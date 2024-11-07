@@ -87,20 +87,23 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'StockManagement',
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('en', '')],
-      theme: ThemeData(
-        brightness: Brightness.light,
-        useMaterial3: false,
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+      child: MaterialApp.router(
+        title: 'StockManagement',
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en', '')],
+        theme: ThemeData(
+          brightness: Brightness.light,
+          useMaterial3: false,
+        ),
+        themeMode: _themeMode,
+        routerConfig: _router,
       ),
-      themeMode: _themeMode,
-      routerConfig: _router,
     );
   }
 }
