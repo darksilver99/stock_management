@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/product_view/category_setting_view/category_setting_view_widget.dart';
+import '/product_view/remark_edit_product_view/remark_edit_product_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -1308,6 +1309,56 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                   if (_model.categoryDropDownValue != null &&
                                       _model.categoryDropDownValue != '') {
                                     if (_model.isEdit) {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: WebViewAware(
+                                              child:
+                                                  RemarkEditProductViewWidget(),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(
+                                          () => _model.remarkText = value));
+
+                                      _shouldSetState = true;
+                                      if (!(_model.remarkText != null &&
+                                          _model.remarkText != '')) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title: 'ระบุหมายเหตุการแก้ไข',
+                                                  status: 'error',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
+                                        return;
+                                      }
                                       if (_model.tmpImageList.isNotEmpty) {
                                         _model.urlList2 =
                                             await actions.uploadImageToFirebase(
@@ -1375,7 +1426,10 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                             productName: _model
                                                 .productNameTextFieldTextController
                                                 .text,
-                                            remark: '',
+                                            remark: valueOrDefault<String>(
+                                              _model.remarkText,
+                                              '-',
+                                            ),
                                             totalRemain:
                                                 _model.productDocument?.stock,
                                             currentPriceStart: double.tryParse(

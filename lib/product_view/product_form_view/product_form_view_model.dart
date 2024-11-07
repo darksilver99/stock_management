@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/product_view/category_setting_view/category_setting_view_widget.dart';
+import '/product_view/remark_edit_product_view/remark_edit_product_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -136,6 +137,8 @@ class ProductFormViewModel extends FlutterFlowModel<ProductFormViewWidget> {
   TextEditingController? detailTextFieldTextController;
   String? Function(BuildContext, String?)?
       detailTextFieldTextControllerValidator;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Button widget.
+  String? remarkText;
   // Stores action output result for [Custom Action - uploadImageToFirebase] action in Button widget.
   List<String>? urlList2;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
