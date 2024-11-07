@@ -117,10 +117,6 @@ Future<String> exportExcel(
       "field": "total_remain",
     },
     {
-      "text": "หมายเหตุ",
-      "field": "remark",
-    },
-    {
       "text": "ราคาต้นทุน",
       "field": "current_price_start",
     },
@@ -135,6 +131,10 @@ Future<String> exportExcel(
     {
       "text": "รวมราคาขาย",
       "field": "total_price_sell",
+    },
+    {
+      "text": "หมายเหตุ",
+      "field": "remark",
     },
     {
       "text": "วันที่ทำรายการ",
