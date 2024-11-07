@@ -83,8 +83,15 @@ Future<String> exportExcel(
   // title
   var cell =
       sheetObject.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0));
-  cell.value = TextCellValue(
-      'รายการความเคลื่อนไหว ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}');
+
+  String title =
+      'รายการความเคลื่อนไหว ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}';
+  if (startDate.day == endDate.day &&
+      startDate.month == endDate.month &&
+      startDate.year == endDate.year) {
+    title = 'รายการความเคลื่อนไหว ประจำวันที่ ${functions.dateTh(startDate)}';
+  }
+  cell.value = TextCellValue(title);
   cell.cellStyle = CellStyle(fontSize: 22, bold: true);
 
   // Add headers
