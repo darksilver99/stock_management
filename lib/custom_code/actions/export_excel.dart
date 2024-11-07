@@ -105,7 +105,7 @@ Future<String> exportExcel(
       "field": "product_name",
     },
     {
-      "text": "ประเภท",
+      "text": "สถานะ",
       "field": "type",
     },
     {
@@ -163,9 +163,20 @@ Future<String> exportExcel(
           ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
       } else {
         try {
-          cell
-            ..value = TextCellValue(rs.docs[i][field].toString())
-            ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+          if (field == "total_amount" ||
+              field == "total_remain" ||
+              field == "current_price_start" ||
+              field == "total_price_start" ||
+              field == "current_price_sell" ||
+              field == "total_price_sell") {
+            cell
+              ..value = TextCellValue(rs.docs[i][field].toString())
+              ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Right);
+          } else {
+            cell
+              ..value = TextCellValue(rs.docs[i][field].toString())
+              ..cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
+          }
         } catch (e) {
           cell
             ..value = TextCellValue("")
