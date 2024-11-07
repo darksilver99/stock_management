@@ -104,3 +104,9 @@ DateTime getDateByMonthAndYear(
   DateTime currentDate = DateTime.now();
   return DateTime((int.parse(year) - 543), int.parse(month), currentDate.day);
 }
+
+DateTime getStartDayTime(DateTime currentDate) {
+  DateTime startOfDay =
+      DateTime(currentDate.year, currentDate.month, currentDate.day);
+  return startOfDay;
+}
