@@ -80,36 +80,13 @@ class _RemarkEditProductViewWidgetState
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.close_rounded,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 32.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 Expanded(
                   child: Form(
                     key: _model.formKey,
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 32.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          16.0, 16.0, 16.0, 32.0),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -206,6 +183,7 @@ class _RemarkEditProductViewWidgetState
                                         letterSpacing: 0.0,
                                       ),
                                   maxLines: 5,
+                                  keyboardType: TextInputType.multiline,
                                   cursorColor:
                                       FlutterFlowTheme.of(context).primaryText,
                                   validator: _model.textControllerValidator
