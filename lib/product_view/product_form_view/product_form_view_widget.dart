@@ -1375,7 +1375,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                             productName: _model
                                                 .productNameTextFieldTextController
                                                 .text,
-                                            remark: 'แก้ไขสินค้า',
+                                            remark: '',
                                             totalRemain:
                                                 _model.productDocument?.stock,
                                             currentPriceStart: double.tryParse(
@@ -1583,7 +1583,7 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
                                               productName: _model
                                                   .productNameTextFieldTextController
                                                   .text,
-                                              remark: 'นำเข้าสินค้าใหม่',
+                                              remark: '',
                                               totalRemain: int.tryParse(_model
                                                   .totalTextFieldTextController
                                                   .text),

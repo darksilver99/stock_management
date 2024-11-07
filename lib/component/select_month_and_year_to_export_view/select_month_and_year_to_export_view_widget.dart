@@ -121,129 +121,330 @@ class _SelectMonthAndYearToExportViewWidgetState
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 8.0),
-                          child: Text(
-                            'เลือกปี,เดือน,ประเภท',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  fontSize: 24.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
+                              0.0, 0.0, 0.0, 16.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: Transform.scale(
+                                        scaleX: 1.5,
+                                        scaleY: 1.5,
+                                        child: Theme(
+                                          data: ThemeData(
+                                            checkboxTheme: CheckboxThemeData(
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(4.0),
+                                              ),
+                                            ),
+                                            unselectedWidgetColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                          ),
+                                          child: Checkbox(
+                                            value: _model.checkboxValue1 ??=
+                                                _model.isToday,
+                                            onChanged: (newValue) async {
+                                              safeSetState(() => _model
+                                                  .checkboxValue1 = newValue!);
+                                              if (newValue!) {
+                                                _model.isToday = true;
+                                                safeSetState(() {});
+                                              } else {
+                                                _model.isToday = false;
+                                                safeSetState(() {});
+                                              }
+                                            },
+                                            side: BorderSide(
+                                              width: 2,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
+                                            activeColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            checkColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .info,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        'วันนี้',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              fontSize: 22.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: Transform.scale(
+                                        scaleX: 1.5,
+                                        scaleY: 1.5,
+                                        child: Theme(
+                                          data: ThemeData(
+                                            checkboxTheme: CheckboxThemeData(
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(4.0),
+                                              ),
+                                            ),
+                                            unselectedWidgetColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                          ),
+                                          child: Checkbox(
+                                            value: _model.checkboxValue2 ??=
+                                                !_model.isToday,
+                                            onChanged: (newValue) async {
+                                              safeSetState(() => _model
+                                                  .checkboxValue2 = newValue!);
+                                              if (newValue!) {
+                                                _model.isToday = false;
+                                                safeSetState(() {});
+                                              } else {
+                                                _model.isToday = true;
+                                                safeSetState(() {});
+                                              }
+                                            },
+                                            side: BorderSide(
+                                              width: 2,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
+                                            activeColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            checkColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .info,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        'ทั้งเดือน',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              fontSize: 22.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 8.0),
-                          child: FlutterFlowDropDown<String>(
-                            controller: _model.dropDownValueController1 ??=
-                                FormFieldController<String>(
-                              _model.dropDownValue1 ??=
-                                  (DateTime.now().year + 543).toString(),
-                            ),
-                            options: functions.getYearFromCurrent(4),
-                            onChanged: (val) async {
-                              safeSetState(() => _model.dropDownValue1 = val);
-                              _model.startDate = functions.getFirstDayOfMonth(
-                                  functions.getDateByMonthAndYear(
-                                      _model.dropDownValue2!,
-                                      _model.dropDownValue1!));
-                              _model.endDate = functions.getLastDayOfMonth(
-                                  functions.getDateByMonthAndYear(
-                                      _model.dropDownValue2!,
-                                      _model.dropDownValue1!));
-                              safeSetState(() {});
-                            },
-                            width: double.infinity,
-                            height: 56.0,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
+                        if (!_model.isToday)
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'เลือกปี,เดือน',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              fontSize: 24.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                            hintText: 'เลือกปี',
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                            fillColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            elevation: 2.0,
-                            borderColor: FlutterFlowTheme.of(context).alternate,
-                            borderWidth: 2.0,
-                            borderRadius: 100.0,
-                            margin: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 4.0, 16.0, 4.0),
-                            hidesUnderline: true,
-                            isOverButton: true,
-                            isSearchable: false,
-                            isMultiSelect: false,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 8.0),
-                          child: FlutterFlowDropDown<String>(
-                            controller: _model.dropDownValueController2 ??=
-                                FormFieldController<String>(
-                              _model.dropDownValue2 ??=
-                                  DateTime.now().month.toString(),
-                            ),
-                            options: List<String>.from(FFAppState()
-                                .monthList
-                                .map((e) => e.val)
-                                .toList()),
-                            optionLabels: FFAppState()
-                                .monthList
-                                .map((e) => e.name)
-                                .toList(),
-                            onChanged: (val) async {
-                              safeSetState(() => _model.dropDownValue2 = val);
-                              _model.startDate = functions.getFirstDayOfMonth(
-                                  functions.getDateByMonthAndYear(
-                                      _model.dropDownValue2!,
-                                      _model.dropDownValue1!));
-                              _model.endDate = functions.getLastDayOfMonth(
-                                  functions.getDateByMonthAndYear(
-                                      _model.dropDownValue2!,
-                                      _model.dropDownValue1!));
-                              safeSetState(() {});
-                            },
-                            width: double.infinity,
-                            height: 56.0,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController1 ??=
+                                            FormFieldController<String>(
+                                      _model.dropDownValue1 ??=
+                                          (DateTime.now().year + 543)
+                                              .toString(),
+                                    ),
+                                    options: functions.getYearFromCurrent(4),
+                                    onChanged: (val) async {
+                                      safeSetState(
+                                          () => _model.dropDownValue1 = val);
+                                      _model.startDate =
+                                          functions.getFirstDayOfMonth(
+                                              functions.getDateByMonthAndYear(
+                                                  _model.dropDownValue2!,
+                                                  _model.dropDownValue1!));
+                                      _model.endDate =
+                                          functions.getLastDayOfMonth(
+                                              functions.getDateByMonthAndYear(
+                                                  _model.dropDownValue2!,
+                                                  _model.dropDownValue1!));
+                                      safeSetState(() {});
+                                    },
+                                    width: double.infinity,
+                                    height: 56.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    hintText: 'เลือกปี',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 2.0,
+                                    borderRadius: 100.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 4.0, 16.0, 4.0),
+                                    hidesUnderline: true,
+                                    isOverButton: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  ),
                                 ),
-                            hintText: 'เลือกเดือน',
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController2 ??=
+                                            FormFieldController<String>(
+                                      _model.dropDownValue2 ??=
+                                          DateTime.now().month.toString(),
+                                    ),
+                                    options: List<String>.from(FFAppState()
+                                        .monthList
+                                        .map((e) => e.val)
+                                        .toList()),
+                                    optionLabels: FFAppState()
+                                        .monthList
+                                        .map((e) => e.name)
+                                        .toList(),
+                                    onChanged: (val) async {
+                                      safeSetState(
+                                          () => _model.dropDownValue2 = val);
+                                      _model.startDate =
+                                          functions.getFirstDayOfMonth(
+                                              functions.getDateByMonthAndYear(
+                                                  _model.dropDownValue2!,
+                                                  _model.dropDownValue1!));
+                                      _model.endDate =
+                                          functions.getLastDayOfMonth(
+                                              functions.getDateByMonthAndYear(
+                                                  _model.dropDownValue2!,
+                                                  _model.dropDownValue1!));
+                                      safeSetState(() {});
+                                    },
+                                    width: double.infinity,
+                                    height: 56.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    hintText: 'เลือกเดือน',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 2.0,
+                                    borderRadius: 100.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 4.0, 16.0, 4.0),
+                                    hidesUnderline: true,
+                                    isOverButton: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  ),
+                                ),
+                              ],
                             ),
-                            fillColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            elevation: 2.0,
-                            borderColor: FlutterFlowTheme.of(context).alternate,
-                            borderWidth: 2.0,
-                            borderRadius: 100.0,
-                            margin: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 4.0, 16.0, 4.0),
-                            hidesUnderline: true,
-                            isOverButton: true,
-                            isSearchable: false,
-                            isMultiSelect: false,
                           ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'เลือกสถานะ',
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      fontSize: 24.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -269,7 +470,7 @@ class _SelectMonthAndYearToExportViewWidgetState
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                            hintText: 'เลือกประเภท',
+                            hintText: 'เลือกสถานะ',
                             icon: Icon(
                               Icons.keyboard_arrow_down_rounded,
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -289,76 +490,92 @@ class _SelectMonthAndYearToExportViewWidgetState
                             isMultiSelect: false,
                           ),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Builder(
-                                builder: (context) => FFButtonWidget(
-                                  onPressed: () async {
-                                    _model.path = await actions.exportExcel(
-                                      _model.startDate!,
-                                      _model.endDate!,
-                                      _model.dropDownValue3!,
-                                    );
-                                    if (_model.path == 'No Data') {
-                                      await showDialog(
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: WebViewAware(
-                                              child: InfoCustomViewWidget(
-                                                title: 'ไม่มีข้อมูล',
-                                                status: 'info',
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Builder(
+                                  builder: (context) => FFButtonWidget(
+                                    onPressed: () async {
+                                      if (_model.isToday) {
+                                        _model.startDate =
+                                            functions.getStartDayTime(
+                                                getCurrentTimestamp);
+                                        _model.endDate = functions
+                                            .getEndDayTime(getCurrentTimestamp);
+                                      }
+                                      _model.path = await actions.exportExcel(
+                                        _model.startDate!,
+                                        _model.endDate!,
+                                        _model.dropDownValue3!,
+                                      );
+                                      if (_model.path == 'No Data') {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title: 'ไม่มีข้อมูล',
+                                                  status: 'info',
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    } else {
-                                      await actions.shareFile(
-                                        _model.path,
-                                      );
-                                    }
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        await actions.shareFile(
+                                          _model.path,
+                                        );
+                                      }
 
-                                    safeSetState(() {});
-                                  },
-                                  text: 'Export Excel',
-                                  options: FFButtonOptions(
-                                    height: 54.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).success,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                          fontSize: 22.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                                      safeSetState(() {});
+                                    },
+                                    text: 'Export Excel',
+                                    options: FFButtonOptions(
+                                      height: 54.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).success,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                            fontSize: 22.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
                                     ),
-                                    borderRadius: BorderRadius.circular(100.0),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
