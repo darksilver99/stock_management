@@ -120,10 +120,14 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        await actions.hideKeyBoard(
+                                          context,
+                                        );
                                         final _datePickedDate =
                                             await showDatePicker(
                                           context: context,
-                                          initialDate: getCurrentTimestamp,
+                                          initialDate: (_model.startDate ??
+                                              DateTime.now()),
                                           firstDate: DateTime(1900),
                                           lastDate: DateTime(2050),
                                           builder: (context, child) {
@@ -419,6 +423,9 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
+                                              await actions.hideKeyBoard(
+                                                context,
+                                              );
                                               _model.isSearched = false;
                                               _model.isLoading = false;
                                               _model.startDate =
@@ -461,6 +468,9 @@ class _TransactionListPageWidgetState extends State<TransactionListPageWidget> {
                                         ),
                                       FFButtonWidget(
                                         onPressed: () async {
+                                          await actions.hideKeyBoard(
+                                            context,
+                                          );
                                           if (_model.textController.text !=
                                                   null &&
                                               _model.textController.text !=
