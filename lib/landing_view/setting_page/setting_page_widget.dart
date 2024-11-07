@@ -170,7 +170,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       if (_model.isConfirm2!) {
                                         await authManager.deleteUser(context);
 
-                                        context.goNamed('HomePage');
+                                        context.goNamed('LoginPage');
                                       } else {
                                         safeSetState(() {});
                                       }
