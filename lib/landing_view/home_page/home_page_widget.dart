@@ -721,7 +721,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .circular(
                                                                       0.0),
                                                           child: Image.asset(
-                                                            'assets/images/bill_2897776.png',
+                                                            'assets/images/wholesale_2897821.png',
                                                             width: 42.0,
                                                             height: 42.0,
                                                             fit: BoxFit.contain,
@@ -814,7 +814,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .circular(
                                                                       0.0),
                                                           child: Image.asset(
-                                                            'assets/images/packing-list_2897807.png',
+                                                            'assets/images/bill_2897776.png',
                                                             width: 42.0,
                                                             height: 42.0,
                                                             fit: BoxFit.contain,
