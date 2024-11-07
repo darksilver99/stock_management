@@ -82,7 +82,7 @@ Future initCustomer(BuildContext context) async {
         },
       );
     }
-    await action_blocks.iniConfig(context);
+    await action_blocks.initCustomer(context);
   }
 }
 
