@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/product_view/product_form_view/product_form_view_widget.dart';
+import '/product_view/transasction_detail_view/transasction_detail_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'transaction_list_page_widget.dart' show TransactionListPageWidget;
