@@ -2,12 +2,14 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/backend/backend.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
+import '/component/select_month_and_year_to_export_view/select_month_and_year_to_export_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/product_view/manage_stock_view/manage_stock_view_widget.dart';
 import '/walkthroughs/add_product.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart'
@@ -35,6 +37,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   int? totalProduct;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   int? totalProduct2;
+  // Stores action output result for [Custom Action - exportProductExcel] action in Container widget.
+  String? path;
 
   @override
   void initState(BuildContext context) {
