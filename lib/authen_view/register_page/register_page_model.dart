@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/authen_view/authen_background_view/authen_background_view_widget.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/component/back_button_view/back_button_view_widget.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

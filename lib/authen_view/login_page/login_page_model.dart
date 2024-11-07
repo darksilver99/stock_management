@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/authen_view/forget_password_view/forget_password_view_widget.dart';
 import '/authen_view/main_background_view/main_background_view_widget.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
