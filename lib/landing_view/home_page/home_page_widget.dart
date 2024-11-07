@@ -436,14 +436,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             MainAxisAlignment
                                                                 .center,
                                                         children: [
-                                                          Expanded(
-                                                            child: Icon(
-                                                              Icons
-                                                                  .add_shopping_cart_rounded,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
-                                                              size: 52.0,
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        0.0),
+                                                            child: Image.asset(
+                                                              'assets/images/import_2897780.png',
+                                                              width: 42.0,
+                                                              height: 42.0,
+                                                              fit: BoxFit
+                                                                  .contain,
                                                             ),
                                                           ),
                                                           Expanded(
@@ -603,14 +606,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             MainAxisAlignment
                                                                 .center,
                                                         children: [
-                                                          Expanded(
-                                                            child: Icon(
-                                                              Icons
-                                                                  .shopping_cart_checkout_rounded,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryText,
-                                                              size: 52.0,
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        0.0),
+                                                            child: Image.asset(
+                                                              'assets/images/export_2897767.png',
+                                                              width: 42.0,
+                                                              height: 42.0,
+                                                              fit: BoxFit
+                                                                  .contain,
                                                             ),
                                                           ),
                                                           Expanded(
@@ -709,14 +715,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Expanded(
-                                                          child: Icon(
-                                                            Icons
-                                                                .border_all_rounded,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            size: 52.0,
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child: Image.asset(
+                                                            'assets/images/bill_2897776.png',
+                                                            width: 42.0,
+                                                            height: 42.0,
+                                                            fit: BoxFit.contain,
                                                           ),
                                                         ),
                                                         Expanded(
@@ -800,14 +808,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Expanded(
-                                                          child: Icon(
-                                                            Icons
-                                                                .transform_rounded,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            size: 52.0,
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child: Image.asset(
+                                                            'assets/images/packing-list_2897807.png',
+                                                            width: 42.0,
+                                                            height: 42.0,
+                                                            fit: BoxFit.contain,
                                                           ),
                                                         ),
                                                         Expanded(
@@ -930,14 +940,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Expanded(
-                                                          child: Icon(
-                                                            Icons
-                                                                .file_open_outlined,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            size: 52.0,
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child: Image.asset(
+                                                            'assets/images/inventory_2897785.png',
+                                                            width: 42.0,
+                                                            height: 42.0,
+                                                            fit: BoxFit.contain,
                                                           ),
                                                         ),
                                                         Expanded(
@@ -1040,14 +1052,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Expanded(
-                                                          child: Icon(
-                                                            Icons
-                                                                .file_open_outlined,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            size: 52.0,
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child: Image.asset(
+                                                            'assets/images/inventory_2897785.png',
+                                                            width: 42.0,
+                                                            height: 42.0,
+                                                            fit: BoxFit.contain,
                                                           ),
                                                         ),
                                                         Expanded(
