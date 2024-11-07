@@ -527,7 +527,20 @@ class _SelectMonthAndYearToExportViewWidgetState
                                                 getCurrentTimestamp);
                                         _model.endDate = functions
                                             .getEndDayTime(getCurrentTimestamp);
+                                      } else {
+                                        _model.startDate =
+                                            functions.getFirstDayOfMonth(
+                                                functions.getDateByMonthAndYear(
+                                                    _model.dropDownValue2!,
+                                                    _model.dropDownValue1!));
+                                        _model.endDate =
+                                            functions.getLastDayOfMonth(
+                                                functions.getDateByMonthAndYear(
+                                                    _model.dropDownValue2!,
+                                                    _model.dropDownValue1!));
+                                        safeSetState(() {});
                                       }
+
                                       _model.path = await actions.exportExcel(
                                         _model.startDate!,
                                         _model.endDate!,
