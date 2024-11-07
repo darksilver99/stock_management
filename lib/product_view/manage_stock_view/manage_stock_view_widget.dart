@@ -406,117 +406,21 @@ class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
                                                 .validate()) {
                                           return;
                                         }
-                                        if (_model.selectedProduct != null) {
-                                          if (widget!.isAdd) {
-                                            await _model
-                                                .selectedProduct!.reference
-                                                .update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'stock': FieldValue.increment(
-                                                      int.parse(_model
-                                                          .totalTextFieldTextController
-                                                          .text)),
-                                                },
-                                              ),
-                                            });
-
-                                            await TransactionListRecord
-                                                    .createDoc(FFAppState()
-                                                        .customerData
-                                                        .customerRef!)
-                                                .set({
-                                              ...createTransactionListRecordData(
-                                                createDate: getCurrentTimestamp,
-                                                status: 1,
-                                                type: 'เพิ่ม Stock',
-                                                totalAmount: int.tryParse(_model
-                                                    .totalTextFieldTextController
-                                                    .text),
-                                                totalPriceStart: functions.sumPrice(
-                                                    _model.selectedProduct!
-                                                        .priceStart,
-                                                    int.parse(_model
-                                                        .totalTextFieldTextController
-                                                        .text)),
-                                                totalPriceSell: functions.sumPrice(
-                                                    _model.selectedProduct!
-                                                        .priceSell,
-                                                    int.parse(_model
-                                                        .totalTextFieldTextController
-                                                        .text)),
-                                                productRef: _model
-                                                    .selectedProduct?.reference,
-                                                productName: _model
-                                                    .selectedProduct?.name,
-                                                remark: _model
-                                                    .remarkTextFieldTextController
-                                                    .text,
-                                                totalRemain: _model
-                                                        .selectedProduct!
-                                                        .stock +
-                                                    int.parse(_model
-                                                        .totalTextFieldTextController
-                                                        .text),
-                                                currentPriceStart: _model
-                                                    .selectedProduct
-                                                    ?.priceStart,
-                                                currentPriceSell: _model
-                                                    .selectedProduct?.priceSell,
-                                                productId: _model
-                                                    .selectedProduct?.productId,
-                                              ),
-                                              ...mapToFirestore(
-                                                {
-                                                  'keyword_list':
-                                                      functions.getKeywordList(
-                                                          '${_model.selectedProduct?.productId} ${_model.selectedProduct?.name}'),
-                                                },
-                                              ),
-                                            });
-                                          } else {
-                                            if (functions.stringToInt(_model
-                                                    .totalTextFieldTextController
-                                                    .text) >
-                                                _model.selectedProduct!.stock) {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (dialogContext) {
-                                                  return Dialog(
-                                                    elevation: 0,
-                                                    insetPadding:
-                                                        EdgeInsets.zero,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
-                                                    child: WebViewAware(
-                                                      child:
-                                                          InfoCustomViewWidget(
-                                                        title:
-                                                            'จำนวนสินค้าไม่พอ',
-                                                        status: 'error',
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-
-                                              return;
-                                            } else {
+                                        if (functions.stringToInt(_model
+                                                .totalTextFieldTextController
+                                                .text) >
+                                            0) {
+                                          if (_model.selectedProduct != null) {
+                                            if (widget!.isAdd) {
                                               await _model
                                                   .selectedProduct!.reference
                                                   .update({
                                                 ...mapToFirestore(
                                                   {
                                                     'stock': FieldValue.increment(
-                                                        -(int.parse(_model
+                                                        int.parse(_model
                                                             .totalTextFieldTextController
-                                                            .text))),
+                                                            .text)),
                                                   },
                                                 ),
                                               });
@@ -530,7 +434,7 @@ class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
                                                   createDate:
                                                       getCurrentTimestamp,
                                                   status: 1,
-                                                  type: 'จ่ายสินค้า',
+                                                  type: 'เพิ่ม Stock',
                                                   totalAmount: int.tryParse(_model
                                                       .totalTextFieldTextController
                                                       .text),
@@ -560,7 +464,7 @@ class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
                                                       .text,
                                                   totalRemain: _model
                                                           .selectedProduct!
-                                                          .stock -
+                                                          .stock +
                                                       int.parse(_model
                                                           .totalTextFieldTextController
                                                           .text),
@@ -582,34 +486,170 @@ class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
                                                   },
                                                 ),
                                               });
-                                            }
-                                          }
+                                            } else {
+                                              if (functions.stringToInt(_model
+                                                      .totalTextFieldTextController
+                                                      .text) >
+                                                  _model
+                                                      .selectedProduct!.stock) {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child: WebViewAware(
+                                                        child:
+                                                            InfoCustomViewWidget(
+                                                          title:
+                                                              'จำนวนสินค้าไม่พอ',
+                                                          status: 'error',
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
 
-                                          await showDialog(
-                                            context: context,
-                                            builder: (dialogContext) {
-                                              return Dialog(
-                                                elevation: 0,
-                                                insetPadding: EdgeInsets.zero,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                alignment: AlignmentDirectional(
-                                                        0.0, 0.0)
-                                                    .resolve(Directionality.of(
-                                                        context)),
-                                                child: WebViewAware(
-                                                  child: InfoCustomViewWidget(
-                                                    title: widget!.isAdd
-                                                        ? 'เพิ่ม Stock สินค้าเรียบร้อยแล้ว'
-                                                        : 'จ่ายสินค้าเรียบร้อยแล้ว',
-                                                    status: 'success',
+                                                return;
+                                              } else {
+                                                await _model
+                                                    .selectedProduct!.reference
+                                                    .update({
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'stock': FieldValue.increment(
+                                                          -(int.parse(_model
+                                                              .totalTextFieldTextController
+                                                              .text))),
+                                                    },
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          );
+                                                });
 
-                                          Navigator.pop(context);
+                                                await TransactionListRecord
+                                                        .createDoc(FFAppState()
+                                                            .customerData
+                                                            .customerRef!)
+                                                    .set({
+                                                  ...createTransactionListRecordData(
+                                                    createDate:
+                                                        getCurrentTimestamp,
+                                                    status: 1,
+                                                    type: 'จ่ายสินค้า',
+                                                    totalAmount: int.tryParse(_model
+                                                        .totalTextFieldTextController
+                                                        .text),
+                                                    totalPriceStart:
+                                                        functions.sumPrice(
+                                                            _model
+                                                                .selectedProduct!
+                                                                .priceStart,
+                                                            int.parse(_model
+                                                                .totalTextFieldTextController
+                                                                .text)),
+                                                    totalPriceSell:
+                                                        functions.sumPrice(
+                                                            _model
+                                                                .selectedProduct!
+                                                                .priceSell,
+                                                            int.parse(_model
+                                                                .totalTextFieldTextController
+                                                                .text)),
+                                                    productRef: _model
+                                                        .selectedProduct
+                                                        ?.reference,
+                                                    productName: _model
+                                                        .selectedProduct?.name,
+                                                    remark: _model
+                                                        .remarkTextFieldTextController
+                                                        .text,
+                                                    totalRemain: _model
+                                                            .selectedProduct!
+                                                            .stock -
+                                                        int.parse(_model
+                                                            .totalTextFieldTextController
+                                                            .text),
+                                                    currentPriceStart: _model
+                                                        .selectedProduct
+                                                        ?.priceStart,
+                                                    currentPriceSell: _model
+                                                        .selectedProduct
+                                                        ?.priceSell,
+                                                    productId: _model
+                                                        .selectedProduct
+                                                        ?.productId,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'keyword_list': functions
+                                                          .getKeywordList(
+                                                              '${_model.selectedProduct?.productId} ${_model.selectedProduct?.name}'),
+                                                    },
+                                                  ),
+                                                });
+                                              }
+                                            }
+
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: WebViewAware(
+                                                    child: InfoCustomViewWidget(
+                                                      title: widget!.isAdd
+                                                          ? 'เพิ่ม Stock สินค้าเรียบร้อยแล้ว'
+                                                          : 'จ่ายสินค้าเรียบร้อยแล้ว',
+                                                      status: 'success',
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+
+                                            Navigator.pop(context);
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: WebViewAware(
+                                                    child: InfoCustomViewWidget(
+                                                      title: 'กรุณาเลือกสินค้า',
+                                                      status: 'error',
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          }
                                         } else {
                                           await showDialog(
                                             context: context,
@@ -625,7 +665,7 @@ class _ManageStockViewWidgetState extends State<ManageStockViewWidget>
                                                         context)),
                                                 child: WebViewAware(
                                                   child: InfoCustomViewWidget(
-                                                    title: 'กรุณาเลือกสินค้า',
+                                                    title: 'จำนวนต้องมากกว่า 0',
                                                     status: 'error',
                                                   ),
                                                 ),
