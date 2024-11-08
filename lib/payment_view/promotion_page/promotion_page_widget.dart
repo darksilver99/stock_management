@@ -44,105 +44,128 @@ class _PromotionPageWidgetState extends State<PromotionPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              wrapWithModel(
-                model: _model.backButtonViewModel,
-                updateCallback: () => safeSetState(() {}),
-                child: BackButtonViewWidget(
-                  title: 'ต่ออายุการใช้งาน',
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      body: SafeArea(
+        top: true,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            wrapWithModel(
+              model: _model.backButtonViewModel,
+              updateCallback: () => safeSetState(() {}),
+              child: BackButtonViewWidget(
+                title: 'ต่ออายุการใช้งาน',
+                color: FlutterFlowTheme.of(context).primaryText,
               ),
-              Expanded(
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 16.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'assets/images/revaluation_12062459.png',
-                                      height: 120.0,
-                                      fit: BoxFit.cover,
-                                    ),
+            ),
+            Expanded(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 16.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/images/revaluation_12062459.png',
+                                    height: 120.0,
+                                    fit: BoxFit.cover,
                                   ),
-                                ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Builder(
+                            builder: (context) {
+                              if (getCurrentTimestamp >
+                                  FFAppState().customerData.expireDate!) {
+                                return Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'บัญชีของท่านหมดอายุการใช้งานแล้ว',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              fontSize: 18.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'ใช้งานได้ถึงวันที่ ${functions.dateTh(FFAppState().customerData.expireDate)}',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              fontSize: 18.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
+                            },
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  FFAppState()
+                                      .configData
+                                      .paymentAlertText
+                                      .first,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
                               ),
-                            ),
-                            Builder(
-                              builder: (context) {
-                                if (getCurrentTimestamp >
-                                    FFAppState().customerData.expireDate!) {
-                                  return Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'บัญชีของท่านหมดอายุการใช้งานแล้ว',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                fontSize: 18.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  return Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'ใช้งานได้ถึงวันที่ ${functions.dateTh(FFAppState().customerData.expireDate)}',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                fontSize: 18.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }
-                              },
-                            ),
-                            Row(
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 8.0),
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
@@ -150,7 +173,7 @@ class _PromotionPageWidgetState extends State<PromotionPageWidget> {
                                     FFAppState()
                                         .configData
                                         .paymentAlertText
-                                        .first,
+                                        .last,
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -164,32 +187,8 @@ class _PromotionPageWidgetState extends State<PromotionPageWidget> {
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      FFAppState()
-                                          .configData
-                                          .paymentAlertText
-                                          .last,
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            fontSize: 18.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          ),
+                          if (FFAppState().configData.contact.isNotEmpty)
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 8.0),
@@ -284,76 +283,6 @@ class _PromotionPageWidgetState extends State<PromotionPageWidget> {
                                 ],
                               ),
                             ),
-                            Divider(
-                              height: 32.0,
-                              thickness: 3.0,
-                              color: FlutterFlowTheme.of(context).alternate,
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: FlutterFlowExpandedImageView(
-                                      image: Image.network(
-                                        FFAppState()
-                                            .configData
-                                            .promotionDetailImage,
-                                        fit: BoxFit.contain,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                Image.asset(
-                                          'assets/images/error_image.jpg',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                      allowRotation: false,
-                                      tag: FFAppState()
-                                          .configData
-                                          .promotionDetailImage,
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: FFAppState()
-                                    .configData
-                                    .promotionDetailImage,
-                                transitionOnUserGestures: true,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  child: Image.network(
-                                    FFAppState()
-                                        .configData
-                                        .promotionDetailImage,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            Image.asset(
-                                      'assets/images/error_image.jpg',
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -368,14 +297,10 @@ class _PromotionPageWidgetState extends State<PromotionPageWidget> {
                                     context: context,
                                     builder: (context) {
                                       return WebViewAware(
-                                        child: GestureDetector(
-                                          onTap: () =>
-                                              FocusScope.of(context).unfocus(),
-                                          child: Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child: PaymentViewWidget(),
-                                          ),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: PaymentViewWidget(),
                                         ),
                                       );
                                     },
@@ -383,6 +308,7 @@ class _PromotionPageWidgetState extends State<PromotionPageWidget> {
                                 },
                                 text: 'แจ้งโอนเงิน',
                                 options: FFButtonOptions(
+                                  width: double.infinity,
                                   height: 50.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
@@ -407,14 +333,70 @@ class _PromotionPageWidgetState extends State<PromotionPageWidget> {
                               ),
                             ),
                           ),
+                          Divider(
+                            height: 32.0,
+                            thickness: 3.0,
+                            color: FlutterFlowTheme.of(context).alternate,
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: FlutterFlowExpandedImageView(
+                                    image: Image.network(
+                                      FFAppState()
+                                          .configData
+                                          .promotionDetailImage,
+                                      fit: BoxFit.contain,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                        'assets/images/error_image.jpg',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    allowRotation: false,
+                                    tag: FFAppState()
+                                        .configData
+                                        .promotionDetailImage,
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: FFAppState().configData.promotionDetailImage,
+                              transitionOnUserGestures: true,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.network(
+                                  FFAppState().configData.promotionDetailImage,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Image.asset(
+                                    'assets/images/error_image.jpg',
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

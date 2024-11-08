@@ -79,14 +79,6 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
   FocusNode? textFieldFocusNode5;
   TextEditingController? textController3;
   String? Function(BuildContext, String?)? textController3Validator;
-  String? _textController3Validator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    return null;
-  }
-
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
 
@@ -102,7 +94,6 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
     confirmPasswordTextControllerValidator =
         _confirmPasswordTextControllerValidator;
     textController2Validator = _textController2Validator;
-    textController3Validator = _textController3Validator;
   }
 
   @override
