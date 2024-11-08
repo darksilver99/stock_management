@@ -669,8 +669,10 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           .update(createUsersRecordData(
                                             displayName:
                                                 _model.textController2.text,
-                                            phoneNumber:
-                                                _model.textController3.text,
+                                            phoneNumber: valueOrDefault<String>(
+                                              _model.textController3.text,
+                                              '-',
+                                            ),
                                           ));
 
                                       _navigate = () => context.goNamedAuth(
