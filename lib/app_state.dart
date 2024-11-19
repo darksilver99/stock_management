@@ -22,6 +22,15 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _appBuildVersion = prefs.getInt('ff_appBuildVersion') ?? _appBuildVersion;
     });
+    _safeInit(() {
+      _currentDate = prefs.containsKey('ff_currentDate')
+          ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_currentDate')!)
+          : _currentDate;
+    });
+    _safeInit(() {
+      _isSkipExpireAlert =
+          prefs.getBool('ff_isSkipExpireAlert') ?? _isSkipExpireAlert;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -122,6 +131,22 @@ class FFAppState extends ChangeNotifier {
 
   void insertAtIndexInMonthList(int index, MonthDataStruct value) {
     monthList.insert(index, value);
+  }
+
+  DateTime? _currentDate = DateTime.fromMillisecondsSinceEpoch(1704681060000);
+  DateTime? get currentDate => _currentDate;
+  set currentDate(DateTime? value) {
+    _currentDate = value;
+    value != null
+        ? prefs.setInt('ff_currentDate', value.millisecondsSinceEpoch)
+        : prefs.remove('ff_currentDate');
+  }
+
+  bool _isSkipExpireAlert = false;
+  bool get isSkipExpireAlert => _isSkipExpireAlert;
+  set isSkipExpireAlert(bool value) {
+    _isSkipExpireAlert = value;
+    prefs.setBool('ff_isSkipExpireAlert', value);
   }
 }
 

@@ -111,3 +111,11 @@ DateTime getStartDayTime(DateTime currentDate) {
       DateTime(currentDate.year, currentDate.month, currentDate.day);
   return startOfDay;
 }
+
+DateTime getBeforeDay(
+  int pastDay,
+  DateTime date,
+) {
+  DateTime pastDate = date.subtract(Duration(days: pastDay));
+  return pastDate;
+}
