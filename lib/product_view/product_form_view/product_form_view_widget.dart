@@ -62,46 +62,68 @@ class _ProductFormViewWidgetState extends State<ProductFormViewWidget> {
         safeSetState(() {
           _model.productIDTextFieldTextController?.text =
               _model.productDocument!.productId;
-          _model.productIDTextFieldTextController?.selection =
-              TextSelection.collapsed(
-                  offset: _model.productIDTextFieldTextController!.text.length);
+          _model.productIDTextFieldFocusNode?.requestFocus();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _model.productIDTextFieldTextController?.selection =
+                TextSelection.collapsed(
+              offset: _model.productIDTextFieldTextController!.text.length,
+            );
+          });
         });
         safeSetState(() {
           _model.productNameTextFieldTextController?.text =
               _model.productDocument!.name;
-          _model.productNameTextFieldTextController?.selection =
-              TextSelection.collapsed(
-                  offset:
-                      _model.productNameTextFieldTextController!.text.length);
+          _model.productNameTextFieldFocusNode?.requestFocus();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _model.productNameTextFieldTextController?.selection =
+                TextSelection.collapsed(
+              offset: _model.productNameTextFieldTextController!.text.length,
+            );
+          });
         });
         safeSetState(() {
           _model.startPriceTextFieldTextController?.text =
               _model.productDocument!.priceStart.toString();
-          _model.startPriceTextFieldTextController?.selection =
-              TextSelection.collapsed(
-                  offset:
-                      _model.startPriceTextFieldTextController!.text.length);
+          _model.startPriceTextFieldFocusNode?.requestFocus();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _model.startPriceTextFieldTextController?.selection =
+                TextSelection.collapsed(
+              offset: _model.startPriceTextFieldTextController!.text.length,
+            );
+          });
         });
         safeSetState(() {
           _model.sellPriceTextFieldTextController?.text =
               _model.productDocument!.priceSell.toString();
-          _model.sellPriceTextFieldTextController?.selection =
-              TextSelection.collapsed(
-                  offset: _model.sellPriceTextFieldTextController!.text.length);
+          _model.sellPriceTextFieldFocusNode?.requestFocus();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _model.sellPriceTextFieldTextController?.selection =
+                TextSelection.collapsed(
+              offset: _model.sellPriceTextFieldTextController!.text.length,
+            );
+          });
         });
         safeSetState(() {
           _model.detailTextFieldTextController?.text =
               _model.productDocument!.detail;
-          _model.detailTextFieldTextController?.selection =
-              TextSelection.collapsed(
-                  offset: _model.detailTextFieldTextController!.text.length);
+          _model.detailTextFieldFocusNode?.requestFocus();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _model.detailTextFieldTextController?.selection =
+                TextSelection.collapsed(
+              offset: _model.detailTextFieldTextController!.text.length,
+            );
+          });
         });
         safeSetState(() {
           _model.totalTextFieldTextController?.text =
               _model.productDocument!.stock.toString();
-          _model.totalTextFieldTextController?.selection =
-              TextSelection.collapsed(
-                  offset: _model.totalTextFieldTextController!.text.length);
+          _model.totalTextFieldFocusNode?.requestFocus();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _model.totalTextFieldTextController?.selection =
+                TextSelection.collapsed(
+              offset: _model.totalTextFieldTextController!.text.length,
+            );
+          });
         });
       } else {
         _model.isEdit = false;

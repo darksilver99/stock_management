@@ -335,6 +335,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
+                                                    await _model
+                                                        .checkIsExpire(context);
                                                     _model.totalProduct =
                                                         await queryProductListRecordCount(
                                                       parent: FFAppState()
@@ -505,6 +507,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
+                                                    await _model
+                                                        .checkIsExpire(context);
                                                     _model.totalProduct2 =
                                                         await queryProductListRecordCount(
                                                       parent: FFAppState()
@@ -679,6 +683,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  await _model
+                                                      .checkIsExpire(context);
+
                                                   context.pushNamed(
                                                     'ProductListPage',
                                                     queryParameters: {
@@ -780,6 +787,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  await _model
+                                                      .checkIsExpire(context);
+
                                                   context.pushNamed(
                                                       'TransactionListPage');
                                                 },
@@ -877,6 +887,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  await _model
+                                                      .checkIsExpire(context);
                                                   _model.path = await actions
                                                       .exportProductExcel();
                                                   if (_model.path ==
@@ -1004,6 +1016,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  await _model
+                                                      .checkIsExpire(context);
                                                   await showDialog(
                                                     context: context,
                                                     builder: (dialogContext) {
