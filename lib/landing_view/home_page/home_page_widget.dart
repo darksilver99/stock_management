@@ -335,14 +335,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    await _model
-                                                        .checkIsExpire(context);
+                                                    var _shouldSetState = false;
+                                                    _model.isExpire =
+                                                        await _model
+                                                            .checkIsExpire(
+                                                                context);
+                                                    _shouldSetState = true;
+                                                    if (_model.isExpire!) {
+                                                      if (_shouldSetState)
+                                                        safeSetState(() {});
+                                                      return;
+                                                    }
+
                                                     _model.totalProduct =
                                                         await queryProductListRecordCount(
                                                       parent: FFAppState()
                                                           .customerData
                                                           .customerRef,
                                                     );
+                                                    _shouldSetState = true;
                                                     if (_model.totalProduct! >
                                                         0) {
                                                       await showDialog(
@@ -411,7 +422,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               context: context);
                                                     }
 
-                                                    safeSetState(() {});
+                                                    if (_shouldSetState)
+                                                      safeSetState(() {});
                                                   },
                                                   child: Container(
                                                     height: 160.0,
@@ -507,14 +519,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    await _model
-                                                        .checkIsExpire(context);
+                                                    var _shouldSetState = false;
+                                                    _model.isExpire2 =
+                                                        await _model
+                                                            .checkIsExpire(
+                                                                context);
+                                                    _shouldSetState = true;
+                                                    if (_model.isExpire2!) {
+                                                      if (_shouldSetState)
+                                                        safeSetState(() {});
+                                                      return;
+                                                    }
+
                                                     _model.totalProduct2 =
                                                         await queryProductListRecordCount(
                                                       parent: FFAppState()
                                                           .customerData
                                                           .customerRef,
                                                     );
+                                                    _shouldSetState = true;
                                                     if (_model.totalProduct2! >
                                                         0) {
                                                       await showDialog(
@@ -583,7 +606,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               context: context);
                                                     }
 
-                                                    safeSetState(() {});
+                                                    if (_shouldSetState)
+                                                      safeSetState(() {});
                                                   },
                                                   child: Container(
                                                     height: 160.0,
@@ -683,19 +707,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  await _model
-                                                      .checkIsExpire(context);
+                                                  _model.isExpire3 =
+                                                      await _model
+                                                          .checkIsExpire(
+                                                              context);
+                                                  if (!_model.isExpire3!) {
+                                                    context.pushNamed(
+                                                      'ProductListPage',
+                                                      queryParameters: {
+                                                        'isSelectProduct':
+                                                            serializeParam(
+                                                          false,
+                                                          ParamType.bool,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+                                                  }
 
-                                                  context.pushNamed(
-                                                    'ProductListPage',
-                                                    queryParameters: {
-                                                      'isSelectProduct':
-                                                          serializeParam(
-                                                        false,
-                                                        ParamType.bool,
-                                                      ),
-                                                    }.withoutNulls,
-                                                  );
+                                                  safeSetState(() {});
                                                 },
                                                 child: Container(
                                                   height: 160.0,
@@ -787,11 +816,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  await _model
-                                                      .checkIsExpire(context);
+                                                  _model.isExpire4 =
+                                                      await _model
+                                                          .checkIsExpire(
+                                                              context);
+                                                  if (!_model.isExpire4!) {
+                                                    context.pushNamed(
+                                                        'TransactionListPage');
+                                                  }
 
-                                                  context.pushNamed(
-                                                      'TransactionListPage');
+                                                  safeSetState(() {});
                                                 },
                                                 child: Container(
                                                   height: 160.0,
@@ -887,42 +921,47 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  await _model
-                                                      .checkIsExpire(context);
-                                                  _model.path = await actions
-                                                      .exportProductExcel();
-                                                  if (_model.path ==
-                                                      'No Data') {
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder: (dialogContext) {
-                                                        return Dialog(
-                                                          elevation: 0,
-                                                          insetPadding:
-                                                              EdgeInsets.zero,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          alignment: AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                          child: WebViewAware(
-                                                            child:
-                                                                InfoCustomViewWidget(
-                                                              title:
-                                                                  'ไม่มีข้อมูล',
-                                                              status: 'info',
+                                                  _model.isExpire5 =
+                                                      await _model
+                                                          .checkIsExpire(
+                                                              context);
+                                                  if (!_model.isExpire5!) {
+                                                    _model.path = await actions
+                                                        .exportProductExcel();
+                                                    if (_model.path ==
+                                                        'No Data') {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                            child: WebViewAware(
+                                                              child:
+                                                                  InfoCustomViewWidget(
+                                                                title:
+                                                                    'ไม่มีข้อมูล',
+                                                                status: 'info',
+                                                              ),
                                                             ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  } else {
-                                                    await actions.shareFile(
-                                                      _model.path,
-                                                    );
+                                                          );
+                                                        },
+                                                      );
+                                                    } else {
+                                                      await actions.shareFile(
+                                                        _model.path,
+                                                      );
+                                                    }
                                                   }
 
                                                   safeSetState(() {});
@@ -1016,30 +1055,36 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  await _model
-                                                      .checkIsExpire(context);
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        child: WebViewAware(
-                                                          child:
-                                                              SelectMonthAndYearToExportViewWidget(),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
+                                                  _model.isExpire6 =
+                                                      await _model
+                                                          .checkIsExpire(
+                                                              context);
+                                                  if (!_model.isExpire6!) {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder: (dialogContext) {
+                                                        return Dialog(
+                                                          elevation: 0,
+                                                          insetPadding:
+                                                              EdgeInsets.zero,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          alignment: AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                          child: WebViewAware(
+                                                            child:
+                                                                SelectMonthAndYearToExportViewWidget(),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+
+                                                  safeSetState(() {});
                                                 },
                                                 child: Container(
                                                   height: 160.0,
