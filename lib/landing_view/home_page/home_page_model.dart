@@ -33,12 +33,24 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   TutorialCoachMark? addProductController;
   // Model for MainBackgroundView component.
   late MainBackgroundViewModel mainBackgroundViewModel;
+  // Stores action output result for [Action Block - checkIsExpire] action in Container widget.
+  bool? isExpire;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   int? totalProduct;
+  // Stores action output result for [Action Block - checkIsExpire] action in Container widget.
+  bool? isExpire2;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   int? totalProduct2;
+  // Stores action output result for [Action Block - checkIsExpire] action in Container widget.
+  bool? isExpire3;
+  // Stores action output result for [Action Block - checkIsExpire] action in Container widget.
+  bool? isExpire4;
+  // Stores action output result for [Action Block - checkIsExpire] action in Container widget.
+  bool? isExpire5;
   // Stores action output result for [Custom Action - exportProductExcel] action in Container widget.
   String? path;
+  // Stores action output result for [Action Block - checkIsExpire] action in Container widget.
+  bool? isExpire6;
 
   @override
   void initState(BuildContext context) {
@@ -53,7 +65,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   }
 
   /// Action blocks.
-  Future checkIsExpire(BuildContext context) async {
+  Future<bool?> checkIsExpire(BuildContext context) async {
     if (getCurrentTimestamp > FFAppState().customerData.expireDate!) {
       await showDialog(
         context: context,
@@ -76,7 +88,9 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
         },
       );
 
-      return;
+      return true;
+    } else {
+      return false;
     }
   }
 }
