@@ -162,7 +162,7 @@ Future checkCloseExpire(BuildContext context) async {
   if (getCurrentTimestamp >
       functions.getBeforeDay(3, FFAppState().customerData.expireDate!)) {
     if (!FFAppState().isSkipExpireAlert) {
-      if (functions.getStartDayTime(getCurrentTimestamp) !=
+      if (functions.getStartDayTime(getCurrentTimestamp) <=
           functions.getStartDayTime(FFAppState().customerData.expireDate!)) {
         await showDialog(
           context: context,
