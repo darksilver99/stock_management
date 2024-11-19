@@ -117,7 +117,7 @@ class _ExpireAlertViewWidgetState extends State<ExpireAlertViewWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.goNamed('PromotionPage');
+                        context.pushNamed('PromotionPage');
                       },
                       text: 'ต่ออายุการใช้งาน',
                       options: FFButtonOptions(

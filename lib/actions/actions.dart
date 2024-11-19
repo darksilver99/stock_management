@@ -162,21 +162,24 @@ Future checkCloseExpire(BuildContext context) async {
   if (getCurrentTimestamp >
       functions.getBeforeDay(3, FFAppState().customerData.expireDate!)) {
     if (!FFAppState().isSkipExpireAlert) {
-      await showDialog(
-        context: context,
-        builder: (dialogContext) {
-          return Dialog(
-            elevation: 0,
-            insetPadding: EdgeInsets.zero,
-            backgroundColor: Colors.transparent,
-            alignment: AlignmentDirectional(0.0, 0.0)
-                .resolve(Directionality.of(context)),
-            child: WebViewAware(
-              child: ExpireAlertViewWidget(),
-            ),
-          );
-        },
-      );
+      if (functions.getStartDayTime(getCurrentTimestamp) !=
+          functions.getStartDayTime(FFAppState().customerData.expireDate!)) {
+        await showDialog(
+          context: context,
+          builder: (dialogContext) {
+            return Dialog(
+              elevation: 0,
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              alignment: AlignmentDirectional(0.0, 0.0)
+                  .resolve(Directionality.of(context)),
+              child: WebViewAware(
+                child: ExpireAlertViewWidget(),
+              ),
+            );
+          },
+        );
+      }
     }
   }
 }
