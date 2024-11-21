@@ -34,16 +34,6 @@ Future iniConfig(BuildContext context) async {
     appSuggestList: configResult?.appSuggestList,
     appOtherList: configResult?.appOtherList,
   );
-
-  await configResult!.reference.update({
-    ...mapToFirestore(
-      {
-        'app_suggest_list': getAppSuggestDataListFirestoreData(
-          FFAppState().testAppSuggest,
-        ),
-      },
-    ),
-  });
 }
 
 Future initCustomer(BuildContext context) async {
