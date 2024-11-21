@@ -66,6 +66,16 @@ class ConfigRecord extends FirestoreRecord {
   bool get isReview => _isReview ?? false;
   bool hasIsReview() => _isReview != null;
 
+  // "app_suggest_list" field.
+  List<AppSuggestDataStruct>? _appSuggestList;
+  List<AppSuggestDataStruct> get appSuggestList => _appSuggestList ?? const [];
+  bool hasAppSuggestList() => _appSuggestList != null;
+
+  // "app_other_list" field.
+  List<AppSuggestDataStruct>? _appOtherList;
+  List<AppSuggestDataStruct> get appOtherList => _appOtherList ?? const [];
+  bool hasAppOtherList() => _appOtherList != null;
+
   void _initializeFields() {
     _storeVersion = castToType<int>(snapshotData['store_version']);
     _storeIosLink = snapshotData['store_ios_link'] as String?;
@@ -77,6 +87,14 @@ class ConfigRecord extends FirestoreRecord {
     _promotionDetailImage = snapshotData['promotion_detail_image'] as String?;
     _contact = getDataList(snapshotData['contact']);
     _isReview = snapshotData['isReview'] as bool?;
+    _appSuggestList = getStructList(
+      snapshotData['app_suggest_list'],
+      AppSuggestDataStruct.fromMap,
+    );
+    _appOtherList = getStructList(
+      snapshotData['app_other_list'],
+      AppSuggestDataStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -153,7 +171,9 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.paymentDetailImage == e2?.paymentDetailImage &&
         e1?.promotionDetailImage == e2?.promotionDetailImage &&
         listEquality.equals(e1?.contact, e2?.contact) &&
-        e1?.isReview == e2?.isReview;
+        e1?.isReview == e2?.isReview &&
+        listEquality.equals(e1?.appSuggestList, e2?.appSuggestList) &&
+        listEquality.equals(e1?.appOtherList, e2?.appOtherList);
   }
 
   @override
@@ -167,7 +187,9 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.paymentDetailImage,
         e?.promotionDetailImage,
         e?.contact,
-        e?.isReview
+        e?.isReview,
+        e?.appSuggestList,
+        e?.appOtherList
       ]);
 
   @override
