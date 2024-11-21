@@ -1,7 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -209,10 +209,11 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                                             .secondaryBackground,
                                                         image: DecorationImage(
                                                           fit: BoxFit.cover,
-                                                          image: Image.network(
+                                                          image:
+                                                              CachedNetworkImageProvider(
                                                             appSuggestListItem
                                                                 .appImage,
-                                                          ).image,
+                                                          ),
                                                         ),
                                                         borderRadius:
                                                             BorderRadius
@@ -231,20 +232,19 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                                             .center,
                                                     children: [
                                                       Expanded(
-                                                        child: AutoSizeText(
+                                                        child: Text(
                                                           appSuggestListItem
                                                               .appName,
                                                           textAlign:
                                                               TextAlign.center,
                                                           maxLines: 2,
-                                                          minFontSize: 14.0,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Inter',
-                                                                fontSize: 28.0,
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -361,10 +361,11 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                                             .secondaryBackground,
                                                         image: DecorationImage(
                                                           fit: BoxFit.cover,
-                                                          image: Image.network(
+                                                          image:
+                                                              CachedNetworkImageProvider(
                                                             appOtherListItem
                                                                 .appImage,
-                                                          ).image,
+                                                          ),
                                                         ),
                                                         borderRadius:
                                                             BorderRadius
@@ -383,20 +384,19 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                                             .center,
                                                     children: [
                                                       Expanded(
-                                                        child: AutoSizeText(
+                                                        child: Text(
                                                           appOtherListItem
                                                               .appName,
                                                           textAlign:
                                                               TextAlign.center,
                                                           maxLines: 2,
-                                                          minFontSize: 14.0,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Inter',
-                                                                fontSize: 28.0,
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
