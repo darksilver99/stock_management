@@ -163,7 +163,7 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                         padding: EdgeInsets.zero,
                                         gridDelegate:
                                             SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
+                                          crossAxisCount: 4,
                                           crossAxisSpacing: 16.0,
                                           mainAxisSpacing: 4.0,
                                           childAspectRatio: 0.7,
@@ -316,7 +316,7 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                         padding: EdgeInsets.zero,
                                         gridDelegate:
                                             SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
+                                          crossAxisCount: 4,
                                           crossAxisSpacing: 16.0,
                                           mainAxisSpacing: 4.0,
                                           childAspectRatio: 0.7,
