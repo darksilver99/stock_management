@@ -148,6 +148,40 @@ class FFAppState extends ChangeNotifier {
     _isSkipExpireAlert = value;
     prefs.setBool('ff_isSkipExpireAlert', value);
   }
+
+  List<AppSuggestDataStruct> _testAppSuggest = [
+    AppSuggestDataStruct.fromSerializableMap(jsonDecode(
+        '{\"app_name\":\"Hello World\",\"app_image\":\"https://picsum.photos/seed/923/600\",\"app_url\":\"Hello World\"}')),
+    AppSuggestDataStruct.fromSerializableMap(jsonDecode(
+        '{\"app_name\":\"sssss\",\"app_image\":\"https://picsum.photos/seed/918/600\",\"app_url\":\"Hello World\"}'))
+  ];
+  List<AppSuggestDataStruct> get testAppSuggest => _testAppSuggest;
+  set testAppSuggest(List<AppSuggestDataStruct> value) {
+    _testAppSuggest = value;
+  }
+
+  void addToTestAppSuggest(AppSuggestDataStruct value) {
+    testAppSuggest.add(value);
+  }
+
+  void removeFromTestAppSuggest(AppSuggestDataStruct value) {
+    testAppSuggest.remove(value);
+  }
+
+  void removeAtIndexFromTestAppSuggest(int index) {
+    testAppSuggest.removeAt(index);
+  }
+
+  void updateTestAppSuggestAtIndex(
+    int index,
+    AppSuggestDataStruct Function(AppSuggestDataStruct) updateFn,
+  ) {
+    testAppSuggest[index] = updateFn(_testAppSuggest[index]);
+  }
+
+  void insertAtIndexInTestAppSuggest(int index, AppSuggestDataStruct value) {
+    testAppSuggest.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
