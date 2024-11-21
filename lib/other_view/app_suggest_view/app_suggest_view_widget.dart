@@ -139,7 +139,7 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'เพิ่มประสิทธิภาพการทำงาน',
+                                            'ช่วยจัดการงานของคุณ',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -244,7 +244,26 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Inter',
-                                                                fontSize: 14.0,
+                                                                fontSize: () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 14.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 18.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 22.0;
+                                                                  } else {
+                                                                    return 24.0;
+                                                                  }
+                                                                }(),
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
@@ -396,7 +415,26 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Inter',
-                                                                fontSize: 14.0,
+                                                                fontSize: () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 14.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 18.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 22.0;
+                                                                  } else {
+                                                                    return 24.0;
+                                                                  }
+                                                                }(),
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
