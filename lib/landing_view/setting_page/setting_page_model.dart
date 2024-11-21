@@ -3,6 +3,7 @@ import '/authen_view/main_background_view/main_background_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/other_view/app_suggest_view/app_suggest_view_widget.dart';
 import '/other_view/issue_view/issue_view_widget.dart';
 import '/other_view/suggest_view/suggest_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
