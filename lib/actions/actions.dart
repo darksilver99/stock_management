@@ -31,6 +31,8 @@ Future iniConfig(BuildContext context) async {
     promotionDetailImage: configResult?.promotionDetailImage,
     contact: configResult?.contact,
     isReview: configResult?.isReview,
+    appSuggestList: configResult?.appSuggestList,
+    appOtherList: configResult?.appOtherList,
   );
 }
 
