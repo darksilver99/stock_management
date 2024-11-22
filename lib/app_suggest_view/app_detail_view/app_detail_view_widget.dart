@@ -80,7 +80,7 @@ class _AppDetailViewWidgetState extends State<AppDetailViewWidget>
           padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
           child: Container(
             width: double.infinity,
-            height: MediaQuery.sizeOf(context).height * 0.4,
+            height: MediaQuery.sizeOf(context).height * 0.5,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.circular(16.0),
@@ -156,19 +156,26 @@ class _AppDetailViewWidgetState extends State<AppDetailViewWidget>
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Text(
-                                    valueOrDefault<String>(
-                                      widget!.detail,
-                                      '-',
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            widget!.detail,
+                                            '-',
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
