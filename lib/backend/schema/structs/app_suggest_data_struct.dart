@@ -13,10 +13,12 @@ class AppSuggestDataStruct extends FFFirebaseStruct {
     String? appName,
     String? appImage,
     String? appUrl,
+    String? appDetail,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _appName = appName,
         _appImage = appImage,
         _appUrl = appUrl,
+        _appDetail = appDetail,
         super(firestoreUtilData);
 
   // "app_name" field.
@@ -40,11 +42,19 @@ class AppSuggestDataStruct extends FFFirebaseStruct {
 
   bool hasAppUrl() => _appUrl != null;
 
+  // "app_detail" field.
+  String? _appDetail;
+  String get appDetail => _appDetail ?? '';
+  set appDetail(String? val) => _appDetail = val;
+
+  bool hasAppDetail() => _appDetail != null;
+
   static AppSuggestDataStruct fromMap(Map<String, dynamic> data) =>
       AppSuggestDataStruct(
         appName: data['app_name'] as String?,
         appImage: data['app_image'] as String?,
         appUrl: data['app_url'] as String?,
+        appDetail: data['app_detail'] as String?,
       );
 
   static AppSuggestDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -55,6 +65,7 @@ class AppSuggestDataStruct extends FFFirebaseStruct {
         'app_name': _appName,
         'app_image': _appImage,
         'app_url': _appUrl,
+        'app_detail': _appDetail,
       }.withoutNulls;
 
   @override
@@ -69,6 +80,10 @@ class AppSuggestDataStruct extends FFFirebaseStruct {
         ),
         'app_url': serializeParam(
           _appUrl,
+          ParamType.String,
+        ),
+        'app_detail': serializeParam(
+          _appDetail,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -90,6 +105,11 @@ class AppSuggestDataStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        appDetail: deserializeParam(
+          data['app_detail'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -100,17 +120,20 @@ class AppSuggestDataStruct extends FFFirebaseStruct {
     return other is AppSuggestDataStruct &&
         appName == other.appName &&
         appImage == other.appImage &&
-        appUrl == other.appUrl;
+        appUrl == other.appUrl &&
+        appDetail == other.appDetail;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([appName, appImage, appUrl]);
+  int get hashCode =>
+      const ListEquality().hash([appName, appImage, appUrl, appDetail]);
 }
 
 AppSuggestDataStruct createAppSuggestDataStruct({
   String? appName,
   String? appImage,
   String? appUrl,
+  String? appDetail,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -120,6 +143,7 @@ AppSuggestDataStruct createAppSuggestDataStruct({
       appName: appName,
       appImage: appImage,
       appUrl: appUrl,
+      appDetail: appDetail,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

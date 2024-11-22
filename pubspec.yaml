@@ -94,6 +94,8 @@ dependencies:
   pointer_interceptor_web: 0.10.2+1
   provider: 6.1.2
   rxdart: 0.27.7
+  share_plus: 10.0.2
+  share_plus_platform_interface: 5.0.0
   shared_preferences: 2.3.2
   shared_preferences_android: 2.3.2
   shared_preferences_foundation: 2.5.2
